@@ -1,0 +1,17 @@
+node output(u, w:real) returns (y:real);
+let
+    y = 20.0 -> 0.7 * pre(y) + 0.5 * u - w;
+tel;
+
+
+node pid(P, I, D, e:real) returns (u:real);
+var first, pass:bool; sum_errors:real;
+let
+    first = true -> false;
+    pass = false -> if pre(first) then false
+                    else true;
+    -- FIXME sum_errors must be a sum
+    sum_errors = e;
+    u = if pass then (P * pre(e) + D  * (pre(e) - pre(pre(e))) + I * sum_errors)
+        else 0.0;
+tel;
