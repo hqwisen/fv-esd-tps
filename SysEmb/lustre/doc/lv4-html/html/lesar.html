@@ -1,0 +1,232 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title></title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body>
+<table border="0" width="100%" cellspacing="0" cellpadding="3">
+<tr><td class="_podblock_" style="background-color: #cccccc; color: #000" valign="middle">
+<big><strong><span class="_podblock_">&nbsp;</span></strong></big>
+</td></tr>
+</table>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+  <li><a href="#OPTIONS">OPTIONS</a>
+    <ul>
+      <li><a href="#Miscellaneous">Miscellaneous</a></li>
+      <li><a href="#Static-analysis1">Static analysis</a></li>
+      <li><a href="#Model-checking">Model checking</a></li>
+      <li><a href="#Diagnosis">Diagnosis</a></li>
+      <li><a href="#Bdds">Bdds</a></li>
+    </ul>
+  </li>
+  <li><a href="#NOTES">NOTES</a></li>
+  <li><a href="#SEE-ALSO">SEE ALSO</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>lesar, ecverif - formal verification</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<p><b>lesar</b> <i>file</i><b>.lus</b> <i>node</i> [<b>options</b>]</p>
+
+<p><b>ecverif</b> <i>file</i><b>.ec</b> [<b>options</b>]</p>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>The <b>lesar</b> command first calls <b>lus2ec</b>, then <b>ecverif</b>. The <b>ecverif</b> tool takes a program whose first output is Boolean, and try to prove that this Boolean output remains true, for any execution of the program (i.e. whatever is the infinite sequence of input values received by the program). Moreover, the tool supposes that every assertion (<b>assert</b> statements) appearing in the program denotes an hypothesis on the program environement, so the goal of the tool is at last to prove that:</p>
+
+<p><i>Whatever the sequence of inputs, as long as the assertions (the hypothesis) are satisfied, the first output (the property) always remains true.</i></p>
+
+<p>The input program, often called the <i>verification program</i>, is generally built as a combination of the program to validate (the implementation) together with another program (the observer) expressing the safety property. The user may read the <i>Lustre Tutorial</i> which explains how to build verification programs suitable for <b>lesar/ecverif</b>.</p>
+
+<p><b>ecverif</b> is a <i>model-checker</i>: it explores a finite model (an automaton) of the program. This model is an abstraction that represents an upper-approximation of all the possible executions of the program. The abstraction made on the program is conservative: if the verification suceeds on the model, the property <i>is also satisfied</i> by the program. In this case the tool answer <i>True Property</i>. If the verification fails on the model, the result is inconclusive: either the property is not satisfied by the program, or the property is too complex for the tool. So when the tool answer <i>False Property</i>, it simply means <i>I don&#39;t know</i>!</p>
+
+<p>More precisely, the Boolean part of the program is completly reflected in the model, but everything else is abstracted (numerical variables, external types and functions ...). Note that, as a consequence of this, the model-checking is complete for purely Boolean programs (e.g. logical circuits).</p>
+
+<p>Nevertheless, some knowledge on numerical properties has been added to the model checker. A library based on <i>polyhedra manipulation</i> can be used to check whether linear constraints are feasible or not. For instance, using the polyhedra library, the tool will realise that the condition &quot;<code>(y &lt; x) and (0 &lt; e) and (x + 2*e &lt; y)</code>&quot; cannot be satisfied by any numerical values. This information is then taken into account to obtain a more precise model, but note that the verification still remains partial in general.</p>
+
+<p>The successive stages of the computation are involving complex algorithms that may take (a lot of) time. It is recomended to use the verbose mode: in this case <b>ecverif</b> outputs information on the current stage, that allows the user to &quot;guess&quot; if the computation has a chance to end in a reasonable delay. The stages are:</p>
+
+<dl>
+
+<dt id="Static-analysis">Static analysis</dt>
+<dd>
+
+<p>The source code is optimized for the proof: this stage performs dependence checking, syntactic minimisation, and other optimization at the source level. The complexity here is reasonable (linear or quadratic).</p>
+
+</dd>
+<dt id="Bdds-construction">Bdds construction</dt>
+<dd>
+
+<p>The Boolean part of the program is identified and transformed in a set of logical functions, represented by bdds (Binary Decision Diagrams). The result is an implicit representation of the model to check. This stage may be exponential in the worst case.</p>
+
+</dd>
+<dt id="Exploration-of-the-model">Exploration of the model</dt>
+<dd>
+
+<p>Several algorithms can be selected. In all cases, the time necessary for the traversal of the model can be exponential in the worst case.</p>
+
+</dd>
+</dl>
+
+<h1 id="OPTIONS">OPTIONS</h1>
+
+<h2 id="Miscellaneous">Miscellaneous</h2>
+
+<dl>
+
+<dt id="v"><b>-v</b></dt>
+<dd>
+
+<p>set the verbose mode. Since the algorithms used in the tool are very expensive, it is strongly recomended to use this option in order to have a feed-back on the verification progress.</p>
+
+</dd>
+<dt id="help"><b>-help</b></dt>
+<dd>
+
+<p>print available options.</p>
+
+</dd>
+</dl>
+
+<h2 id="Static-analysis1">Static analysis</h2>
+
+<dl>
+
+<dt id="nomin"><b>-nomin</b></dt>
+<dd>
+
+<p>Normally, the first stage of the verification consists in minimizing the source program, according to syntactic equivalence of expressions. This checking also takes into account equivalence of <i>recursive definitions</i>. The result is much more precise than a simple &quot;common sub-expression checking&quot;, but indeed more expensive, so the user can disable it with this option.</p>
+
+</dd>
+<dt id="split"><b>-split</b></dt>
+<dd>
+
+<p>split the property into several smaller ones (if possible).</p>
+
+</dd>
+<dt id="optb"><b>-optb</b></dt>
+<dd>
+
+<p>force static Boolean optimization of the source program. This option was supported by older versions, but it is (almost) obsolete since the bdds construction stage is now optimized.</p>
+
+</dd>
+</dl>
+
+<h2 id="Model-checking">Model checking</h2>
+
+<p>The main stage of the model checker consists in exploring the underlying automaton (the model). The user may choose between several algorithms for this exploration.</p>
+
+<p>Assertions are taken into account during the exploration to throw away unfeasible transitions. A state whose all outgoing transitions have all been discarded is said to be a <i>sink state</i>. Assertions that can produce sink states are said to be <i>non-causal</i>.</p>
+
+<dl>
+
+<dt id="enum"><b>-enum</b></dt>
+<dd>
+
+<p>(default) use the <i>enumerative algorithm</i>. The automaton is checked state by state, starting from the initial one. The verification fails as soon as a state violating the property is reached. An error occurs if the assertions are found to be non-causal.</p>
+
+</dd>
+<dt id="states-n"><b>-states</b> <i>n</i></dt>
+<dd>
+
+<p>only works in enumerative mode. The exploration stops after <i>n</i> states are visited.</p>
+
+</dd>
+<dt id="forward"><b>-forward</b></dt>
+<dd>
+
+<p>use the <i>symbolic forward</i> algorithm. The set of reachable states is build as a Boolean formula over the state variables. The verification fails if this set contains states violating the property.</p>
+
+</dd>
+<dt id="backward"><b>-backward</b></dt>
+<dd>
+
+<p>use the <i>symbolic backward</i> algorithm. This algorithm builds a symbolic representation of the <i>bad states</i>, i.e. states that can lead to the violation of the property. The verification fails if the initial state belongs to this set.</p>
+
+</dd>
+<dt id="causal"><b>-causal</b></dt>
+<dd>
+
+<p>compute a causal assertion equivalent to the initial one, before starting the model-checking. This computing is expensive, so it is recommended to use it only when needed (when a first attempt have failed because of non-causal assertions). Moreover, this option must not be used with the <i>forward algorithm</i>, which implements its own treatment for non-causal assertions.</p>
+
+</dd>
+<dt id="poly"><b>-poly</b></dt>
+<dd>
+
+<p>force the model checker to use the <i>polyhedra library</i> to check wether linear constraints on numerical values are feasible. Without this option, semantics of numerical values is completly ignored, and any condition is supposed to be feasible as soon as integers or reals are involved.</p>
+
+</dd>
+</dl>
+
+<h2 id="Diagnosis">Diagnosis</h2>
+
+<dl>
+
+<dt id="diag"><b>-diag</b></dt>
+<dd>
+
+<p>print a diagnosis when verification fails. The diagnosis is a sequence of input values that may leads to a state violating the property.</p>
+
+</dd>
+<dt id="lurettediag-n-filename"><b>-lurettediag</b> <i>n filename</i></dt>
+<dd>
+
+<p>Due to abstractions applied to non-boolean programs, the counter-examples produced by the <b>-diag</b> option are not always very useful, mainly because (1) new inputs are created to the model to take into account the (now unpredicatable) non-boolean elements of the program, and (2) as already explained, abstraction may lead to false negatives: counter-examples, which have no counterpart in the concrete model. In general, associating a long and complex abstract counter-example with a concrete one is a long and tedious exercise. This option generates richer output to the file called <i>filename</i>, which, in turn, can be fed into the tool <b>lurette</b> to try and produce concrete counter-examples automatically.</p>
+
+<p>The <b>lurette</b> file contains three Lustre nodes <i>node_main</i>, <i>node_assertion</i> and <i>node_oracle</i> (where <i>node</i> is the name of the main node in the verified program), which are to be given to <b>lurette</b> as the main, assertion and oracle node respectively. The length of the counter-example produced is reported by <b>lesar</b>. The first (numeric) parameter specifies the minimum length counter-example to produce. Typically, this is set to 0, for the shortest counter-examples, but sometimes the user may wish to force <b>lesar</b> to produce longer counter-examples.</p>
+
+<p>This option automatically enforces <b>-forward</b>.</p>
+
+</dd>
+</dl>
+
+<h2 id="Bdds">Bdds</h2>
+
+<dl>
+
+<dt id="merge"><b>-merge</b></dt>
+<dd>
+
+<p>perform a &quot;clever&quot; variable ordering before building bdds; this option is sometimes useful when the state generation pahse cannot even start.</p>
+
+</dd>
+<dt id="bddpage-n"><b>-bddpage</b> <i>n</i></dt>
+<dd>
+
+<p>the space devoted to bdds is allocated by pages. Before allocating new pages, the program first performs garbage collection; for big programs, frequent garbage collection may dramatically slow down the model-checking, so the user may increase the size of pages, expressed in kilo-unit (default 10).</p>
+
+</dd>
+</dl>
+
+<h1 id="NOTES">NOTES</h1>
+
+<p>Building verification programs to &quot;feed&quot; <b>lesar</b> is quite hard. The graphical proof manager <b>xlesar</b> can be a simpler way for starting with formal verification.</p>
+
+<h1 id="SEE-ALSO">SEE ALSO</h1>
+
+<p>lustre, lus2ec, ecexe, luciole, simec, lus2oc, ec2oc, ocmin, lus2atg, oc2atg, ec2c, poc, lux, lesar, ecverif, xlesar</p>
+
+<table border="0" width="100%" cellspacing="0" cellpadding="3">
+<tr><td class="_podblock_" style="background-color: #cccccc; color: #000" valign="middle">
+<big><strong><span class="_podblock_">&nbsp;</span></strong></big>
+</td></tr>
+</table>
+
+</body>
+
+</html>
+
+

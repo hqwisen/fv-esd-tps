@@ -1,0 +1,15 @@
+% p12.strl 
+% from G. Berry's book
+% cyclic non-constructive (but logically correct)
+
+module P12 :
+
+output O;
+
+present O then 
+   emit O 
+else 
+   emit O 
+end
+
+end module

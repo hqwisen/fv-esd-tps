@@ -1,0 +1,89 @@
+#!/bin/bash
+#--------------------------------------------------------
+# 2012/11/05
+# P. Raymond
+# Adapted compiler/launcher for esterel tcl/tk simulation
+# running in a (proper) Lustre environement.
+#
+# N.B. uses the SAME tcl/tk install than Lustre tools  
+#
+# N.B. try to find a suitable libX11 (ELF32) if not
+#      directly reachable via -lX11 
+#--------------------------------------------------------
+
+#ESTEREL MUST BE INSTALLED inside LUSTRE
+ESTEREL=$LUSTRE_INSTALL/esterelv5_21.linux
+
+CC=gcc
+CFLAGS="-m32"
+LFLAGS="-m32 -L$ESTEREL/lib"
+
+#try -lX11
+echo -n "-- checking whether -lX11 works ..."
+$CC $CFLAGS -shared -lX11 -o /dev/null 2>/dev/null
+if [ $? = 0 ]; then
+	#ok, -lX11 works
+	echo " yes !"
+	LIBX11="-lX11"	
+else
+	LIBX11=""
+	llist=`locate libX11.so | grep "/usr/lib"`
+	echo " no"
+	echo -n "-- searching for a ELF32 libX11.so ..."
+	for x in $llist; do
+		#use the first with Class: ELF32	
+		readelf -h $x | grep ELF32 > /dev/null
+		if [ $? = 0 ]; then
+			LIBX11=$x
+			break
+		fi
+	done
+	if [ -z $LIBX11 ]; then
+		echo " no suitable libX11.so found in /usr/lib"
+		exit 1
+	fi
+		echo " found $LIBX11"
+fi
+
+#TCLTK_LFLAGS="-L$LUSTRE_INSTALL/lib -ltcl8.4${TCL_DBGX} -ltk8.4 $LIBX11 -lm"
+TCLTK_LFLAGS="-ltcl8.4${TCL_DBGX} -ltk8.4 $LIBX11 -lm"
+
+
+if test $# -lt 1
+then
+   echo "usage: $0 <file.strl> [<module>]"
+   exit 1
+fi
+FILE=$1
+BASE=`basename $1 .strl`
+echo $BASE
+if test $# -eq 2
+then
+   MAIN=$2
+   esterel -simul $FILE -main $MAIN -v
+	res=$?
+else
+   esterel -simul $FILE -v
+	res=$?
+fi
+if [ $res != 0 ]; then
+	echo "-- esterel compilation failed ..."
+	exit 1
+fi
+
+#
+# HACK to avoid "follows non-static declaration" with gcc >= 4
+#
+cat "$BASE.c" | sed -e '/extern int .*_PCheckArray/s/^/\/\//' > "_$BASE.c"
+mv "_$BASE.c" "$BASE.c"
+
+set -x verbose
+$CC -c $CFLAGS $BASE.c
+$CC $BASE.o $LFLAGS -lxes -lnsl $TCLTK_LFLAGS -o $BASE.bin
+
+# Hack to set the right TCL_LIBRARY 
+echo "\
+#!/bin/sh
+#export TCL_LIBRARY=\$LUSTRE_INSTALL/lib/tcl ; \\
+$PWD/$BASE.bin \$*" > $BASE
+chmod +x $BASE

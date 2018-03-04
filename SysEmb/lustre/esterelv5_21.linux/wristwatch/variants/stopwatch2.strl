@@ -1,0 +1,169 @@
+% The STOPWATCH module -- version that forgets about LAP mode
+
+% There are three submodules : a basic stopwatch that only treats
+% the start/stop command, a lap filter that treats the lap command,
+% and a reset handler that determines when to reset the stopwatch. 
+% They are put in parallel in the main STOPWATCH
+% module, with suitable renamings.
+
+% The BASIC_STOPWATCH module
+
+module BASIC_STOPWATCH :
+
+% To handle the stopwatch time:
+
+type STOPWATCH_TIME_TYPE;
+constant ZERO_STOPWATCH_TIME : STOPWATCH_TIME_TYPE;
+procedure INCREMENT_STOPWATCH_TIME (STOPWATCH_TIME_TYPE) ();
+
+input HS;
+input START_STOP_COMMAND;
+
+relation   HS
+         # START_STOP_COMMAND;
+
+output STOPWATCH_TIME : STOPWATCH_TIME_TYPE;
+output STOPWATCH_RUN_STATUS : boolean;
+
+% To beep:
+
+type BEEP_TYPE;
+constant STOPWATCH_BEEP_VALUE : BEEP_TYPE;
+function STOPWATCH_BEEP (STOPWATCH_TIME_TYPE) : BEEP_TYPE;
+         % returns either the value STOPWATCH_BEEP_VALUE if the stopwatch has
+         % to beep or the value NO_BEEP_VALUE otherwise
+
+output BEEP : BEEP_TYPE;
+
+var STOPWATCH_TIME := ZERO_STOPWATCH_TIME : STOPWATCH_TIME_TYPE in
+   loop
+      emit STOPWATCH_RUN_STATUS (false);
+      emit STOPWATCH_TIME (STOPWATCH_TIME);
+
+      % stopwatch not running
+      await START_STOP_COMMAND;
+
+      % starting the stopwatch
+      emit STOPWATCH_RUN_STATUS (true);
+      emit BEEP (STOPWATCH_BEEP_VALUE);
+      do
+         every HS do
+            call INCREMENT_STOPWATCH_TIME (STOPWATCH_TIME) ();
+            emit STOPWATCH_TIME (STOPWATCH_TIME);
+            emit BEEP (STOPWATCH_BEEP (STOPWATCH_TIME))
+         end every
+      upto START_STOP_COMMAND;
+
+      % stopping the stopwatch
+      emit BEEP (STOPWATCH_BEEP_VALUE)
+   end loop
+end var
+end module
+
+% The LAP_FILTER module
+
+module LAP_FILTER :
+
+type STOPWATCH_TIME_TYPE;
+
+input LAP_COMMAND;
+input BASIC_STOPWATCH_TIME : STOPWATCH_TIME_TYPE;
+
+output STOPWATCH_TIME : STOPWATCH_TIME_TYPE;
+output STOPWATCH_LAP_STATUS : boolean;
+
+loop
+   emit STOPWATCH_LAP_STATUS (false);
+
+   % not in LAP mode
+   do
+      loop
+         emit STOPWATCH_TIME (? BASIC_STOPWATCH_TIME)
+      each BASIC_STOPWATCH_TIME
+   upto LAP_COMMAND;
+
+   % LAP_COMMAND received, enter LAP mode
+   emit STOPWATCH_LAP_STATUS (true);
+   await LAP_COMMAND
+end loop
+end module
+
+% The STOPWATCH_RESET_HANDLER module
+
+module STOPWATCH_RESET_HANDLER :
+
+input START_STOP_COMMAND,
+      EXIT_STOPWATCH_MODE_COMMAND,
+      LAP_COMMAND;
+
+relation START_STOP_COMMAND # LAP_COMMAND;
+
+output RESET_STOPWATCH_COMMAND;
+
+loop
+   trap RESET in
+      signal STOPWATCH_STOPPED in
+         loop
+            do
+               sustain STOPWATCH_STOPPED
+            upto START_STOP_COMMAND;
+            await START_STOP_COMMAND
+         end loop
+      ||
+         loop
+            loop
+               await LAP_COMMAND do
+                  % LAP_COMMAND received when not in LAP mode
+                  present STOPWATCH_STOPPED then
+                     exit RESET
+                  end
+               end await;
+               await LAP_COMMAND
+            end loop
+         each EXIT_STOPWATCH_MODE_COMMAND
+      end signal
+   end trap;
+   emit RESET_STOPWATCH_COMMAND
+end loop
+end module
+
+% The main STOPWATCH module
+
+module STOPWATCH :
+
+% To handle the stopwatch time:
+
+type STOPWATCH_TIME_TYPE;
+
+input HS;
+input START_STOP_COMMAND,
+      EXIT_STOPWATCH_MODE_COMMAND,
+      LAP_COMMAND;
+
+relation   HS
+         # START_STOP_COMMAND
+         # LAP_COMMAND;
+
+output STOPWATCH_TIME : STOPWATCH_TIME_TYPE;
+output STOPWATCH_RUN_STATUS : boolean,
+       STOPWATCH_LAP_STATUS : boolean;
+
+% To beep:
+
+type BEEP_TYPE;
+
+output BEEP : BEEP_TYPE;
+
+signal RESET_STOPWATCH_COMMAND,
+       BASIC_STOPWATCH_TIME : STOPWATCH_TIME_TYPE in
+   loop
+      run BASIC_STOPWATCH [signal BASIC_STOPWATCH_TIME / STOPWATCH_TIME]
+   ||
+      loop
+         run LAP_FILTER
+      each EXIT_STOPWATCH_MODE_COMMAND
+   each RESET_STOPWATCH_COMMAND
+||
+   run STOPWATCH_RESET_HANDLER
+end signal
+end module

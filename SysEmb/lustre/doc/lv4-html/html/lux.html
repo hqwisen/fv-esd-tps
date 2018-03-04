@@ -1,0 +1,89 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title></title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body>
+<table border="0" width="100%" cellspacing="0" cellpadding="3">
+<tr><td class="_podblock_" style="background-color: #cccccc; color: #000" valign="middle">
+<big><strong><span class="_podblock_">&nbsp;</span></strong></big>
+</td></tr>
+</table>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+  <li><a href="#NOTES">NOTES</a></li>
+  <li><a href="#SEE-ALSO">SEE ALSO</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>lux - all in one Lustre compilation</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<p><b>lux</b> <i>file</i><b>.lus</b> <i>node</i></p>
+
+<p><b>lux</b> <i>file</i><b>.ec</b></p>
+
+<p><b>lux</b> <i>file</i><b>.oc</b></p>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>This shell script performs all the compilation stages necessary to produce a binary file from a lustre (resp. <b>ec</b> or <b>oc</b>) program. A main node is expected when starting from the lustre level.</p>
+
+<p>The binary generation only works for <i>basic</i> lustre programs (resp. <b>ec</b> or <b>oc</b>), that means programs that do not need any external definitions to work (external types, constants, functions).</p>
+
+<p>The several stages are depending on the input format:</p>
+
+<dl>
+
+<dt id="lus"><b>lus</b>:</dt>
+<dd>
+
+<p>call <b>lus2ec</b>, then <b>ec2c</b> with the <b>-loop</b> option, and then the gnu C-compiler/linker <b>gcc</b>.</p>
+
+</dd>
+<dt id="ec"><b>ec</b>:</dt>
+<dd>
+
+<p>call <b>ec2c</b> with the <b>-loop</b> option, and then <b>gcc</b>.</p>
+
+</dd>
+<dt id="oc"><b>oc</b>:</dt>
+<dd>
+
+<p>calls <b>poc</b> with the <b>-loop</b>, and then <b>gcc</b>.</p>
+
+</dd>
+</dl>
+
+<p>When the compilation succeeds, the name of the resulting program is the name of the main lustre node (resp. the ec node or the oc module).</p>
+
+<h1 id="NOTES">NOTES</h1>
+
+<p>Indeed, Lustre distribution does not provide a C compiler. The <b>lux</b> script supposes that the gnu-C compiler is properly installed, but the user may customize the script in order to use another available compiler.</p>
+
+<h1 id="SEE-ALSO">SEE ALSO</h1>
+
+<p>lustre, lus2ec, ecexe, luciole, simec, lus2oc, ec2oc, ocmin, lus2atg, oc2atg, ec2c, poc, lux, lesar, ecverif, xlesar</p>
+
+<table border="0" width="100%" cellspacing="0" cellpadding="3">
+<tr><td class="_podblock_" style="background-color: #cccccc; color: #000" valign="middle">
+<big><strong><span class="_podblock_">&nbsp;</span></strong></big>
+</td></tr>
+</table>
+
+</body>
+
+</html>
+
+

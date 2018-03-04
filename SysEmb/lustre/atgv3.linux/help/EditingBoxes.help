@@ -1,0 +1,23 @@
+Box :
+=====
+
+  Boxes represent (sub)processes. A box is a rectangular frame, which
+may contain ports on its boundary (see help on <ObjectsEdit>:<Ports>).
+ 
+  How to create a box:
+1- select the <ObjectsEdit>:<Boxes>:<Create> menu function.
+   ('b' is the keyboard short-hand)
+2- drag the mouse left button for opposite corners in the drawing area.
+Creation may fail for too small a size.
+
+  Proper nesting of boxes, and absence of overlapping, is NOT checked
+until explicit translation/completion is required by the user.
+
+  Boxes can be reshaped or rescaled from any corner, using the
+<ObjectsEdit>:<Boxes>:<Resize> functions.  Ports are projected
+orthogonally.
+
+ Box size attributes can be fixed by resources :
+           atg*boxLineWidth: 3
+           atg*boxMinWidth:  10
+           atg*boxMinHeight: 10

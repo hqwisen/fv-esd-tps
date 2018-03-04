@@ -1,0 +1,11 @@
+Resources management :
+======================
+
+  A resource is a user-preference specification that controls
+user-customizable elements of an application. The resource file "Atg"
+contain all elements we thought a user may want to change. The user
+must refer to this file for resources names.
+
+  If you run autograph on a black and white screen, move the
+"AtgBlackAndWhite" resource file in the "Atg" file.
+

@@ -1,0 +1,14 @@
+% p10.strl 
+% from G. Berry's book
+% cyclic non-cconstructive
+
+module P10 :
+
+output O;
+
+present O then
+   nothing 
+end;
+emit O
+
+end module

@@ -1,0 +1,19 @@
+Alignment :
+===========
+
+   Selected objects can be positioned in differents shapes. For each
+alignment commands, click and drag the mouse left button in the window
+to move the dashed shadow which show you where and how objects are
+going to be placed:
+      <Placing>:<Align>:<Left>    align objects left border
+      <Placing>:<Align>:<Right>   align objects right border
+      <Placing>:<Align>:<Column>  align vertically objects center
+      <Placing>:<Align>:<Bottom>  align objects bottom border
+      <Placing>:<Align>:<Top>     align objects top border
+      <Placing>:<Align>:<Row>     align horizontally objects top border
+      <Placing>:<Align>:<Circle> project objects on the drawn circle
+
+
+   The <Placing>:<On/Off Align> menu command allows the user to draw
+in a mode where the edge segments almost vertical or horizontal are
+projected resp. vertically or horizontally. It is not yet implemented.

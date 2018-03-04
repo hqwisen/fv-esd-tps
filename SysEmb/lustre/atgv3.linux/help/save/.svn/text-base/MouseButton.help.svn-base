@@ -1,0 +1,25 @@
+Mouse buttons :
+===============
+
+   Autograph uses the three buttons of the mouse (left/middle/right).
+
+The left button :
+-----------------
+   It select commands in menus and applies the selected command to the
+clicked graphic objects. For example if you want to save drawings, you
+select the "atg format" button in the "File" menu and you clic in
+desired windows.
+
+The middle button :
+-------------------
+   It is the global move of all graphics objects including labels.
+When a current selection exists, moving a selected object will move
+them all.
+
+The right button :
+------------------
+   Select on and off graphic objects (box, vertex, and web only) in a
+toggle fashion. You can select objects one by one by clicking inside.
+You can surround the group of objects to select by clicking and
+dragging the mouse (a rectangular shadow appear). By clicking outside
+any object you remove all the selections.

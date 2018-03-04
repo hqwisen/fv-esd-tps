@@ -1,0 +1,21 @@
+Global :
+========
+
+   Autograph allows graphic objects selection and deselection with the
+mouse right button or with the <Globals>:<Select> menu command. Box,
+vertex and web can be selected. Objects are selected or deselected in
+a toggle fashion, either individually by clicking inside the object,
+or by surrounding a set of graphic objects by a rectangular zone which
+appear when you click and drag the mouse button.
+
+   Several menu commands work on the selection as a whole when applied
+to any of its components (move, color or font changes, delete, etc) as
+well as on individual objects. Other functions will only make sense
+when a selection is provided (like the differents placings).
+
+   Autograph offers copy and paste facilities with the <Globals>:<Copy>
+and <Globals>:<Paste> menu commands. The copy part of a drawing appear
+in a window that you can edit. Always copy before paste operation.
+
+   <Globals>:<Hilight On/Off> allows you to show some particular
+graphic object on a drawing.

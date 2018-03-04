@@ -1,0 +1,45 @@
+#!/bin/bash
+#--------------------------------------------------------
+# 2013/11/14
+# P. Raymond
+# esterel -> oc -> atg
+#--------------------------------------------------------
+
+VERSION=0.1
+TOOL=`basename $0`
+
+# test system
+CC=gcc
+PROC=`uname -m`
+case "$PROC"
+in
+   i?86)
+		CFLAGS="-m32 -I$LUSTRE_INSTALL/include"
+		;;
+	x86_64)
+		CFLAGS="-fPIC -I$LUSTRE_INSTALL/include"
+		;;
+	*)
+		echo "## Sorry, unsupported system '$PROC'"
+		exit 1
+		;;
+esac
+
+oc2atg_version=`oc2atg -version`
+
+if test $# -lt 2
+then
+	echo "#$TOOL version $VERSION, arch is $PROC, based on oc2atg $oc2atg_version"
+   echo "usage: $TOOL <file.strl> <module> [<oc2atg options>]"
+	echo "       type 'oc2atg -help' to get all options"
+   exit 1
+fi
+FILE=$1
+MAIN=$2
+BASE=$MAIN
+shift
+shift
+
+esterel $FILE -oc -main $MAIN -v -B $BASE
+oc2atg $BASE.oc -o $BASE $*
+

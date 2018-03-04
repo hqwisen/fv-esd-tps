@@ -1,0 +1,83 @@
+; % empty event, for initializations;
+
+HS, S; % a second
+
+LL; % enter stopwatch mode
+
+LR; % start the stopwatch
+
+HS; % a hundredth
+
+! trace signals;
+
+UR; % lap
+
+HS; % a hundredth
+
+UR; % lap
+
+! untrace signals;
+
+LL ; % enter alarm mode
+
+! show variables;
+
+UL; % enter set-alarm mode
+
+LR; % set command (setting hours)
+
+LL; % next position
+
+LL; % next position
+
+LR; % set command (setting minutes)
+
+UL; % back to alarm mode
+
+LL; % back to watch mode
+
+UL; % enter set watch mode
+
+LL; % next position
+
+LR; % set hours
+
+UL; % back to watch mode
+
+HS, S; % a correct second
+
+S; % incorrect, HS should be there too
+
+LR; % go to 12H mode
+
+
+! reset; % We start a new simulation to get multiple beeps
+         % in the simulation, the watch beeps every minute,
+         % a minute is 2 seconds, and the stopwatch
+         % beeps every 2 hundredth of a second!
+
+; % empty event, for initializations
+
+LL; % to stopwatch mode
+
+LR; % starts the stopwatch
+
+LL; % to alarm mode
+
+LR; % sets chime on
+
+UR; % sets alarm on
+
+HS, S; % time passes
+
+HS, S; % again
+
+HS, S; % and again
+
+HS, S; % a big beep: watch, stopwatch, and alarm beep together
+
+HS,S; % the alarm keeps beeping
+
+UR; % we stop it
+
+HS, S; % to check that beeping is over

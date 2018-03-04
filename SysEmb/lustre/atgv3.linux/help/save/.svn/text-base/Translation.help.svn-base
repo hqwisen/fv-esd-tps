@@ -1,0 +1,42 @@
+Checking and Translation :
+==========================
+
+  	  Drawings are translated into Fc2 format, provided they
+fulfill coherency requirements. Incorrections are listed on the
+standard error when using the <Window>:<check coherency> menu button
+or directly when translating in fc2 format.
+
+Fc2 Format for Graphic Object Label :
+=====================================
+
+   If graphic object labels are not edited inside character string,
+they are parsed like fc2 expression where leaves are strings and
+operators are for example ^, ~, _, @, &, ), ,, ., !, >, <, (, +, ?, :,
+*, #.
+
+   By default identificators are put inside character string BUT
+BEWARE tau (Tau, TAU) is an fc2 identificator (like quit,  so il you
+whish a "tau" ("Tau", "TAU") write it inside character string.
+
+ See the fc2 reference manual for help.
+
+  For example, when you edit a behav label :
+
+     1)  !a+?b.TAU      is equivalent to    ! "a" + ? "b" . tau
+
+             It will become in the fc2 format something like :
+             Behavs 3
+                :0   "a"
+                :1   "b"
+                :3   !0+?1.tau
+
+
+     2) !"a+?b"."TAU"  is equivalent to    ! "a+?b" . "TAU"
+
+            It will become in the fc2 format something like :
+               Behavs 2
+                  :0   "a+?b"
+                  :1   "TAU"
+                  :2   !0.1
+
+

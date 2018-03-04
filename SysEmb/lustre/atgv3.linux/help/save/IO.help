@@ -1,0 +1,24 @@
+   Autograph writes and reads files in a dedicated
+format, easily parsed and produced. Files are
+usually suffixed in ".sa" Unix names. Automata with
+missing graphical assignments may be loaded, 
+providing "unexplored" states. See help:explore.
+
+Files:load    -prompts for a file name in a dialog 
+            window, and will create a new window.
+Files:save    -requires an additional mouse click in
+            each window whose contend is to be saved.
+Files:save as -additional prompts for a file name to
+            save the description.
+
+   Postscript files may also be produced, ALTHOUGH
+NOT READ BACK, including a %%BoundingBox value
+allowing later inclusions. Drawings are not scaled 
+in any way to fit page sizes.
+
+WARNING: Not yet implemented:
+A file browser for fast load/save.
+Networks exploration.
+Translation to more semantic FC2 format files
+   (developped inside ESPRIT BRA CONCUR2 project).
+Correctness and completion menus to check drawings.

@@ -1,0 +1,19 @@
+#!/bin/sh
+# tcl-protected \
+    if [ -z "$ESTEREL" ] ; \
+    then \
+    ESTEREL=/usr/local/esterelv5_21; \
+    export ESTEREL;\
+    fi ;\
+    exec $ESTEREL/bin/strlsh $0 "$@"
+
+global env
+if { ! [info exist env(ESTEREL) ] } {
+     bgerror "ESTEREL environment variable not set"
+     exit 1
+}
+
+if { ! [info exist env(XSTRL_LIB)] } {
+    set env(XSTRL_LIB) [file native "$env(ESTEREL)/lib/xesterel"]
+}
+source [file join $env(XSTRL_LIB) strlbox.tcl]

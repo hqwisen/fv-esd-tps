@@ -1,0 +1,65 @@
+#!/bin/bash
+#--------------------------------------------------------
+# 2013/11/14
+# patch pour marcher sur linux 64 bit
+#
+# 2012/11/05
+# P. Raymond
+# esterel -> dro (dynamic library launchable with luciole)
+# via poc >= 1.0 
+#--------------------------------------------------------
+
+VERSION=0.1
+TOOL=`basename $0`
+
+# test system
+CC=gcc
+PROC=`uname -m`
+case "$PROC"
+in
+   i?86)
+		CFLAGS="-m32 -I$LUSTRE_INSTALL/include"
+		;;
+	x86_64)
+		CFLAGS="-fPIC -I$LUSTRE_INSTALL/include"
+		;;
+	*)
+		echo "## Sorry, unsupported system '$PROC'"
+		exit 1
+		;;
+esac
+
+# check suitable poc version
+pocversion=`poc -version`
+if [ $? != 0 ]; then
+	echo "can't find poc compiler"
+	exit 1
+fi
+pocversion_ok=`echo "$pocversion >= 1.0" | bc -l`
+if [ $pocversion_ok -ne 1 ]; then
+	echo "poc version >= 1.0 required"
+	exit 1
+fi
+
+if test $# -lt 1
+then
+	echo "#$TOOL version $VERSION, arch is $PROC, based on poc $pocversion"
+   echo "usage: $TOOL <file.strl> [<module>]"
+   exit 1
+fi
+FILE=$1
+BASE=`basename $1 .strl`
+echo $BASE
+if test $# -eq 2
+then
+   MAIN=$2
+else
+	MAIN=$BASE
+fi
+
+esterel $FILE -oc -main $MAIN -v -B $BASE
+
+set -x verbose
+poc -dro $BASE.oc
+$CC $CFLAGS -shared $BASE.c ${BASE}_dro.c -o $BASE.dro
+

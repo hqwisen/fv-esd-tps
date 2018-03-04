@@ -1,0 +1,22 @@
+ Foreground color is used to draw the boundary shapes of edited objects.
+
+ Foreground colors can be changed individually, or on selected sets of
+ objects altogether, through any color button in the <Attribute>:<Foreground>
+ menu. Colors can be reverted to original (<Attribute>:<Foreground>:<Default>).
+ Color buttons in the menu are assigned through X11 resources
+
+atg*foreground<int>  (for instance atg*foreground5 : green ), and
+
+ their number must be provided as: 
+
+atg*nbForegrounds : <int>
+
+ The default foreground value for each object type is set by resources, as
+ well as a foreground for highlighting them. Resources names are:
+
+atg*boxForeground
+atg*hilightBoxForeground
+
+ and similarly for vertex, port, edge, web instead of box.
+
+

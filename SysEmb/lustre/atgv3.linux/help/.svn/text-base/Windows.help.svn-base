@@ -1,0 +1,34 @@
+Window :
+========
+
+The menu button <Window>:<Create> creates new Autograph drawing
+windows. Window size (normal, minimum and maximum), color (foreground
+and background), default title name, ... are fixed by resources, as in
+
+                    atg*windowTitle    : AtgWindow
+                    atg*windowWidth    : 300
+                    atg*windowMinWidth : 100
+                    atg*windowMaxWidth : 1000
+
+
+   Window management (move, resize, iconify, raise/lower, etc ...) is
+left to the window manager, except for deleting or entitling a single
+window, which must be performed by the <Window>:<Delete> and
+<Window>:<title> menu buttons respectively.
+
+  Horizontal and vertical scrollbars are automatically attached to
+window. The <Window>:<Move Partial view> menu button allows moving in
+all directions: clicking and dragging the mouse in the drawing area
+provides a direction and a length for translation.
+
+   <Window>:<Adjust Size> resizes the window size to the drawing boundaries.
+
+   <Window>:<See/Hide Global View> provides a scaled-down view of the
+full drawing, which is specially useful when it is larger than the
+edition window. Objects cannot be edited in this new window, but
+unexplored vertices see help on Placing:Explore) are highlighted, and
+moving a phantom in the global view will reposition the edition
+window. Minimal and maximal sizes are provided for the global view by
+resources.
+
+ <Window>:<Undo> Undo the last command applied in the window.

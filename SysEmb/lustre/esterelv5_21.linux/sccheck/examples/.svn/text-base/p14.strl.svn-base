@@ -1,0 +1,18 @@
+% p14.strl 
+% from G. Berry's book
+% cyclic constructive
+
+module P14 :
+
+input I;
+output O1, O2;
+
+present O1 then 
+   emit O2 
+end;
+await tick;
+present O2 then
+   emit O1 
+end
+
+end module

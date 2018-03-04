@@ -1,0 +1,50 @@
+.TH lcsc 1 "24/3/99" "INRIA / CMA" "ESTEREL COMPILER"
+.SH NAME
+lcsc \- Esterel boolean circuit generator \- Version v5_21
+.SH SYNOPSIS
+.B lcsc
+[options] file ...
+.SH DESCRIPTION
+\fBlcsc\fR is the Esterel boolean equation generator. It translates 
+statements in \fBlc\fP code into boolean equations in \fBsc\fP format.
+It is normally called via the \fBesterel\fR command. It 
+can also be called directly by the user if necessary.
+.PP
+Error messages and warnings are written to the standard error stream.
+Typical use is: 
+.IP
+.B lcsc < game1.lc > game.sc
+.PP
+or 
+.IP
+.B lcsc game1.lc game2.lc -B game
+
+.SH OPTIONS
+The following options are interpreted by \fBlcsc\fP:
+.IP \fB-s\fP 10
+Silent mode: perform parsing and
+type-checking but do not generate the \fBsc\fP code.
+.IP \fB-stat\fP 10
+Print statistics on the standard error stream: 
+parsing, type-checking and coding times as well as process size.
+.IP \fB-version\fP 10
+Print the version name on the standard error output stream
+and terminate ignoring all other arguments.
+.IP \fB-access\fP 10
+Print access rights to the processor on the standard error output
+stream and terminate, ignoring all other arguments.
+.IP \fB-info\fP 10
+Print various informations about the processor compilation on the
+standard error output stream and terminate, ignoring all other arguments.
+.SH DIAGNOSTICS
+Error messages should be self-explanatory.
+.SH "SEE ALSO"
+Esterel documentations.
+.sp 0
+esterel(1), iclc(1), scssc(1)
+.SH IDENTIFICATION
+.sp 0
+Ecole des Mines de Paris (CMA) and INRIA Sophia-Antipolis.
+.sp 0
+Written by Gerard Berry.
+

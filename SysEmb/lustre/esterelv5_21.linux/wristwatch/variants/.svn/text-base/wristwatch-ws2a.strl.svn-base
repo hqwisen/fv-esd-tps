@@ -1,0 +1,163 @@
+% \headline={\hss\it Esterel v3\_2 code for the Main \WRISTWATCH\ Module\hss}
+% \Section{The main \WRISTWATCH\ module}
+%
+% \noindent
+% This is file `wristwatch-ws2a.strl''
+
+module WRISTWATCH :
+
+% \SubSection{Declarations of \WRISTWATCH}
+%
+% \SubSubSection{The wristwatch input signals}
+
+% \noindent
+% The wristwatch buttons:
+
+input UL, % upper-left button
+      UR, % upper-right button
+      LL, % lower-left button
+      LR; % lower-right button
+
+% \noindent
+% The time units:
+
+input HS, % quartz - 1/100 second
+      S;  % quartz - second
+
+% \noindent
+% The input relations:
+relation UL # UR # LL # LR # HS,
+         S => HS;       
+
+% \SubSubSection{The wristwatch output signals}
+
+% \noindent
+% The main display:
+
+type MAIN_DISPLAY_TYPE;
+
+output MAIN_DISPLAY : MAIN_DISPLAY_TYPE;
+
+% \noindent
+% The mini display:
+
+type MINI_DISPLAY_TYPE;
+
+output MINI_DISPLAY : MINI_DISPLAY_TYPE;
+
+% \noindent
+% The alphabetic display:
+
+output ALPHABETIC_DISPLAY : string;
+
+% \noindent
+% The display positions:
+
+type DISPLAY_POSITION;
+
+output START_ENHANCING : DISPLAY_POSITION,
+       STOP_ENHANCING : DISPLAY_POSITION;
+
+% \noindent
+% The watch boolean indicators:
+
+output CHIME_STATUS : boolean;
+
+% \noindent
+% The stopwatch boolean indicators:
+
+output STOPWATCH_RUN_STATUS : boolean,
+       STOPWATCH_LAP_STATUS : boolean;
+
+% \noindent
+% The alarm boolean indicators:
+
+output ALARM_STATUS : boolean;
+
+
+% The beeper and the beep combination function:
+
+type BEEP_TYPE;
+
+function COMBINE_BEEPS (BEEP_TYPE, BEEP_TYPE) : BEEP_TYPE;
+
+output BEEP : combine BEEP_TYPE with COMBINE_BEEPS;
+
+
+% \SubSubSection{Internal types, used in submodule communication}
+
+% \noindent
+% For the watch:
+
+type WATCH_TIME_TYPE,
+     WATCH_TIME_POSITION;
+
+% \noindent
+% For the stopwatch:
+
+type STOPWATCH_TIME_TYPE;
+
+% \noindent
+% For the alarm:
+
+type ALARM_TIME_TYPE,
+     ALARM_TIME_POSITION;
+
+% \vfill\eject
+% \SubSection{Body of \WRISTWATCH}
+%
+
+signal WATCH_MODE_COMMAND, 
+       STOPWATCH_MODE_COMMAND,
+       EXIT_STOPWATCH_MODE_COMMAND,
+       ALARM_MODE_COMMAND,
+
+
+       TOGGLE_24H_MODE_COMMAND,
+       TOGGLE_CHIME_COMMAND,
+
+       ENTER_SET_WATCH_MODE_COMMAND,
+       SET_WATCH_COMMAND,
+       NEXT_WATCH_TIME_POSITION_COMMAND,
+       EXIT_SET_WATCH_MODE_COMMAND,
+
+       WATCH_TIME : WATCH_TIME_TYPE,
+       WATCH_BEING_SET,
+
+       WATCH_START_ENHANCING : WATCH_TIME_POSITION,
+       WATCH_STOP_ENHANCING : WATCH_TIME_POSITION,
+
+
+       START_STOP_COMMAND,
+       LAP_COMMAND,
+       STOPWATCH_TIME : STOPWATCH_TIME_TYPE,
+
+
+       TOGGLE_ALARM_COMMAND,
+
+       ENTER_SET_ALARM_MODE_COMMAND,
+       NEXT_ALARM_TIME_POSITION_COMMAND,
+       EXIT_SET_ALARM_MODE_COMMAND,
+       SET_ALARM_COMMAND,
+       STOP_ALARM_BEEP_COMMAND,
+
+       ALARM_TIME : ALARM_TIME_TYPE,
+
+       ALARM_START_ENHANCING : ALARM_TIME_POSITION,
+       ALARM_STOP_ENHANCING : ALARM_TIME_POSITION in
+
+
+   [
+      run BUTTON
+   ||
+      run WATCH [ signal WATCH_START_ENHANCING / START_ENHANCING,
+                         WATCH_STOP_ENHANCING / STOP_ENHANCING ]
+   ||
+      run STOPWATCH 
+   ||
+      run ALARM [ signal ALARM_START_ENHANCING / START_ENHANCING,
+                         ALARM_STOP_ENHANCING / STOP_ENHANCING ]
+   ||
+      run DISPLAY
+   ]
+end signal.

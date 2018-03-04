@@ -1,0 +1,158 @@
+WRISTWATCH> ; % empty event, for initializations;
+--- Output: MAIN_DISPLAY(1:00:00 24H) MINI_DISPLAY(1-1) ALPHABETIC_DISPLAY("SU") CHIME_STATUS(false) STOPWATCH_RUN_STATUS(false) STOPWATCH_LAP_STATUS(false) ALARM_STATUS(false) 
+WRISTWATCH> 
+WRISTWATCH> HS, S; % a second
+--- Output: MAIN_DISPLAY(1:00:01 24H) MINI_DISPLAY(1-1) ALPHABETIC_DISPLAY("SU") BEEP(0) 
+WRISTWATCH> 
+WRISTWATCH> LL; % enter stopwatch mode
+--- Output: MAIN_DISPLAY(0:00:00) MINI_DISPLAY(1:00) ALPHABETIC_DISPLAY("ST") 
+WRISTWATCH> 
+WRISTWATCH> LR; % start the stopwatch
+--- Output: STOPWATCH_RUN_STATUS(true) BEEP(1) 
+WRISTWATCH> 
+WRISTWATCH> HS; % a hundredth
+--- Output: MAIN_DISPLAY(0:00:01) BEEP(0) 
+WRISTWATCH> 
+WRISTWATCH> ! trace signals;
+--- Awaited: UL UR LL LR HS S
+WRISTWATCH> 
+WRISTWATCH> UR; % lap
+--- Output: STOPWATCH_LAP_STATUS(true) 
+--- Local: LAP_COMMAND STOP_ALARM_BEEP_COMMAND 
+--- Exception: 
+--- Awaited: UL UR LL LR HS S
+WRISTWATCH> 
+WRISTWATCH> HS; % a hundredth
+--- Output: BEEP(0) 
+--- Local: BASIC_STOPWATCH_TIME(0:01:00) 
+--- Exception: 
+--- Awaited: UL UR LL LR HS S
+WRISTWATCH> 
+WRISTWATCH> UR; % lap
+--- Output: MAIN_DISPLAY(0:01:00) STOPWATCH_LAP_STATUS(false) 
+--- Local: LAP_COMMAND STOPWATCH_TIME(0:01:00) STOP_ALARM_BEEP_COMMAND 
+--- Exception: 
+--- Awaited: UL UR LL LR HS S
+WRISTWATCH> 
+WRISTWATCH> ! untrace signals;
+WRISTWATCH> 
+WRISTWATCH> LL ; % enter alarm mode
+--- Output: MAIN_DISPLAY(0:00 24H) ALPHABETIC_DISPLAY("AL") 
+WRISTWATCH> 
+WRISTWATCH> ! show variables;
+--- Source Variables:
+V24 = SU 1-1 1:0:1 24H  (source variable WRISTWATCH.WATCH.WATCH_TIME)
+V25 = false  (source variable WRISTWATCH.WATCH.CHIME_STATUS)
+V26 = -*-  (source variable WRISTWATCH.WATCH.WATCH_TIME_POSITION)
+V28 = 0:01:00  (source variable WRISTWATCH.STOPWATCH.BASIC_STOPWATCH.STOPWATCH_TIME)
+V29 = 0:00 24H  (source variable WRISTWATCH.ALARM.ALARM_TIME)
+V30 = false  (source variable WRISTWATCH.ALARM.ALARM_STATUS)
+V31 = -*-  (source variable WRISTWATCH.ALARM.ALARM_TIME_POSITION)
+--- Signal Variables:
+V6 = 0:00 24H  (value of signal MAIN_DISPLAY)
+V7 = 1:00  (value of signal MINI_DISPLAY)
+V8 = "AL"  (value of signal ALPHABETIC_DISPLAY)
+V9 = -*-  (value of signal START_ENHANCING)
+V10 = -*-  (value of signal STOP_ENHANCING)
+V11 = false  (value of signal CHIME_STATUS)
+V12 = true  (value of signal STOPWATCH_RUN_STATUS)
+V13 = false  (value of signal STOPWATCH_LAP_STATUS)
+V14 = false  (value of signal ALARM_STATUS)
+V15 = 0  (value of signal BEEP)
+V17 = SU 1-1 1:0:1 24H  (value of signal WATCH_TIME)
+V18 = -*-  (value of signal WATCH_START_ENHANCING)
+V19 = -*-  (value of signal WATCH_STOP_ENHANCING)
+V20 = 0:01:00  (value of signal STOPWATCH_TIME)
+V21 = 0:00 24H  (value of signal ALARM_TIME)
+V22 = -*-  (value of signal ALARM_START_ENHANCING)
+V23 = -*-  (value of signal ALARM_STOP_ENHANCING)
+V27 = 0:01:00  (value of signal BASIC_STOPWATCH_TIME)
+--- Counters:
+V32 = -*- [line: 142, column: 16 of file: "alarm.strl" (ALARM#7)]
+WRISTWATCH> 
+WRISTWATCH> UL; % enter set-alarm mode
+--- Output: START_ENHANCING(hours) 
+WRISTWATCH> 
+WRISTWATCH> LR; % set command (setting hours)
+--- Output: MAIN_DISPLAY(1:00 24H) 
+WRISTWATCH> 
+WRISTWATCH> LL; % next position
+--- Output: START_ENHANCING(10 minutes) STOP_ENHANCING(hours) 
+WRISTWATCH> 
+WRISTWATCH> LL; % next position
+--- Output: START_ENHANCING(minutes) STOP_ENHANCING(10 minutes) 
+WRISTWATCH> 
+WRISTWATCH> LR; % set command (setting minutes)
+--- Output: MAIN_DISPLAY(1:01 24H) 
+WRISTWATCH> 
+WRISTWATCH> UL; % back to alarm mode
+--- Output: STOP_ENHANCING(minutes) ALARM_STATUS(true) 
+WRISTWATCH> 
+WRISTWATCH> LL; % back to watch mode
+--- Output: MAIN_DISPLAY(1:00:01 24H) MINI_DISPLAY(1-1) ALPHABETIC_DISPLAY("SU") 
+WRISTWATCH> 
+WRISTWATCH> UL; % enter set watch mode
+--- Output: START_ENHANCING(seconds) 
+WRISTWATCH> 
+WRISTWATCH> LL; % next position
+--- Output: START_ENHANCING(hours) STOP_ENHANCING(seconds) 
+WRISTWATCH> 
+WRISTWATCH> LR; % set hours
+--- Output: MAIN_DISPLAY(0:00:01 24H) MINI_DISPLAY(1-1) ALPHABETIC_DISPLAY("SU") 
+WRISTWATCH> 
+WRISTWATCH> UL; % back to watch mode
+--- Output: STOP_ENHANCING(hours) 
+WRISTWATCH> 
+WRISTWATCH> HS, S; % a correct second
+--- Output: MAIN_DISPLAY(0:01:00 24H) MINI_DISPLAY(1-1) ALPHABETIC_DISPLAY("SU") BEEP(0) 
+WRISTWATCH> 
+WRISTWATCH> S; % incorrect, HS should be there too
+WRISTWATCH> 
+WRISTWATCH> LR; % go to 12H mode
+--- Output: MAIN_DISPLAY(1:01:00) MINI_DISPLAY(1-1) ALPHABETIC_DISPLAY("SU") 
+WRISTWATCH> 
+WRISTWATCH> 
+WRISTWATCH> ! reset; % We start a new simulation to get multiple beeps
+--- Automaton WRISTWATCH reset
+WRISTWATCH>          % in the simulation, the watch beeps every minute,
+WRISTWATCH>          % a minute is 2 seconds, and the stopwatch
+WRISTWATCH>          % beeps every 2 hundredth of a second!
+WRISTWATCH> 
+WRISTWATCH> ; % empty event, for initializations
+--- Output: MAIN_DISPLAY(1:00:00 24H) MINI_DISPLAY(1-1) ALPHABETIC_DISPLAY("SU") CHIME_STATUS(false) STOPWATCH_RUN_STATUS(false) STOPWATCH_LAP_STATUS(false) ALARM_STATUS(false) 
+WRISTWATCH> 
+WRISTWATCH> LL; % to stopwatch mode
+--- Output: MAIN_DISPLAY(0:00:00) MINI_DISPLAY(1:00) ALPHABETIC_DISPLAY("ST") 
+WRISTWATCH> 
+WRISTWATCH> LR; % starts the stopwatch
+--- Output: STOPWATCH_RUN_STATUS(true) BEEP(1) 
+WRISTWATCH> 
+WRISTWATCH> LL; % to alarm mode
+--- Output: MAIN_DISPLAY(0:00 24H) ALPHABETIC_DISPLAY("AL") 
+WRISTWATCH> 
+WRISTWATCH> LR; % sets chime on
+--- Output: CHIME_STATUS(true) 
+WRISTWATCH> 
+WRISTWATCH> UR; % sets alarm on
+--- Output: ALARM_STATUS(true) 
+WRISTWATCH> 
+WRISTWATCH> HS, S; % time passes
+--- Output: MINI_DISPLAY(1:00) BEEP(0) 
+WRISTWATCH> 
+WRISTWATCH> HS, S; % again
+--- Output: MINI_DISPLAY(1:01) BEEP(0) 
+WRISTWATCH> 
+WRISTWATCH> HS, S; % and again
+--- Output: MINI_DISPLAY(1:01) BEEP(0) 
+WRISTWATCH> 
+WRISTWATCH> HS, S; % a big beep: watch, stopwatch, and alarm beep together
+--- Output: MINI_DISPLAY(0:00) BEEP(7) 
+WRISTWATCH> 
+WRISTWATCH> HS,S; % the alarm keeps beeping
+--- Output: MINI_DISPLAY(0:00) BEEP(4) 
+WRISTWATCH> 
+WRISTWATCH> UR; % we stop it
+--- Output: ALARM_STATUS(false) 
+WRISTWATCH> 
+WRISTWATCH> HS, S; % to check that beeping is over
+--- Output: MINI_DISPLAY(0:01) BEEP(0) 

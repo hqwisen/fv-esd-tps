@@ -1,0 +1,595 @@
+.TH esterel 1 "08/01/1998" "INRIA / CMA" "ESTEREL COMPILER"
+.SH NAME
+esterel \- Esterel compiler \- Version v5_21
+.SH SYNTAX
+.B esterel
+[options] files ...
+.SH DESCRIPTION
+The
+.B esterel
+command calls the Esterel compiler. This compiler translates an
+Esterel file (suffix \fB.strl\fP) into various intermediate codes and
+finally into executable target code, C being the standard target
+format.  Version v5_21 actually contains two compilers: V3 and
+v5_21 proper. These compilers accept the same language and produce
+compatible object codes; they differ only by the internal
+algorithms. The newer v5_21 compiler is the default one. The older
+V3 compiler is available through option \fB-v3\fP.
+
+.PP
+The basic usage is to compile Esterel programs into straight-line
+single-loop C code. Writing
+.IP 
+\fBesterel foo.strl\fB
+.PP
+compiles \fIfoo.strl\fP into \fIfoo.c\fP. This is for embedded code.
+for simulation, one uses the \fB-simul\fP option:
+.IP 
+\fBesterel -simul foo.strl\fB
+.PP
+The object code \fIfoo.c\fP can be compiled and linked with a
+simulation library, either \fBlibcsimul.a\fP (csimul(3)) for tty
+simulation or \fBlibxes.a\fP (xes(3)) for X-windows simulation and
+symbolic debugging (see also the \fBxes\fP(1) command).
+.PP
+Other forms of generated code are byte-code single-state automata
+(option \fB-S\fP) and byte-code expanded automata well-known to
+Esterel v3 users (option \fB-A\fP). One interpreter is also
+available (option \fB-I\fP).
+.PP
+Usually, source code occupies several files. These files are simply
+given
+to the \fBesterel\fP command, and a \fB-B\fP option is used to give
+the basename of the result:
+.IP 
+\fBesterel foo.strl bar.strl -B foo\fB
+.PP
+builds file \fIfoo.c\fP.
+
+.PP
+To understand the 
+\fBesterel\fP command and its various options, it is necessary to 
+understand the name and function of the intermediate codes. All
+intermediate codes start with a common set of symbol tables and
+differ only by their statement part. Most processors act only on the
+statement table.
+.IP "\fBic\fP" 
+First intermediate code, common to V3 and v5_21.
+The statement language is a synchronous
+concurrent process calculus.
+An \fBic\fP module can contain open references to other \fBic\fP modules. 
+.IP "\fBlc\fP"
+Identical to \fBic\fP intermediate code, but fully linked: all
+references to submodules have been resolved by in-place expansion of
+submodule.
+Common to V3 and v5_21.
+.IP "\fBsc\fP" 
+The statement part is made of a boolean circuit definition.
+Used only in v5_21.
+Translation from \fBlc\fP to \fBsc\fP code is the main part of Esterel v5_21.
+.IP "\fBssc\fP"
+Sorted boolean circuit definition. Used only in v5_21.
+Obtained from \fBsc\fP code by
+topological sorting and constant folding with possible causality analysis.
+.IP "\fBoc\fP"
+Automata coded in byte-code format.
+Common to V3 and v5_21.
+.PP
+A file in a given format has the format name for suffix: \fIfoo.ic\fP,
+\fIfoo.ssc\fP, etc.
+.PP
+The Esterel compiler automatically chains 
+processors that translate a format into
+the next one. Here are these processors:
+.IP "\fBstrlic\fP"
+The Esterel front-end. It reads files containing Esterel source code
+(\fB.strl\fP suffix) and produces intermediate code in \fBic\fP
+format.
+Common to V3 and v5_21.
+.IP "\fBiclc\fP"
+The Esterel binder. It performs the expansion of submodules instantiated
+using
+the \fBrun\fP
+statements; it reads several \fBic\fP (or \fBlc\fP)
+files and builds an unique linked code file in \fBlc\fP format.
+Common to V3 and v5_21.
+.IP "\fBlcsc\fP"
+The v5_21 compiler to boolean circuits. It reads a \fBlc\fR 
+file and produces  its object
+code in \fBsc\fP format.
+.IP "\fBscssc\fP"
+The v5_21 circuit topological sorter. It reads a \fBsc\fP file 
+and produces a sorted circuit in \fBssc\fP format.
+.IP "\fBsccausal\fP"
+The v5_21 causality analyzer. It reads a \fBsc\fP file 
+and produces a sorted circuit in \fBssc\fP format.
+.IP "\fBssc\fIl\fP\fP"
+A generic name for Esterel code generators, which translate
+\fBssc\fR 
+sorted circuit code  into \fIl\fP
+target language (examples: \fBsscc\fR, \fBsscdebug\fR).
+.IP "\fBsc\fIl\fP\fP"
+A generic name for v5_21 interpreted code generators, which translate
+\fBsc\fP code into object code interpreting the sc equations (example:
+\fBscc\fP). See option \fB-I\fP.
+.IP "\fBsscoc\fP"
+The  v5_21 compiler to automata in \fBoc\fP format 
+and \fBoc\fR format optimizer. It
+takes a \fBssc\fP
+or a \fBoc\fP file and produces a file in \fBoc\fP
+format describing either fully-expanded or single-state
+automata.
+.IP "\fBoc\fIl\fP\fP"
+A generic name for Esterel code generators,
+which translate  automata in \fBoc\fP format into \fIl\fP target language
+(example: \fBocc\fR, \fBocdebug\fR).
+.IP "\fBlcoc\fP"
+The V3 compiler to automata. It is used when option \fB-v3\fR
+is specified. It reads a \fBlc\fP file
+and generates an automaton in \fBoc\fP format.
+.PP
+The V3 compiler chains \fBstrlic\fP, \fBiclc\fP, \fBlcoc\fP, and
+\fBocc\fP. By default, the v5_21 compiler chains \fBstrlic\fP,
+\fBiclc\fP, \fBlcsc\fP, \fBscssc\fP, \fBsscc\fP; if the \fBoc\fP
+format options \fB-S\fP or \fB-A\fP described below are used, the
+v5_21 compiler chains \fBstrlic\fP, \fBiclc\fP, \fBlcsc\fP, \fBscssc\fP
+\fBsscoc\fP, and \fBocc\fP. If the \fB-causal\fP 
+or \fB-singlw\fP options are used,
+\fBsccausal\fP is chained instead of \fBscssc\fP.
+.PP
+In addition, there are two run-time libraries:
+.IP "\fBlibcsimul.a\fP"
+The tty simulator library, common to V3 and v5_21.
+.IP "\fBlibxes.a\fP"
+The X-windows simulator and symbolic debugging library,  common to V3 and
+v5_21.
+.PP
+Any suffix in the list \fB.strl\fP, \fB.ic\fP, \fB.lc\fP, \fB.sc\fP, \fB.ssc\fP, or \fB.oc\fP is recognized in the file names: the  \fBesterel\fP command will arrange for only the appropriate utilities
+to be called. For example,
+.IP 
+\fBesterel foo.strl bar.ic -B foo\fP
+.PP
+will produce a file \fIfoo.c\fP out of a source file \fIfoo.strl\fP
+and of an already compiled \fBic\fP file \fIbar.ic\fP. Notice that
+\fIbar.ic\fP may come from another language than Esterel.
+.SH OPTIONS
+.PP
+Options and file names can be given in any order and mixed arbitrarily.
+The following two options are of general use:
+.IP "\fB-help\fP"
+Display a brief description of the command line arguments on standard output;
+all other options are ignored.
+
+.PP
+The
+following options define the kind of object code in v5_21 proper:
+.IP "\fB-L\fP \fIor\fP \fB-L\fP\fIlanguage\fP[:\fIspecific_options\fP]"
+In simple form, generate C code directly from boolean equations 
+in \fBssc\fP  format. This is the default option.
+In extended form, specifies
+a target language; for example \fB-Ldebug\fP prints the equations
+in readable form, by calling \fBsscdebug\fP.
+The string \fIspecific_options\fP allows the user to
+specify additional options for the code generator. For instance,
+\fB-Ldebug:-names\fP add more names to the debug code.
+To pass several options to a code
+generator, use double quotes: \fB-Ldebug:"-names -emitted"\fP. See
+the documentation of each code generator for relevant options.
+.IP "\fB-S\fP \fIor\fP \fB-S\fP\fIlanguage\fP[:\fIspecific_options\fP]"
+Use \fBsscoc\fP to 
+translate equations into straight-line single-state
+\fBoc\fP format and then compact C byte-code. The extended form
+defines a target language as
+for option \fB-L\fP, e.g. \fB-Sdebug\fP calls \fBocdebug\fP.
+.IP "\fB-A\fP \fIor\fP \fB-A\fP\fIlanguage\fP[:\fIspecific_options\fP]"
+Use \fBsscoc\fP to generate fully-explored automata in \fBoc\fP
+format and then compact C byte-code. Use option \fB-A:-inline\fP to
+inline function calls: this may improve execution speed (see
+\fIocc(1)\fP). Subject to code size explosion.
+The extended form is as for option \fB-L\fP, e.g.
+\fB-Adebug\fP
+calls \fBocdebug\fP.
+.IP "\fB-I\fP \fIor\fP \fB-I\fP\fIlanguage\fP[:\fIspecific_options\fP]"
+Simply translate the \fBsc\fP file into C and interpret it at
+run-time. Usefull for cyclic \fBsc\fP code which cannot be
+topologically sorted. The extended form is as for option \fB-L\fP,
+e.g. \fB-Ipascal\fP calls \fBscpascal\fP if it exists.
+.PP
+Remark: \fIlanguage\fP can not be an intermediate code. 
+.PP
+The following option calls the V3 compiler;
+.IP "\fB-v3\fP"
+Call V3 \fBlcoc\fP and \fBocc\fP 
+modules and directly produce a fully-explored \fBoc\fP automaton.
+Subject to code size explosion.
+A target language can be specified using the \fB-A\fP option above.
+Useful since v5_21 is by now less tolerant w.r.t. causality
+than V3.
+
+.PP
+The following option must be used to generate tty or X-windows
+simulators
+and symbolic debuggers
+using the libraries \fBlibcsimul.a\fP(3) and \fBlibxes.a\fP(3):
+.IP "\fB-simul\fP"
+Generate code with additional simulation data structures
+
+.PP
+The following option controls \fBoc\fP code optimization:
+.IP "\fB-O\fP \fIor\fP \fB-O\fP[\fIn\fP]"
+Optimize the \fBoc\fP code produced under options
+\fB-S\fP or \fB-A\fP. The optional parameter
+allows the user to
+select the optimization performed by the processor with a combination of
+bits. See sscoc(l) for bit correspondence. Beware: option \fB-O\fP is
+not directly compatible with option \fB-v3\fP. To optimize v3 code,
+use option \fB-oc\fP below to stop at \fBoc\fP code level, and optimize in a
+second step:
+.IP
+\fBesterel -v3 -oc foo.strl; esterel -O foo.oc
+
+.PP
+By default, the compiler compiles all the modules that are not
+themselves included in other modules. This may be too much when
+including Esterel or \fBic\fP code libraries. The following options
+provide the user with better compilation control:
+.IP "\fB-main \fP\fImodule\fP"
+Consider the named module to be a root module.
+If at least one such option is present,
+only modules mentioned in \fB-main\fP options are compiled.
+
+.PP
+The following options allow the user to control the name and directory
+of output files:
+.IP "\fB-B \fP\fIname\fP"
+\fIname\fP defines the output files default base name; this name is
+used
+for intermediate
+and target code files.
+The appropriate suffix is added automatically.
+If this option is omitted and if the \fBesterel\fP command
+is invoked with only one file name, \fIname\fP defaults to the
+base name of this unique file with the appropriate suffix;
+otherwise it defaults to the base name \fBesterel\fP, still followed
+by the appropriate suffix.
+.IP "\fB-D \fP\fIdirectory\fP"
+Specify a directory where intermediate and output files will be
+placed. The default is the current directory.
+
+.PP 
+The following options control the printing of compilation warnings and errors:
+.IP "\fB-w\fP"
+Suppress all warning messages.
+.IP "\fB-W\fP"
+Display all warning messages (the default is to display only harmful
+warnings).
+
+.PP
+The following options control the kind of causality analysis to be
+used:
+.IP "\fB-cycles\fR"
+Print all causality cycles in the program and show them using a
+graphical interface (available in v5_21 compiling). 
+There is no strong causality analysis performed: the analysis is based on
+simple topological sort. Furthermore, the compiler stops and nothing
+is generated.
+.IP "\fB-causal\fR"
+Use the strong causality analysis based on state reachability and
+strongly connected components.
+.IP "\fB-oldcausality\fP"
+Enable the v3_1r4 causality error detection. For example,
+the following program: "emit S; present S else emit S end" is
+no longer accepted by the compiler unless this option is used.
+.IP "\fB-single\fR"
+Check for each valued signal without combination function if that
+signal is actually emitted once per instant. The analysis is based on
+state reachability. The \fB-single\fR implies the \fB-causal\fR option.
+
+.PP
+The following options give information about what is happenning when
+compiling programs:
+.IP "\fB-v\fP"
+Verbose mode: the \fBesterel\fP command and the various utilities
+tell what they are doing.
+.IP "\fB-n\fP"
+Tell what is to be done, but don't do it.
+.IP "\fB-stat\fP"
+Display various time statistics and the size of each process; implemented on
+BSD 4.x systems only.
+.IP "\fB-size\fP"
+Display the final size (number of states, actions and bytes) of
+generated automata.
+.IP "\fB-show\fP"
+Display dynamically the number of states generated and explored
+so far in automata
+computations by \fBsscoc\fP or \fBlcoc\fP.
+
+.PP
+The following option is useful for checking programs without actually
+compiling them
+.IP "\fB-s\fP"
+Silent mode, do not produce output files.
+
+.PP
+The following options enable the user to stop the compilation process at
+some intermediate stage:
+.IP "\fB-ic\fP"
+Just use \fBstrlic\fP to convert \fBstrl\fP files into \fBic\fP files,
+ignoring all other files. Each \fB.strl\fP
+file
+is translated into a \fB.ic\fP file having the same basename.
+.IP "\fB-lc\fP"
+Stop after running the binder (\fBiclc\fP), 
+leaving a \fB.lc\fP file,
+with basename determined by options \fB-B\fP and \fB-D\fP.
+.IP "\fB-sc\fP"
+Stop after running the circuit generator (\fBlcsc\fP)
+leaving a \fB.sc\fP file,
+with basename determined by options \fB-B\fP and \fB-D\fP.
+.IP "\fB-ssc\fP"
+Stop after running the topological sorter (\fBscssc\fP),
+leaving a \fB.sc\fP file,
+with basename determined by options \fB-B\fP and \fB-D\fP.
+.IP "\fB-oc\fP"
+Stop after running the automata producer (\fBsscoc\fP or \fBlcoc\fP),
+leaving a \fB.ssc\fP file,
+with basename determined by options \fB-B\fP and \fB-D\fP.
+.PP
+The \fBesterel\fP command removes all the intermediate files it has created,
+unless one of the following options is given:
+.IP "\fB-Kic\fP" 6
+Keep all the \fBic\fP files,
+with basenames those of the corresponding \fBesterel\fP files.
+.IP "\fB-Klc\fP" 6
+Keep the \fBlc\fP file,
+with basename determined by options \fB-B\fP and \fB-D\fP.
+.IP "\fB-Ksc\fP" 6
+Keep the \fBsc\fP file,
+with basename determined by options \fB-B\fP and \fB-D\fP.
+.IP "\fB-Kssc\fP" 6
+Keep the \fBssc\fP file,
+with basename determined by options \fB-B\fP and \fB-D\fP.
+.IP "\fB-Koc\fP" 6
+Keep the  \fBoc\fP file,
+with basename determined by options \fB-B\fP and \fB-D\fP.
+.IP "\fB-K\fP" 6
+Keep all the intermediate files.
+
+.PP
+The following options give information about processor versions.
+They are processed by the \fBesterel\fP command and
+passed recursively to all related utilities it can find:
+.IP "\fB-version\fP"
+Display the version number of the \fBesterel\fP command, as well as the
+ones of the various utilities including all known code generators.
+The only relevant options with \fB-version\fP is \fB-backup\fP.
+.IP "\fB-access\fP"
+Display access rights to the \fBesterel\fP command.
+.IP "\fB-allaccess\fP"
+Display access rights to the \fBesterel\fP command and to the various
+utilities including all known code generators. The only relevant
+options with \fB-allaccess\fP is \fB-backup\fP.
+.IP "\fB-info\fP"
+Display various information about the compilation of the \fBesterel\fP
+command and the various utilities including all known code generators.
+The only relevant options with \fB-info\fP is \fB-backup\fP.
+
+.PP
+The following option makes it possible to use alternate compiler modules:
+.IP "\fB-backup \fP\fIpath\fP"
+Give an alternate way of finding the various utilities called by the
+\fBesterel\fP command. Usually these utilities are found in a default
+directory (/usr/local/lib/esterel).
+The user can specify another default directory by setting the shell
+environment variable ESTEREL. It is assumed that the ESTEREL directory 
+contains itself a \fBbin\fP sub-directory where the utilities may be
+found. The user can also supersede any of
+these defaults by using the \fB-backup\fP in one of two forms.
+.IP
+If \fIpath\fP is the name of a directory, the result is the same as
+setting ESTEREL to \fIpath\fP for the duration of the command.
+If \fIpath\fP has the form \fBprocessor\fP\fB:\fP\fIpath\fP, with
+processor being one of \fBstrlic\fP, \fBiclc\fP,
+\fBlcoc\fP, \fBlcsc\fP, \fBscssc\fP, \fBsscoc\fP,
+\fBscl\fP, \fBsscl\fP, or
+\fBocl\fP, the corresponding utility is found in directory (with standard
+name) or file \fIpath\fP. In the case of \fBscl\fP,
+\fBsscl\fP, and
+\fBocl\fP, \fIpath\fP (if not
+a directory) is just the prefix of the code generator name. The full name
+will be \fIpath\fP concatenated with the target language (see the
+\fB-L\fP, \fB-S\fP, \fB-A\fP, and \fB-I\fP options below).
+.IP
+There can be several \fB-backup\fP options; they are scanned from left
+to right.
+.PP
+The following options are used to pass specific options to
+subprocessors other than code generators: 
+.IP "\fB-strlic:\fIoptions\fP\fP"
+.IP "\fB-iclc:\fIoptions\fP\fP"
+.IP "\fB-lcsc:\fIoptions\fP\fP"
+.IP "\fB-scssc:\fIoptions\fP\fP"
+.IP "\fB-sccausal:\fIoptions\fP\fP"
+.IP "\fB-sscoc:\fIoptions\fP\fP"
+.IP "\fB-lcoc:\fIoptions\fP\fP"
+The string \fIoptions\fP is either a single option or a
+list of options enclosed within double quotes. For example:
+.IP
+\fBesterel -iclc:-R foo.strl\fP
+.IP
+\fBesterel -iclc:"-R -debug" foo.strl\fP
+
+.SH EXAMPLES
+The simple command
+.sp
+.RS
+.B esterel foo.strl
+.RE
+.sp
+performs a full Esterel compilation, leaving the generated C code
+in file \fBfoo.c\fP.
+.PP
+To produce a fully expanded automaton in
+debug format while keeping the intermediate \fBoc\fP
+format, type
+.sp
+.RS
+.B esterel -Koc -Adebug foo.strl
+.RE
+.sp
+.PP
+A little more complex, the following command
+.sp
+.RS
+.B esterel -Kic -Koc -O -B autom 
+.B -Scobol
+.B f1.strl f2.ic f3.lc
+.RE
+.sp
+will pass \fIf1.strl\fP through \fBstrlic\fP and keep the \fIf1.ic\fP file;
+then it will pass \fIf1.ic\fP, \fIf2.ic\fP, and \fIf3.lc\fP
+through \fBiclc\fP, \fBlcsc\fP, \fBscssc\fP, and \fBsscoc\fP to
+produce single-state optimized \fBoc\fP code in file \fIautom.oc\fP;
+the intermediate file \fIautom.lc\fP is discarded; finally,
+the \fIautom.lc\fP file is converted into COBOL
+by \fBoccobol\fP (most certainly a user-developped code generator,
+since the standard distribution is very unlikely to support this target
+language).
+.PP
+The command
+.sp
+.RS
+.B esterel -v3 -K -Bfoo -D/a/b -S 
+.B f1.strl f2.strl f3.ic f4.oc
+.RE
+.sp
+produces the following files: \fI/a/b/f1.ic\fP, \fI/a/b/f2.ic\fP,
+\fI/a/b/foo.lc\fP, \fI/a/b/foo.sc\fP, \fI/a/b/foo.ssc\fP,
+\fI/a/b/foo.oc\fP, and \fI/a/b/foo.c\fP.
+.PP
+To illustrate the \fB-s\fP option, note that
+.sp
+.RS
+.B esterel -s foo.strl
+.RE
+.sp
+performs a full compilation upto C code generation, but the C file is not
+produced; similarly,
+.sp
+.RS
+.B esterel -ic -s foo.strl
+.RE
+.sp
+will only execute the front-end \fBstrlic\fP without producing any \fB.ic\fP
+file.
+.PP
+Finally,
+.sp
+.RS
+.B esterel -Ldebug:"-names -emitted" -Lc foo.strl
+.RE
+.sp
+performs a full compilation of the Esterel source file \fIfoo.strl\fP
+to both C and debug formats, passing the argument
+\fB"-names -emitted"\fP to the \fBocdebug\fP code generator.
+.SH DIAGNOSTICS
+The command returns with exit code 0 if and only if
+no error was detected by the various utilities.
+.PP
+Various error or warning messages indicate
+incompatible or redundant options, or error
+conditions related to file handling.
+.SH BUGS
+The command checks whether it generates a file which is already
+present in its argument list, and, if so, stops with an error, to
+avoid clobbering the file.
+.PP
+The corresponding test is based on the name of files as given
+by the user and is rather rustic.
+For instance, the following erroneous condition (or any similar one)
+is not detected
+.sp
+.RS
+.B esterel -K -Bfoo  -D.. foo.strl .././foo.lc
+.RE
+.sp
+and will certainly result in loosing the original content of ../foo.lc
+(use the \fB-n\fP  option to see what will occur).
+.PP
+The \fBesterel\fP command is unaware of any file generated as a side-effect
+of the utilities it calls. This is not really a bug, just a remark.
+.PP
+New code producers may be added. It suffices to install the code
+producer into the default library directory for Esterel utilities
+(/usr/local/lib/esterel). A code producer must have a \fB-B\fP option
+which has the same meaning and argument as the \fB-B\fP option of the
+\fBesterel\fP command. A code producer whom output is an intermediate
+format will not be recognize (examples: scoc, sscic...).
+.PP
+\fBssc\fP sorted circuit code may be optimized using hardware
+techniques. To do this, one must first generate BLIF (Berkeley Logic
+Interchange Format) only for the program control:
+.sp
+.RS
+.B esterel -ssc -Lblif:-soft foo.strl 
+.RE
+.sp
+The result file foo.blif is a description of the program control as a
+sequential circuit, together with a foo.ctbl file. foo.blif may be optimized
+using standard hardware optimization techniques. Once foo.blif is
+optimized, say foo.opt.blif, one can get back to the esterel
+compiler. The command:
+.sp
+.RS
+.B blifssc -B foo.new -ctbl foo.ctbl foo.opt.blif 
+.RE
+.sp
+will generate a file foo.new.ssc that contains the optimized control
+and my be used in the esterel compiler as any .ssc files. See
+ssblif(1) and blifssc(1).
+
+
+.SH FILES
+.PP
+In the following, $lib designates the default library directory for
+Esterel utilities (/usr/local/lib/esterel). This default
+path can be modified by
+setting the environment variable ESTEREL, or by using \fB-backup\fP
+options.
+.sp
+.nf
+.ta \w'mmmmmmmmm'u +\w'$lib/bin/esterel.bin   'u
+.br
+	$lib/bin/esterel	Esterel command shell script
+	$lib/bin/esterel.exe	Esterel command binary file
+	$lib/bin/strlic	Esterel front-end
+	$lib/bin/iclc	Esterel binder
+	$lib/bin/lcoc	Esterel v3 compiler (automaton generator)
+	$lib/bin/lcsc	Esterel compiler (circuit generator)
+	$lib/bin/sccausal	Esterel circuit causality analyzer
+	$lib/bin/scssc	Esterel circuit topological sorter
+	$lib/bin/sscoc	Esterel automaton producer and optimizer
+	$lib/bin/sc*	Esterel code generators (for v4 interpreter)
+	$lib/bin/ssc*	Esterel code generators (from equations)
+	$lib/bin/oc*	Esterel code generators (from automata)
+	$lib/lib/libcsimul.a	Esterel tty simulation library
+	$lib/lib/libxes.a	Esterel X-windows simulation library
+	*.strl	Esterel source files
+	*.ic	Intermediate code files
+	*.lc	Linked intermediate code file
+	*.sc	Circuit description
+	*.ssc	Sorted circuit description
+	*.oc	Portable automata file
+	esterel.*	Default names for intermediate files
+.fi
+.SH "SEE ALSO"
+Esterel documentations.
+.br
+strlic(1), iclc(1), lcoc(1), lcsc(1), sccausal(1), scssc(1), sscoc(1),
+occ(1), ocdebug(1), sscblif(1), blifssc(1), csimul(3), xes(1)
+.SH IDENTIFICATION
+.br
+Ecole des Mines de Paris (CMA) and INRIA.
+.br
+Initially written by Jean-Paul Rigault and Jean-Marc Tanzi. Updated by
+Frederic Mignard, Jean-Pierre Paris, Francois-Xavier Fornari.

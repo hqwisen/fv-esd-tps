@@ -1,0 +1,21 @@
+% single signals emitted only once because of the relation
+
+module SingleOk :
+
+input I0, I1, I2;
+relation I0 # I1,
+         I0 # I2;
+
+output O1: integer, O2: integer;
+
+present I0 then 
+   emit O1(0);
+   emit O2(0)
+end present;
+present I1 then 
+   emit O1(1)
+end present;
+present I2 then 
+   emit O2(2)
+end present
+end module

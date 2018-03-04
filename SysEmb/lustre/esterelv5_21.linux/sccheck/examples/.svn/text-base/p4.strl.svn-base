@@ -1,0 +1,13 @@
+% p4.strl 
+% from G. Berry's book
+% cyclic non-constructive
+
+module P4 :
+
+output O;
+
+present O then 
+   emit O 
+end
+
+end module

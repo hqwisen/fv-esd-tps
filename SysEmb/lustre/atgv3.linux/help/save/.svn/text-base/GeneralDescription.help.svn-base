@@ -1,0 +1,51 @@
+General description :
+=====================
+
+   Autograph is devoted to edition, manipulation and translation in
+different formats of automata networks. It is adapted to graphic
+representations of semantic information in the field of process
+calculi.
+
+   Edition functions are found in the menubar and apply on graphic
+objects by clicking inside. It exists Keyboard shortcuts for the
+mostly often used functions. The shorcuts are given between
+parenthesis in menu button labels.
+
+Input/output formats :
+----------------------
+   There are two input/output formats: an internal format for saving
+and reloading the edited drawings (file suffixed by ".atg"), and the
+fc format for their semantic description (file suffixed by ".fc2"). A
+drawing is translated in the fc format whether it has been first
+checked correct for some coherency rules.
+
+   There is a third output format, the postscript format (file
+suffixed by ".ps"), used for listing and inclusions in latex files.
+
+Graphic Objects :
+-----------------
+   Edition and manipulation offer classic functions you await from a
+graphic tool (structural move, global views, cut and paste facilities,
+undo command, alignments ...).
+   It deal with the following graphic objects: box representing
+processes, port on boxes for inter-process communications, vertex for
+automata states, edge for process connections and automata
+transitions, and web for multiple connections.
+
+   In the fc format, objects are described by four fields: struct
+(stands for structural), behav (for behavioral), logic (for logical)
+and hook (is used to attach additional information to objects, like
+color, type, position, ...). Graphic objects can be labeled according
+to the four previous types. Each graphic object has a default label
+type: struct for box and vertex, behav for edge, port and web. Fonts
+depend on both the types of the label and the object it labels.
+   Graphic objects, including labels, have a standard color foreground
+and background.
+
+Visualisation :
+---------------
+   Autograph is mainly used to display verification results coming
+from external tools. This version deal only with automaton. It permits
+to give placements to automaton containing no graphic positions for
+their vertice, edges and labels. You can do it either step by step or
+in one step (based upon the spring algorithm).

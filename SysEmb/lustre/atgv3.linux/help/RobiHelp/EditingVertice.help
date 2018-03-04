@@ -1,0 +1,37 @@
+   Vertice represent (dynamic) automata states.
+They are round-shaped, and could appear anywhere in
+the drawing area.
+
+   How to create a port:
+- select the "edition:vertex:create" menu function;
+- click with the mouse left button inside drawing
+  area./ Vertice are created at button release.
+
+A vertex has default colors, under Xresources:
+  Atg*vertexforeground
+  Atg*vertexbackground
+and a default radius:
+  Atg*vertexradius
+
+Further vertexs attributes may alter color shades.
+
+Vertex labels have a default fonts, as
+  Atg*vertexfont
+
+  A vertex can be made initial, and can be 
+"unexplored", meaning that SOME of its outgoing
+transitions are folded back (see help:explore).
+Both properties are displayed as smaller inner
+circles, using default colors and sizes:
+
+  Atg*vertexinitialradius
+  Atg*vertexinitialforeground
+  Atg*vertexinitialbackground
+  Atg*vertexexploreradius
+  Atg*vertexexploreforeground
+  Atg*vertexexplorebackground
+
+  Consistency of transition edges is not assumed
+before explicit completion or translation is 
+required by user. See help:translation.
+

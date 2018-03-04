@@ -1,0 +1,128 @@
+#############################
+#############################
+# FIXED PART - DO NOT TOUCH #
+#############################
+#############################
+
+BEEPDIR	=beep
+WATCHDIR=watch
+STOPWATCHDIR=stopwatch
+ALARMDIR=alarm
+BUTTONDIR=button
+DISPLAYDIR=display
+CMAINDIR=cmain
+TKMAINDIR=tkmain
+
+
+STRL=$(WATCHDIR)$(PATHSEP)watch.strl \
+     $(STOPWATCHDIR)$(PATHSEP)stopwatch.strl \
+     $(ALARMDIR)$(PATHSEP)alarm.strl \
+     $(BUTTONDIR)$(PATHSEP)button.strl \
+     $(DISPLAYDIR)$(PATHSEP)display.strl \
+     wristwatch.strl
+
+STRL_CFLAGS = $(OPT)      \
+	      -DLOAD_BEEP \
+	      $(SIMUL) \
+	      -I. \
+	      -I$(BEEPDIR) -I$(WATCHDIR) -I$(STOPWATCHDIR) -I$(ALARMDIR) \
+              -I$(BUTTONDIR) -I$(DISPLAYDIR) -I$(CMAINDIR) -I$(TKMAINDIR) \
+	      -I$(ESTEREL_DIR)$(PATHSEP)tcltk$(PATHSEP)include
+
+CFLAGS= $(CC_CFLAGS) $(STRL_CFLAGS) $(TK_CFLAGS) $(OTHER_CFLAGS)
+
+OBJECTS= $(BEEPDIR)$(PATHSEP)beep_data$(OBJ) \
+	 $(WATCHDIR)$(PATHSEP)watch_data$(OBJ) \
+	 $(STOPWATCHDIR)$(PATHSEP)stopwatch_data$(OBJ) \
+	 $(ALARMDIR)$(PATHSEP)alarm_data$(OBJ) \
+	 $(DISPLAYDIR)$(PATHSEP)display_data$(OBJ)
+
+TKOBJECTS=$(TKMAINDIR)$(PATHSEP)main$(OBJ) \
+	  $(TKMAINDIR)$(PATHSEP)tkWatch$(OBJ) \
+	  $(TKMAINDIR)$(PATHSEP)watch_script$(OBJ)
+
+
+
+all :  sww$(EXE) xww.exe tkww.exe
+
+
+tkww.exe : wristwatch$(OBJ) std_code $(TKOBJECTS)
+	@echo "*** making tkww"
+	$(XES) -o tkww \
+	      wristwatch$(OBJ) \
+	      $(OBJECTS) \
+	      $(TKOBJECTS)
+	$(XES) tkww.exe
+
+
+sww$(EXE) : wristwatch_sim$(OBJ) simu_code
+	@echo "*** making sww"
+	$(LINKER) $(CONSOLE) $(LINKER_FLAGS) \
+	      wristwatch_sim$(OBJ) \
+	      $(OBJECTS) \
+	      $(CSIMUL_A) 
+
+xww.exe : wristwatch_sim$(OBJ) simu_code
+	@echo "*** making xww"
+	$(XES) -o xww \
+	      wristwatch_sim$(OBJ) \
+	      $(OBJECTS)
+	$(XES) xww.exe
+
+
+wristwatch.c : $(STRL)
+	$(ESTEREL_COMMAND)  $(ESTEREL_FLAGS) $(STRL) -B wristwatch
+
+wristwatch$(OBJ) : wristwatch.c
+	$(CC) -c $(CFLAGS) wristwatch.c
+
+
+wristwatch_sim.c : $(STRL)
+	$(ESTEREL_COMMAND)  $(ESTEREL_FLAGS) -simul $(STRL) -B wristwatch
+	$(MV) wristwatch.c wristwatch_sim.c
+
+wristwatch_sim$(OBJ) : wristwatch_sim.c
+	$(CC) -c $(CFLAGS) -DSIMUL wristwatch_sim.c
+
+
+simu_code: 
+	-$(IFNOTEXIST) SIMUL $(THEN) $(RM) $(OBJECTS)
+	$(MAKE) -f $(MAKEFILE) OPT="$(OPT)" SIMUL=-DSIMUL $(OBJECTS)
+	echo simul > SIMUL
+
+std_code : 
+	-$(IFEXIST) SIMUL $(THEN) $(RM) $(OBJECTS) SIMUL
+	$(MAKE) -f $(MAKEFILE) OPT="$(OPT)" $(OBJECTS)
+
+
+
+$(BEEPDIR)$(PATHSEP)beep_data$(OBJ) : $(BEEPDIR)$(PATHSEP)beep_data.c
+	$(CC) -c $(CFLAGS) $(BEEPDIR)$(PATHSEP)beep_data.c
+
+$(WATCHDIR)$(PATHSEP)watch_data$(OBJ) : $(WATCHDIR)$(PATHSEP)watch_data.c
+	$(CC) -c $(CFLAGS) $(WATCHDIR)$(PATHSEP)watch_data.c
+
+$(STOPWATCHDIR)$(PATHSEP)stopwatch_data$(OBJ) : $(STOPWATCHDIR)$(PATHSEP)stopwatch_data.c
+	$(CC) -c $(CFLAGS) $(STOPWATCHDIR)$(PATHSEP)stopwatch_data.c
+
+$(ALARMDIR)$(PATHSEP)alarm_data$(OBJ) : $(ALARMDIR)$(PATHSEP)alarm_data.c
+	$(CC) -c $(CFLAGS) $(ALARMDIR)$(PATHSEP)alarm_data.c
+
+$(DISPLAYDIR)$(PATHSEP)display_data$(OBJ) : $(DISPLAYDIR)$(PATHSEP)display_data.c
+	$(CC) -c $(CFLAGS) $(DISPLAYDIR)$(PATHSEP)display_data.c
+
+$(TKMAINDIR)$(PATHSEP)main$(OBJ) : $(TKMAINDIR)$(PATHSEP)main.c
+	$(CC) -c $(CFLAGS) $(TKMAINDIR)$(PATHSEP)main.c
+
+$(TKMAINDIR)$(PATHSEP)tkWatch$(OBJ) : $(TKMAINDIR)$(PATHSEP)tkWatch.c
+	$(CC) -c $(CFLAGS) $(TKWATCH_CFLAGS) $(TKMAINDIR)$(PATHSEP)tkWatch.c
+
+$(TKMAINDIR)$(PATHSEP)watch_script$(OBJ) : $(TKMAINDIR)$(PATHSEP)watch_script.c
+	$(CC) -c $(CFLAGS) $(TKMAINDIR)$(PATHSEP)watch_script.c
+
+clean :
+	-$(RM) wristwatch.c *.ic *.oc *.lc *$(OBJ) \
+	 $(OBJECTS) $(TKOBJECTS) *_sim.c
+
+clobber : clean
+	-$(RM) sww$(EXE) xww.exe tkww.exe SIMUL

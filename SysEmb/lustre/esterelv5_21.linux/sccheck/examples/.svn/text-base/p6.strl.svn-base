@@ -1,0 +1,13 @@
+% p6.strl 
+% from G. Berry's book
+% cyclic non-constructive
+
+module P6 :
+
+output O1, O2;
+
+   present O1 then emit O2 end
+||
+   present O2 then emit O1 end
+
+end module

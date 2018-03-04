@@ -1,0 +1,23 @@
+Edge :
+======
+
+   Edges are directed broken lines (not splines). They join any couple
+of objects with types in {port, web, vertex}. They bear possibly
+several labels (implicitly representing multi-edges).
+
+   To create an edge:
+1. select the <ObjectsEdit>:<Edge>:<Create (e)> menu command 
+     ('e' is the keyboard shortcut);
+2. click inside the source object (with left mouse button), keep button down;
+3. Each mouse button release will create a new pinning nail, except when
+   a proper target object, where the edition will end.
+
+   Nails may be added, moved or killed by menu.
+
+   The menu commands <ObjectsEdit>:<Edge>:<change Source> and
+<ObjectsEdit>:<Edge>:<change Target> will allow to redirect a given
+edge.  CAUTION: not yet implemented.
+
+   The menu commands <ObjectsEdit>:<Edge>:<Show Source> and
+<ObjectsEdit>:<Edge>:<Show Target> highlight the corresponding
+objects.

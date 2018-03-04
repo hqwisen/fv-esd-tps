@@ -1,0 +1,7 @@
+ The <Placing>:<Vertex Automatic> menu button provides automatic
+placement of automata w.r.t. a general algorithm based on
+minimisation of spring-like attraction/repulsion. 
+
+ The program used was borrowed from ..., see <Help>:<Copyright>.
+
+WARNING: This feature is not included in the present version of Autograph.

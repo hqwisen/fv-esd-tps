@@ -1,0 +1,30 @@
+Font :
+======
+
+   Each graphic object type have different default fonts fixed by
+resources for the four label types of the fc2 format (struct, behav,
+logic, hook). Example of resources for box label font :
+
+       atg*behavLabelBoxFont: *-helvetica-bold-r-normal--12-*
+       atg*structLabelBoxFont:*-helvetica-bold-r-normal--12-*
+       atg*logicLabelBoxFont: *-helvetica-bold-r-normal--12-*
+       atg*hookLabelBoxFont:  *-helvetica-bold-r-normal--12-*
+
+   Corresponding to the screen fonts, each graphic object type have
+postscript fonts also fixed by resources for the four label types of
+the fc2 format (struct, behav, logic, hook), like :
+
+       atg*behavLabelBoxPostscriptFont:  Helvetica-Bold 12
+       atg*structLabelBoxPostscriptFont: Helvetica-Bold 12
+       atg*logicLabelBoxPostscriptFont:  Helvetica-Bold 12
+       atg*hookLabelBoxPostscriptFont:   Helvetica-Bold 12
+
+   Label font can be changed by the <Attributes>:<Font> menu (you can
+change font individually or on the selected sets of objects
+altogether). This menu is fixed by resources. You give the number of
+fonts you want to appear in the menu and you give the list of the
+fonts together with its corresponding Postscript font.
+   The <Font>:<Default> menu command is used to reset the original
+font on the label.
+
+

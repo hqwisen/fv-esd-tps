@@ -1,0 +1,18 @@
+% single signals emitted more than once 
+
+module SingleError :
+
+input I0, I1, I2;
+output O1: integer, O2: integer;
+
+present I0 then 
+   emit O1(0);
+   emit O2(0)
+end present;
+present I1 then 
+   emit O1(1)
+end present;
+present I2 then 
+   emit O2(2)
+end present
+end module

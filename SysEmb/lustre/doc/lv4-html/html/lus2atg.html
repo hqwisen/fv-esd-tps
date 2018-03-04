@@ -1,0 +1,149 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title></title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body>
+<table border="0" width="100%" cellspacing="0" cellpadding="3">
+<tr><td class="_podblock_" style="background-color: #cccccc; color: #000" valign="middle">
+<big><strong><span class="_podblock_">&nbsp;</span></strong></big>
+</td></tr>
+</table>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+  <li><a href="#OPTIONS">OPTIONS</a>
+    <ul>
+      <li><a href="#Miscellaneous">Miscellaneous</a></li>
+      <li><a href="#Labels-style">Labels style</a></li>
+      <li><a href="#Partial-labels">Partial labels</a></li>
+    </ul>
+  </li>
+  <li><a href="#SEE-ALSO">SEE ALSO</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>lus2atg, oc2atg - automata visualisation</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<p><b>lus2atg</b> <i>file</i><b>.lus</b> <i>node</i> [<b>options</b>]</p>
+
+<p><b>oc2atg</b> <i>file</i><b>.oc</b> [<b>options</b>]</p>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p><b>oc2atg</b> extracts basic information about the underlying automaton in the source file, and outputs this information in the <b>atg</b> format, suitable for the tool <i>autograph</i>;</p>
+
+<p>Most of the information is lost: the <b>atg</b> file only contains the skeleton of the program. This skeleton consists of a set of states and transitions labelled by &quot;input/output&quot; presence conditions.</p>
+
+<p>It is quite hard to compile a lustre program in such a way that the resulting <b>oc</b> program produces a meaningful <b>atg</b> automaton, so it is recommended to use the script <b>lus2atg</b>. Using this script, the Boolean part of the source program will be exactly reflected in the resulting automaton.</p>
+
+<h1 id="OPTIONS">OPTIONS</h1>
+
+<h2 id="Miscellaneous">Miscellaneous</h2>
+
+<dl>
+
+<dt id="v-set-the-verbose-mode"><b>-v</b> set the verbose mode.</dt>
+<dd>
+
+</dd>
+<dt id="help-print-available-options"><b>-help</b> print available options.</dt>
+<dd>
+
+</dd>
+<dt id="o-file-define-the-output-file-default-is-module-name.atg"><b>-o</b> <i>file</i> define the output file (default is <i>module-name</i><b>.atg</b>)</dt>
+<dd>
+
+</dd>
+</dl>
+
+<h2 id="Labels-style">Labels style</h2>
+
+<ul>
+
+<p>Labels are representing the input/output presence on a transition. Note that this information is relevant only if the oc program uses <i>pure signals</i> (see <b>ec2oc</b>). The <i>lus2atg</i> script automatically produces such a program. There are actually two styles for the labels: reactive machine style, and Boolean function style.</p>
+
+</ul>
+
+<dl>
+
+<dt id="default-reactive-machine-style"><b>default</b> (reactive machine style)</dt>
+<dd>
+
+<p>For the inputs, the default is to write <b>+inname</b> if the input is present, <b>-inname</b> if it is absent and <b>~inname</b> for it is don&#39;t care.</p>
+
+<p>For the output, only presence is represented by writing <b>!outname</b> (which means that the output is emited during the transition).</p>
+
+<p>Exemple: <b>+x+y-z~t/!a!b</b> means that, for the transition to be taken, inputs <b>x</b> and <b>y</b> have to be true (i.e. present), <b>z</b> has to be false (i.e. absent), <b>t</b> and any other input (if it exist) can either true or false (don&#39;t care); as a consequence outputs <b>a</b> and <b>b</b> are true (emited), and any other output is false.</p>
+
+</dd>
+<dt id="bf-Boolean-function-style"><b>-bf</b> (Boolean function style)</dt>
+<dd>
+
+<p>The label is made of the list of the input values (0 or 1) and the list of the corresponding outpt values, separated by a <b>/</b>. For instance, if the program has 2 inputs <b>x</b>, <b>y</b> and 1 output <b>s</b>, <b>10/1</b> means that the transition is taken when <b>x</b> is true, <b>y</b> is false, and that the output <b>s</b> is true.</p>
+
+</dd>
+</dl>
+
+<h2 id="Partial-labels">Partial labels</h2>
+
+<ul>
+
+<p>Parts of the labels can be hiden.</p>
+
+</ul>
+
+<dl>
+
+<dt id="ht-hides-the-dont-care-inputs"><b>-ht</b> hides the don&#39;t care inputs</dt>
+<dd>
+
+</dd>
+<dt id="hp-hides-the-true-inputs"><b>-hp</b> hides the true inputs</dt>
+<dd>
+
+</dd>
+<dt id="hm-hides-the-false-inputs"><b>-hm</b> hides the false inputs</dt>
+<dd>
+
+</dd>
+<dt id="hi-hides-all-the-input-part"><b>-hi</b> hides all the input part</dt>
+<dd>
+
+</dd>
+<dt id="ho-hides-all-the-output-part"><b>-ho</b> hides all the output part</dt>
+<dd>
+
+</dd>
+<dt id="h-hides-the-separator-between-inputs-and-outputs"><b>-h</b> hides the <b>/</b> separator between inputs and outputs</dt>
+<dd>
+
+</dd>
+</dl>
+
+<h1 id="SEE-ALSO">SEE ALSO</h1>
+
+<p>lustre, lus2ec, ecexe, luciole, simec, lus2oc, ec2oc, ocmin, lus2atg, oc2atg, ec2c, poc, lux, lesar, ecverif, xlesar</p>
+
+<table border="0" width="100%" cellspacing="0" cellpadding="3">
+<tr><td class="_podblock_" style="background-color: #cccccc; color: #000" valign="middle">
+<big><strong><span class="_podblock_">&nbsp;</span></strong></big>
+</td></tr>
+</table>
+
+</body>
+
+</html>
+
+

@@ -1,0 +1,10 @@
+K 10
+svn:ignore
+V 37
+lustre-v4-III-*
+build
+,poub
+,old
+*.o
+
+END

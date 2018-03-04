@@ -1,0 +1,273 @@
+.TH BLIFSSC 1 "03/03/99" "INRIA / CMA" "ESTEREL COMPILER"
+
+
+.SH NAME
+blifssc \- Esterel ssc code producer \- Version v5_21
+
+.SH SYNOPSYS
+.B blifssc [ -ctbl
+.I auxfile 
+.B ] [ -noregwire ]
+.I file
+
+.SH DESCRIPTION
+The
+.B blifssc
+code producer translates a circuit description in
+.I BLIF
+(Berkeley Logic Interchange Format) format into a description in the 
+.I Esterel ssc
+(Sorterd Soft Code) format. 
+.B blifssc
+takes as input two files: 
+.I file
+which contains the 
+.I BLIF
+description, and an auxiliary file which contains 
+information (see  
+.B Ctbl file format
+ below).
+The default name for the auxiliary file is the base name of
+.I file
+with the suffix "\.ctbl". See option
+.B \-ctbl
+for specifying an other auxiliary file. The first line of
+.I file
+must be of the form:
+
+
+.ta 1c
+	# signature: 
+.I number
+
+
+See the signature part in
+.B Ctbl file format.
+The output of
+.B blifssc
+is a file named
+.I blifssc_out.ssc.
+See option
+.B \-B
+and option
+.B \-D
+to change the output file name.  
+
+.SH OPTIONS
+.TP 8
+.B \-version
+Print the version name on the standard output stream and terminate,
+ignoring all other arguments.
+.TP 8
+.B \-access 
+Print various information about the compilation of the processor on
+the standard output stream and terminate, ignoring all other arguments.
+.TP 8
+.B \-info     
+Print various  information  about  the  processor
+compilation  on  the  standard error output stream
+and terminate, ignoring all other arguments.
+.TP 8
+.B \-s
+Silent mode. No output file is generated.
+.TP 8
+.B \-v
+Verbose mode.
+.TP 8
+.B \-B name
+name denotes the output file base name, The suffix "\.ssc" is added
+automatically. If this option and the \-D option are omitted, the name
+.B blifssc_out.blif 
+is used.
+.TP 8
+.B \-D directory
+Specify a directory where the output file will be placed. The
+default is the current directory.
+.TP 8
+.B \-ctbl
+Specify the file which contains the additional information. The
+default name is the basename of
+.I file
+with the suffix "\.ctbl".
+.\" .TP 8
+.\" .B \-noregwire
+.\" The normal behaviour is to separate directly connected registers by a
+.\" simple wire. When this option is set the registers remain directly connected.
+.TP 8
+.B \-w
+suppress all the warnings.
+.TP 8
+.B \-W
+print all the warnings.
+
+.SH Ctbl file format.
+The circuit is supposed to be the control path of an
+.I Esterel
+circuit. That is to say that outputs of the circuit are the 
+.B action 
+activation wires and inputs are the result of 
+.B present, if 
+and
+.B dsz
+actions. Additional information in the "\.ctbl" concern the common 
+.I Esterel
+tables and specific informations for 
+.B blifssc.
+The grammar for the new informations is:
+
+.\" comments : .nf = non fill .ta new tabs
+.\" .bp = break page
+.nf
+.ta 1c 5c 5.5c 
+	specific_infos	:	signature
+			dependencies
+			registers
+		;
+	signature	:	SIGNATURE ':' INT
+		;
+
+	pragma_refs	:	PRAGMAREFS ':' INT
+			list_pragma_ref
+			END ':'
+		;
+	list_pragma_ref	:	/* Empty */
+		|	list_pragma_ref pragma_ref
+		;
+
+	dependencies	:	DEPENDENCIES ':' INT 
+			dependencies_list
+			END ':'
+		;
+
+	dependencies_list	:	dependencie 
+		|	dependencies_list dependencie
+		;
+
+	dependencie	:	in_net
+		|	out_net
+		|	double_net
+		;
+
+	in_net	:	INT ':' IDENT INNET
+			call_list ':' INT pragma_list
+		;
+
+	out_net	:	INT ':' IDENT OUTNET
+			call_list ':' INT pragma_list
+		;
+
+	double_net	:	INT ': IDENT DOUBLENET IDENT
+			call_list ':' INT pragma_list
+		;
+
+	call_list	:	/* Empty */
+		|	call_list INT
+		;
+
+	registers	:	REGISTERS ':' INT
+			RETURN ':' IDENT INT
+			HALTING ':' IDENT
+			registers_list
+			END ':'
+		;
+	registers_list	:	/* Empty */
+		|	registers_list register_halt
+		;
+
+	register_halt	:	INT ':' IDENT halt_number
+		;
+
+	halt_number	:	/* Empty */
+		|	HALT ':' INT
+		;
+
+.fi
+All the capitalized words are terminals. They are all but 
+.B INT
+and 
+.B IDENT
+found in the "\.ctbl" written in normal letters; e.g. 
+.B REGISTERS
+is a token corresponding to
+.B registers.
+.B INT
+is a natural number and
+.B IDENT
+is a legal name of a wire.
+
+.B signature 
+indicates a number that will be used to check coherence
+between the "\.blif" and the "\.ctbl". The 
+.B first
+line of the "\.blif"
+must be:
+.ta 1c
+	# signature: integer
+
+.B dependencies
+table : the produced
+.I ssc
+code is ordered. This table indicates the order
+for calling each action. The first entry is the first action to perform. Each
+entry gives the name of a wire and an integer which associates this
+wire to an action. 
+
+An
+.B in_net
+dependency corresponds to a 
+.B present
+action.
+An
+.B out_net
+dependency corresponds to a 
+.B call
+action.
+A
+.B double_net
+dependency corresponds to 
+.B if
+and
+.B dsz
+actions. The first 
+.B IDENT
+indicates the wire carrying the return value, and the
+second is the start of the action. See 
+.B sscblif(l).
+For each entry one gives the list (possibly empty)
+.B call_list
+of each 
+.I direct
+wire the entry depends on. Thus the dependency table
+is
+.B sorted.
+The final number indicates the associated action.
+This table can not be empty. 
+
+.B registers
+table indicates for each listed register the associated
+.B halt.
+This list may be empty. This table also contains the name of the 
+.I ssc
+.B RETURN
+wire and its halt number, and the name of the
+.I ssc
+.B HALTING
+wire.
+
+
+.SH BUGS
+.B blifssc
+does not support hierarchical
+.I BLIF
+descriptions.
+
+.SH SEE ALSO
+The Esterel v5_21 Documentation.
+.br
+esterel(1), blifopt(1), sis(1), sscblif(1)
+
+.SH IDENTIFICATION
+Ecole des Mines de Paris (CMA) and INRIA
+.br
+Author: Francois-Xavier Fornari
+

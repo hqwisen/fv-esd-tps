@@ -1,0 +1,6 @@
+This directory contains documentation and examples for the sccheck
+Esterel constructive causality checker and the experimental sccausal
+ssc code generator for cyclic constructive Esterel programs. 
+
+PLEASE READ CAREFULLY THE COPYRIGHT NOTICE IN THE ESTEREL DISTRIBUTION
+DIRECTORY.

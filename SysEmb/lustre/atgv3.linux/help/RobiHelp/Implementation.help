@@ -1,0 +1,8 @@
+autograph is written in the C++ programming language. It uses the
+XWindow library (Xlib) for basic functions and two additional
+higher-level programming toolkits: the Xt Intrinsics toolkit and the
+Osf Motif widget library set. Xlib is the lowest level of programming
+interface in X and deal with the window drawing area. Xt is part of
+the X standard which defines routines for building and using widgets.
+Together OsfMotif and Xt provide menu and window environments
+(menubar, dialog boxes, scrolled window, window drawing area, ...).

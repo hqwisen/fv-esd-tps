@@ -1,0 +1,7 @@
+Placing Automatic :
+===================
+
+   The <Placing>:<Vertex Automatic> menu command provides automatic
+placement of the selected part of automata. We use the spring
+algorithm. This is not yet implemented.
+

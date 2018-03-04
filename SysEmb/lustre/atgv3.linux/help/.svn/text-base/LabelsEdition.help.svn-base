@@ -1,0 +1,54 @@
+Label :
+=======
+
+   Like in fc2 format graphic objects are labeled by four distinct
+fields: struct(ure), behav(iour), logic and hook. Distinctive meanings
+are explained in the Fc2 documentation (see help on fileformat Fc2).
+
+Creating a Label :
+------------------
+
+   With the <Label>:<Create/Edit All> command (`4' as keyboard
+short-hand) one can enter the 4 label fields for any object clicked
+on. The label editor allows some emacs-like commands, including some
+mouse functions.  Each field can be individually made visible or not
+on the drawing for the current object. When labeling a non labelled
+object, most recent editing values are inserted in editors by default.
+When editing an already labeled object, its current labeling is
+provided in the editor fields.
+
+   The <Label>:<Create/Edit Default> menu allows fast edition of most
+frequently used fields (then only one editor is provided). Boxes and
+vertices are then labeled in the (process algebraic) struct field,
+while ports, webs and edges are labeled in the (action) behav field.
+
+   Label fonts and colors will depend on both the types of the label
+and of the type of the object it labels. See help <Attributes>:<Color>.
+
+   <Label>:<Show Label/Object> highlights objects or labels to show
+their correspondance.
+
+Editing a label :
+-----------------
+
+   As edges can be multiply labeled (each label having 4 field), to
+modify an existing label, there is a <Label>:<Reedit> menu button to
+select a label (and not an object) to be modified by edition. Also
+<Label>:<Bufferize> simply brings an existing label (with all 4
+fields) into the editor, where it can then be pasted on unlabeled
+objects as the last default value.
+
+Show/Hide Label :
+-----------------
+
+  A number of menu buttons allow you to hide or draw labels from
+objects in the window according to label types (in struct, behav,
+hook, logic or for all types).
+
+Label visible/invisible during Exploration :
+--------------------------------------------
+
+   If you want to hide all the default labels during the exploration
+use the <Label>:<All>:<Hide all> menu button. If you want then to
+restore the default label use the <Label>:<All>:<Restore> menu buton.
+

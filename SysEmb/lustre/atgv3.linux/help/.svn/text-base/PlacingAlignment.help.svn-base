@@ -1,0 +1,20 @@
+Alignment :
+===========
+
+   Selected objects can be aligned according to different shapes:
+      <Placing>:<Align>:<Left>   
+      <Placing>:<Align>:<Right>  
+      <Placing>:<Align>:<Column> (vertically centered)
+      <Placing>:<Align>:<Bottom> 
+      <Placing>:<Align>:<Top>    
+      <Placing>:<Align>:<Row>    (horizontally centered)
+      <Placing>:<Align>:<Circle> 
+
+   For each of these commands a phantom shall appear when pulling the
+ mouse button down, which can be moved and will figure the ruler
+ against which objects shall be projected when releasing the button.
+ In case of <Circle>, the initial click figures the center and the
+ place of release indicates the radius. Objects will be slid from
+ their current position on the half-line rooted in the circle center
+ until they reach the circle itself (circular projection).
+

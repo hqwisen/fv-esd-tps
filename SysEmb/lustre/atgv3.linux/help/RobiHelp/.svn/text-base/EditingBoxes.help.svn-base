@@ -1,0 +1,33 @@
+   Boxes represent (sub)processes. A box is a 
+rectangular frame, which may contain ports on
+its periphery (see help:Editing:Ports).
+
+  How to create a box:
+1- select the "edition:box:create" menu function.
+2- drag the mouse left button from opposite
+   corners in the drawing area.
+
+   Box select/move/kill functions apply to its
+attached ports altogether.
+
+   A box has default colors and  minimal sizes,
+under X11 resources:
+  Atg*boxForeground
+  Atg*boxBackground
+  Atg*boxminwidth
+  Atg*boxminheight
+
+Further box attributes may alter color shades.
+
+   Proper nesting of boxes, and absence of 
+overlapping, is NOT checked until explicit
+translation/completion is required by the user.
+
+WARNING: not yet implemented:
+   Boxes can be reshaped or rescaled from any
+corner, using the Edition:box:reshape/rescale
+functions. In the first case ports are
+projected orthogonally, while in the second case
+they keep proportions along the side of the box.
+Reshape may abort when ports would project outside 
+boundaries. 

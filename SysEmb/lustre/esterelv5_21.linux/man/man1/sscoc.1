@@ -1,0 +1,201 @@
+.TH sscoc 1 "10/08/98" "INRIA / CMA" "ESTEREL COMPILER"
+.SH NAME
+sscoc \- Esterel compiler to automata in \fBoc\fP format 
+and \fBoc\fP format optimizer \- Version v5_21
+.SH SYNOPSIS
+.B sscoc
+[options] file1 file2 ...
+.SH DESCRIPTION
+The \fBsscoc\fP processor of the Esterel compiler has two functions.
+First, it translates boolean equations in \fBssc\fP format into
+fully-expanded or single-state (with option \fB-mono\fP) automata in
+\fBoc\fP format. Second, if option \fB-O\fP is set, it optimizes the
+produced automata.
+
+\fBsscoc\fP reads one or more \fBssc\fP format or \fBoc\fP format
+input files
+and produces a single \fBoc\fP format output file.  If there is no
+input file, the standard input stream is read.  If no output file is
+specified (using \fB-B\fP or \fB-D\fP option) the standard output
+stream is used. Typical use is:
+.br
+.sp 0
+    sscoc < foo.ssc > foo.oc
+.sp 0
+or
+.sp 0
+    sscoc -mono foo.ssc -D /tmp
+.sp 0
+or
+.sp 0
+    sscoc foo.oc -B foo_opt -O
+.LP
+The following options are interpreted by \fBsscoc\fP. The order of
+theses options is not significative and they can even be placed after or
+between the names of the files to process. The following options
+control the automata optimization :
+.IP \fB-mono\fP 10
+This option tells the compiler to translate boolean equation systems
+in \fBssc\fP format into straight-line single-state \fBoc\fP format
+instead of computing the equivalent automata.
+.IP "\fB-O\fP, \fB-O\fP\fIn\fP, and \fB-Ono_dags\fP" 10
+Optimize the \fBoc\fP code produced. The list of optimizations
+performed by the processor may be selected with a combination of bits,
+with the following correspondence:
+.br
+.sp 0
+        bit 0 (value:  1): strip actions
+.br
+        bit 1 (value:  2): remove useless tests
+.br
+        bit 2 (value:  4): factorize tests
+.br
+        bit 3 (value:  8): reduce trees
+.br
+        bit 4 (value: 16): strip trees
+.br
+        bit 5 (value: 32): group actions
+.sp 0
+.br
+If \fIn\fP is not given, value 63 (i.e.: perform all optimizations) is
+assumed. The special value \fBno_dags\fP selects all optimizations
+which do not create any sub-dag, in order to still be able to use all
+tools working on plain automata (e.g.  \fBocmauto\fP).
+.br
+The meaning of each optimization is as follow:
+.RS
+.TP 8
+.B strip actions
+Optimize action table by removing duplicated actions. The
+source references of such actions are also removed.
+.TP
+.B remove useless tests
+Optimize action trees by replacing decision trees of the form "if A
+then B else B" by simply "B".
+.TP
+.B factorize tests
+For each test action, try to move up, before the test action, the
+actions which appear in both the then-part and the else-part of a
+test tree.
+.TP
+.B reduce trees
+Optimize action trees by replacing duplicated sub-trees by new trees.
+This option produces \fBoc\fP format which can not be read by
+\fBoc\fP processors working on plain automata.
+.TP
+.B strip trees
+Optimize action trees by replacing duplicate linear action trees by
+new actions.
+.TP
+.B group actions
+Group actions always following each other. Very useful in
+combination with option \fB-mono\fP.
+.RE
+
+.IP
+All optimizations are tried in the above order, but the user may
+changed this order with option \fB-reduce_first\fP (see below).
+Statistics on the optimization may be printed with option \fB-v2\fP
+(see below).
+.IP \fB-reduce_first\fP 10
+This option force the tree reduction to be made before the test
+factorization. Doing so is faster but may lead to a lesser
+optimization.
+.IP \fB-tree_overhead=\fP\fIn\fP 10
+Specify the number of integers (\fIn\fP) occupied by a new tree in the final
+code. This number of integers is:
+.br
+	[sizeof(tree overhead) / sizeof(integer)]
+.br
+where "sizeof(integer)" is the size of the object coding a tree element in the
+final code. This number is used to compute the minimum length of the redundant
+sub-trees which can be replaced when processing the \fB-O\fP option (see
+above). Default is 4.
+.IP \fB-action_overhead=\fIn\fP 10
+Specify the number of integers (\fIn\fP) occupied by a new action in the final
+code. This number of integers is:
+.br
+	[sizeof(action overhead) / sizeof(integer)]
+.br
+where "sizeof(integer)" is the size of the object coding a tree element in the
+final code. This number is used to compute the minimum length of the redundant
+sequence of actions which can be replaced when processing the \fB-O\fP
+option (see above). Default is 10.
+.IP \fB-no_after_dag_pragmas\fP 10
+Remove the lists of emitted local signals computed by the compiler and
+which are normally written after each state transition. This gives
+better optimization but removes some debugging information.
+.IP "\fB-v2\fP
+Full verbose option: print on the standard error stream statistics
+of the optimization (the number of actions or integers removed, the
+number of trees added, etc.). This options implies \fB-v\fP (see
+below).
+.PP
+The remaining options are common to all processors of the Esterel
+compiler :
+.IP "\fB\-B\fP \fIname\fP" 10
+\fIname\fP defines the output file base name.
+The suffix ".oc" is added automatically (and possibly a working directory
+name -- see the following option). If this option and the \fB-D\fP option
+are omitted, the standard output stream is used.
+Be careful not to give the output file the same directory and base
+names than those of an \fBoc\fP file to optimize !
+.IP "\fB\-D\fP \fIdirectory\fP" 10
+Specify  a directory where the output file will be placed.
+The default is the current directory. See \fB-B\fP option above.
+.IP "\fB-v\fP
+First verbose option: print on the standard error stream the name of
+each module as it is processed and whether it is compiled, optimized,
+or both.
+.IP "\fB-v2\fP
+Second verbose option: print on the standard error stream statistics
+of the optimization (the number of actions or integers removed, the
+number of trees added, etc.). This options implies \fB-v\fP.
+.IP \fB-size\fP 10
+Print automata size statistics on the standard error stream: the
+number of states, the number of actions and the number of action calls.
+.IP \fB-show\fP 10
+Display dynamically, on the standard error stream, the number of
+states generated and analyzed so far.
+.IP \fB-s\fP 10
+Silent mode. Perform compilation and/or optimizations but do not
+produce the output file.
+.IP "\fB-w\fP"
+Suppress all warning messages.
+.IP \fB-stat\fP 10
+Print statistics on the standard error stream: the parsing and
+compiling time and the process size (physical memory only).
+Implemented on BSD4x systems only.
+.IP \fB-version\fP 10
+Print the version name on the standard error stream and terminate,
+ignoring all other arguments.
+.IP \fB-access\fP 10
+Print processor protection information on the standard error stream
+and terminate, ignoring all other arguments.
+.IP \fB-info\fP 10
+Print various information about the compilation of the processor on
+the standard error stream and terminate, ignoring all other
+arguments.
+.SH BUGS
+The multiple emissions of single signals are not yet detected during
+the compilation of boolean equations into automata, even
+fully-expanded.
+
+Simulation information of single-state generated automata tells that
+all input signals are always awaited.
+
+Simulation of single-state generated automata can not check all
+expressions as they are in Esterel v3 compiler.
+
+Some statistics on optimization are not so informative as they could be.
+
+Please report all other bugs to the ESTEREL team.
+.SH "SEE ALSO"
+Esterel documentations.
+.br
+esterel(1), lcoc(1), lcsc(1), scssc(1), occ(1)
+.SH IDENTIFICATION
+Ecole des Mines de Paris (CMA) and INRIA.
+.br
+.sp 0
+Author: Frederic Mignard. Updated by Francois-Xavier Fornari.

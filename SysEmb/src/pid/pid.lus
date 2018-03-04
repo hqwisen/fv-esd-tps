@@ -1,0 +1,5 @@
+node output(u, w:real) returns (y:real);
+let
+    y = 20.0 -> 0.7 * pre(y) + 0.5 * u - w;
+tel;
+

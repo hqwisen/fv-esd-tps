@@ -1,0 +1,139 @@
+% The DISPLAY_HANDLER module for watch, stopwatch, alarm
+
+module DISPLAY :
+
+% For the main display:
+
+type MAIN_DISPLAY_TYPE;
+
+output MAIN_DISPLAY : MAIN_DISPLAY_TYPE;
+
+% For the mini display:
+
+type MINI_DISPLAY_TYPE;
+
+output MINI_DISPLAY : MINI_DISPLAY_TYPE;
+
+% For the alphabetic display:
+
+output ALPHABETIC_DISPLAY : string;
+
+% For display positions:
+
+type DISPLAY_POSITION;
+
+output START_ENHANCING : DISPLAY_POSITION,
+       STOP_ENHANCING : DISPLAY_POSITION;
+
+% To handle the watch:
+
+type WATCH_TIME_TYPE;
+function WATCH_TIME_TO_MAIN_DISPLAY (WATCH_TIME_TYPE) : MAIN_DISPLAY_TYPE,
+         WATCH_TIME_TO_MINI_DISPLAY (WATCH_TIME_TYPE) : MINI_DISPLAY_TYPE,
+         WATCH_DATE_TO_MINI_DISPLAY (WATCH_TIME_TYPE) : MINI_DISPLAY_TYPE,
+         WATCH_DAY_TO_ALPHABETIC_DISPLAY (WATCH_TIME_TYPE) : string;
+
+
+type WATCH_TIME_POSITION;
+function WATCH_DISPLAY_POSITION (WATCH_TIME_POSITION) : DISPLAY_POSITION;
+
+
+input WATCH_MODE_COMMAND;
+input WATCH_TIME : WATCH_TIME_TYPE;
+input WATCH_START_ENHANCING : WATCH_TIME_POSITION,
+      WATCH_STOP_ENHANCING : WATCH_TIME_POSITION;
+
+% To handle the stopwatch:
+
+type STOPWATCH_TIME_TYPE;
+function STOPWATCH_TIME_TO_MAIN_DISPLAY
+                                (STOPWATCH_TIME_TYPE) : MAIN_DISPLAY_TYPE;
+
+
+input STOPWATCH_MODE_COMMAND;
+input STOPWATCH_TIME : STOPWATCH_TIME_TYPE;
+
+% To handle the alarm:
+
+type ALARM_TIME_TYPE;
+function ALARM_TIME_TO_MAIN_DISPLAY (ALARM_TIME_TYPE) : MAIN_DISPLAY_TYPE;
+
+type ALARM_TIME_POSITION;
+function ALARM_DISPLAY_POSITION (ALARM_TIME_POSITION) : DISPLAY_POSITION;
+
+input ALARM_MODE_COMMAND;
+input ALARM_TIME : ALARM_TIME_TYPE;
+input ALARM_START_ENHANCING : ALARM_TIME_POSITION,
+      ALARM_STOP_ENHANCING : ALARM_TIME_POSITION;
+
+% Global input relations; the 3 modes are mutually incompatible:
+
+relation WATCH_MODE_COMMAND # STOPWATCH_MODE_COMMAND # ALARM_MODE_COMMAND; 
+
+% Body of DISPLAY_HANDLER
+
+loop
+
+   % In watch mode, the main display shows the regular time
+   % and the mini display shows the date
+
+   do       % upto STOPWATCH_MODE_COMMAND
+      loop
+         emit MAIN_DISPLAY (WATCH_TIME_TO_MAIN_DISPLAY (? WATCH_TIME));
+         emit MINI_DISPLAY (WATCH_DATE_TO_MINI_DISPLAY (? WATCH_TIME));
+         emit ALPHABETIC_DISPLAY
+                       (WATCH_DAY_TO_ALPHABETIC_DISPLAY (? WATCH_TIME))
+      each WATCH_TIME
+   ||
+      every WATCH_START_ENHANCING do
+         emit START_ENHANCING (WATCH_DISPLAY_POSITION 
+                                      (? WATCH_START_ENHANCING))
+      end
+   ||
+      every WATCH_STOP_ENHANCING do
+         emit STOP_ENHANCING (WATCH_DISPLAY_POSITION
+                                      (? WATCH_STOP_ENHANCING))
+      end
+   upto  STOPWATCH_MODE_COMMAND;
+
+   % Stopwatch and alarm modes
+
+   do       % upto  WATCH_MODE_COMMAND
+
+      % The mini display contains the regular watch time
+      loop
+         emit MINI_DISPLAY (WATCH_TIME_TO_MINI_DISPLAY (? WATCH_TIME))
+      each WATCH_TIME
+   ||
+      % Stopwatch mode
+
+      do
+         emit ALPHABETIC_DISPLAY("ST");
+         loop
+            emit MAIN_DISPLAY (STOPWATCH_TIME_TO_MAIN_DISPLAY
+                                               (? STOPWATCH_TIME))
+         each STOPWATCH_TIME
+      upto  ALARM_MODE_COMMAND;
+
+      % alarm mode
+      do
+         emit ALPHABETIC_DISPLAY ("AL");
+         loop
+            emit MAIN_DISPLAY (ALARM_TIME_TO_MAIN_DISPLAY (? ALARM_TIME))
+         each ALARM_TIME
+      ||
+         every ALARM_START_ENHANCING do
+            emit START_ENHANCING (ALARM_DISPLAY_POSITION
+                                             (? ALARM_START_ENHANCING))
+         end
+      ||
+         every  ALARM_STOP_ENHANCING do
+            emit STOP_ENHANCING (ALARM_DISPLAY_POSITION
+                                             (? ALARM_STOP_ENHANCING))
+         end
+      upto  WATCH_MODE_COMMAND % for easy extensibility!
+   upto  WATCH_MODE_COMMAND
+end loop
+end module
+
+

@@ -1,0 +1,37 @@
+General description :
+=====================
+
+   Autograph is a graphical front-end interface containing editor,
+object management and translator features for automata networks in the
+scope of process calculi theory.
+
+User interface :
+----------------
+   Edition functions are found in the menubar and applied to graphical
+area windows by mouse clicking. Dedicated text editors allow "semantic"
+labeling such as names of behaviours and communications. See relevant
+help on <Mouse Button>, <Windows> and further editing topics.
+
+Graphic Objects :
+-----------------
+   Known objects are boxes, ports (on them), vertices, edges and webs.
+Together they build automata networks. Objects can be labeled, and
+labels are further refined according to meaning, amongst four fields:
+structure, behaviour, logic, hook.
+
+Autograph offers classical features of graphical editors (create,
+move, delete, select on objects, cut-and-paste, alignment features, ...)
+and also some domain-specific functions. See further help on <ObjectsEdit>,
+<Placing> and <Attributes> for more details.
+
+Input/output formats :
+----------------------
+   Autograph uses a private graphical format, an exchange format for
+automata network descriptions, and postscript as an output.
+See help on <Files> for more precise presentation of file formats.
+
+Visualisation :
+---------------
+   Apart from graphical edition, Autograph is meant to display results
+ from verification tools. The current version supports only automaton
+ exploration in this regard. See help on <Placing:Exploration>.

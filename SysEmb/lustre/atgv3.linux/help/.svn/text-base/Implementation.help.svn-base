@@ -1,0 +1,12 @@
+Implementation :
+================
+
+  autograph is written in C++. The graphic is supported by the XWindow
+library (Xlib), the Intrinsics toolkit (Xt) and the Osf Motif widget
+library (Xm).
+
+   Xlib is the lowest level of programming interface in X and deal
+with the window drawing area. Xt is part of the X standard which
+defines routines for building and using widgets. Together OsfMotif and
+Xt provide menu and window environments (menubar, dialog boxes,
+scrolled window, window drawing area, ...).

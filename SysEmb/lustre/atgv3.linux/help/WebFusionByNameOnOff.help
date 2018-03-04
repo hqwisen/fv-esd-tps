@@ -1,0 +1,29 @@
+Web Fusion By Name Off/On :
+===========================
+
+  Network descriptions (via boxes and ports) are naturally meant to
+represent communicating hierarchies of processes. A "connection" is any set
+of ports belonging to sibling boxes and their "mother". At top-most level
+the mother box needs not exist. In spirit a communication will then
+comprise activity at every port taking part in the connection.
+
+  The actual connections are set by a mixture of graphical and textual
+references. The latter contains an alternative interpretation, and both
+solutions can be selected according to this flag option. 
+
+The general connection philosophy is as follows:
+
+  Ports of sibling boxes -and possibly mother box- that are collected as
+part of a web belong to the same connection. A direct edge between two
+ports is a useful shorhand for plain binary connection. This makes up for
+graphical connections.
+
+  Ports, webs (and their edge shorthand) may bear a 'simple' name. Names of
+ports are overridden by their belonging to a web. A connection that does not
+contain a port from the "mother" box can be linked to it by name identity.
+
+  The flag controls  whether such connections with the same name
+are kept separate amongst themselves (default value), or  contribute to the 
+same larger connection. As result, in the first case the outside
+behaviour is considered as obtained by any alternative connection amongst
+several possible, while in the second case they are inclusive.

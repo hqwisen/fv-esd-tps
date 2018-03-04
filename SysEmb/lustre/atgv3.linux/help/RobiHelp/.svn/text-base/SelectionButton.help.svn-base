@@ -1,0 +1,13 @@
+  Autograph allow objects selection (with the mouse right button),
+ or label selection (with the  <Label>:<Select> menu button).
+
+  Objects are (de)selected in a toggle fashion, either individually by clicking
+ on the object, or inside a rectangular zone defined by dragging the mouse.
+
+  Several menu functions will work on the selection as a whole when  applied
+ to any of its components (move, color or font changes, etc). Other functions
+ will only make sense when a selection is provided (alignments).
+
+
+
+

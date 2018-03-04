@@ -1,0 +1,203 @@
+.TH SSCBLIF L "01/12/98" INRIA-CMA
+
+
+.SH NAME
+sscblif \- Esterel  blif code producer for Esterel v5_21
+
+.SH SYNOPSIS
+.B sscblif [options] 
+.I file.ssc
+
+.SH DESCRIPTION
+The
+.B sscblif
+code producer takes as input a circuit described in 
+.I ssc 
+format (Sorted Soft Code Format) and translates it into a circuit
+described in 
+.I blif
+(Berkeley Logic Interchange Format). 
+When used without any options, 
+.B sscblif
+only translates circuits generated from Pure Esterel programs with
+possible counters.
+With \-soft option circuits from Full Esterel programs are accepted.
+The result is a circuit describing the control of the
+program. It may be used by the 
+.B blifssc
+processor to generate optimized
+.I ssc
+code.
+The produced circuits may be optimized (see option -O). In that case,
+.B sscblif
+calls
+.B blifopt-1.2.
+This program will call the optimizer 
+.B sis-1.2. 
+The user can use his/her own optimizer by setting the shell 
+.B SSCBLIF_OPT
+variable to the new program name. 
+.B sscblif
+will call this new one instead of
+.B blifopt-1.2. 
+The options must be the same.
+
+
+.SH OPTIONS
+.TP 8
+.B \-version
+Print the version name on the standard output stream and terminate,
+ignoring all other arguments.
+.TP 8
+.B \-access 
+Print various informations about the compilation of the processor on
+the standard output stream and terminate, ignoring all other arguments.
+.TP 8
+.B \-info     
+Print various  informations  about  the  processor
+compilation  on  the  standard error output stream
+and terminate, ignoring all other arguments.
+.TP 8
+.B \-s
+Silent mode. No output is generated.
+.TP 8
+.B \-v
+Verbose mode.
+.TP 8
+.BI \-B " name"
+.sp 0
+name denotes the output file base name, The suffix ".opt.blif" is added
+automatically. If this option and the \-D option are omitted, the name
+.I sscblif_out.opt.blif 
+is used. 
+.TP 8
+.BI \-D " directory"
+Specifies a directory where the output file(s) will be placed. The
+default is the current directory.
+.TP 8
+.B \-hierarchy
+Decompose the circuit into subcircuits. Use this option to
+optimize large circuits.
+.TP 8
+.B \-K
+Keeps intermediate files.
+.TP 8
+.B \-O
+Call the optimizer. Default optimizations improves speed of Pure
+Esterel programs and improves area in case of control extraction (see
+-soft option). Optimizations can be controlled with the following
+options:
+.RS 8
+.TP 8
+.B \-area
+Optimizes using area optimization.
+.TP 8
+.B \-h_speed
+Optimizes using speed optimization only.
+.TP 8
+.B \-speed
+Optimizes using speed optimization and performs technology mapping to Xilinx.
+.TP 8
+.B \-script 
+.I filename
+.br
+Specify to use the file
+.I filename
+as optimization script. The name of the script must be a full file
+name. See 
+.B sis(1) 
+for writing scripts.
+.RE
+.TP 8
+.B \-soft
+Specify to extract the control of the circuit.
+.TP 8
+.B \-makefile
+\fBsscblif\fR produces a makefile when optimization is run and deletes
+it unless the \-K option is specified. The \-makefile option allows to
+obtain this makefile without running the optimization.
+.TP 8
+.B \-w
+suppress any warning.
+.TP 8
+.B \-W
+print out any warning.
+
+
+
+.SH EXAMPLES
+If foo.ssc is generated from a Pure Esterel program, the command:
+.RS
+sscblif foo.ssc -B foo
+.RE
+produce the file foo.blif. If the original program contains static
+counters (ie counters with a known value at compile time, such as
+\fIawait 4 I\fR), then two files are produced:
+.TP 8
+.I foo.ctl.blif
+this file contains the program control.
+.TP 8
+.I foo.blif
+this is the main circuit that contains the description of the needed
+counters and the call to the program control circuit.
+.PP
+If foo.ssc is generated from a general Esterel program, then sscblif
+can only extracts the program control logic. It must be called as
+follows:
+.RS
+sscblif -soft foo.ssc
+.RE
+In this case, two files are generated:
+.TP 8
+.I foo.blif
+the actual circuit from the program control.
+.TP 8
+.I foo.ctbl
+this file describes the dependencies between the actions within the
+Esterel program and will be used when rebuild a .ssc file from a .blif
+file. See blifssc(1).
+.PP
+The command:
+.RS
+sscblif -O foo.ssc -B foo
+.RE
+will produce an optimized circuit always in the file foo.opt.blif.
+
+Finally, assuming that foo.ssc is generated from a Full Esterel
+program, the following command:
+.RS
+sscblif foo.ssc -B foo -soft -hierarchy -O -script /tmp/foo.script
+.RE
+will extract the control of the circuit and decompose it in
+sub-circuits. Each sub-circuit will be optimized using the
+user script /tmp/foo.script. 
+
+.SH BUGS
+\fBinputoutput\fR signals receive a special treatment since an
+\fBinputoutput\fR wire cannot be expressed in \fBblif\fR. Thus, for
+each \fBinputoutput\fR signal, say X, two wires are generated: one
+for the input and one for the output. The naming convention is as
+follow: the input wire is named \fBX_IO_I\fR while the output signal is
+named \fBX_IO_O\fR. Be careful to not already have  a signal with one
+of this name since no checks are performed.
+
+
+.SH FILES
+A make file is generated when optimizing. The base name of this file
+depends on the \-B option and its suffix is \.make. With \-soft option
+another file is generated with suffix \.ctbl. This file will be used
+by the
+.B blifssc
+processor. 
+
+
+.SH SEE ALSO
+The Esterel v5_21 Documentation.
+.br
+esterel(1), scssc(1), blifopt(1),
+sis(1), blifssc(1)
+
+.SH IDENTIFICATION
+Ecole des Mines de Paris (CMA) and INRIA.
+.br
+Author: Francois-Xavier Fornari.

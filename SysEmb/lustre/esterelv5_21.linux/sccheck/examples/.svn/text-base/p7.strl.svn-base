@@ -1,0 +1,14 @@
+% p7.strl 
+% from G. Berry's book
+% cyclic non-constructive
+
+module P7 :
+
+output O;
+
+present O then 
+   await tick 
+end;
+emit O
+
+end module

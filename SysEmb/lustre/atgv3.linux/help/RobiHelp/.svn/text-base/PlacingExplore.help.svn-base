@@ -1,0 +1,48 @@
+     Automata may be partially explored, specially
+when loaded from files produced by verification tools.
+
+     A vertex is "unexplored" when some of its outgoing
+transitions are missing on display. Unexplored vertice
+have specific graphical attributes.
+
+     How to explore a vertex:
+1- Select the Exploration:ExploreAutomata menu function.
+2- click inside a given unexplored vertex, keeping the
+   mouse button down, and drag to indicate a given
+   direction and length. 
+
+     New edges will be displayed "around" the given
+direction,with possibly new vertice being unfolded. 
+Exceptions are:
+Edges leading to already existing vertice globally
+point towards them.
+Self-loops are displayed in the opposite directions to
+other edges.
+
+     Superposed edges are allowed, but Autograph will
+try to the best of its knowledge not to superpose two
+edges of OPPOSITE directions in between objects.
+
+     Vertice may also be explored BACKWARDS, with the
+Exploration:BackExploreAutomata menu function. A vertex
+does NOT indicate whether it is fully backward explored.
+
+     Vertice and edges can also be folded back, using
+the Explore:Unexplore menu function. Then clicking 
+indistinctly on vertice and edges will fold them back
+out of display, to the extension that a connected part
+cannot be fully removed from display (it could not be
+retrieved later on).
+
+     Automatic placement is also possible, through
+the Explore:Spring menu function. Click inside a given
+vertex afterwards. As a result a new window is popped up,
+containing an automatically placed version of the
+automaton comprising this vertex. The function uses an
+independant software tool, used courtesy of the LRI
+(Paris 11 University, Orsay, France). See help:copyright
+for details.
+
+WARNING: Exploration of networks other than automata
+         is not yet implemented.
+

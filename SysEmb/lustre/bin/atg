@@ -1,0 +1,18 @@
+#!/bin/sh 
+
+#
+# autograph launcher adapted for the Lustre installation
+# 
+# - binaries and resources must be in the lustre-install
+# - this script must be somewhere in the PATH (e.g. lustre bin dir)
+# - a hack to allow execution through ssh -X
+
+DIR=$LUSTRE_INSTALL/atgv3.linux
+DISP=`echo $DISPLAY | sed -e "s/^localhost:/127.0.0.1:/"`
+
+PATH=$DIR:$PATH \
+XENVIRONMENT=$DIR/Atg \
+XKEYSYMDB=$DIR/XKeysymDB \
+ATG_HELP_DIR=$DIR/help \
+DISPLAY=$DISP \
+$DIR/atgbinary $*

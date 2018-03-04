@@ -1,0 +1,126 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title></title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body>
+<table border="0" width="100%" cellspacing="0" cellpadding="3">
+<tr><td class="_podblock_" style="background-color: #cccccc; color: #000" valign="middle">
+<big><strong><span class="_podblock_">&nbsp;</span></strong></big>
+</td></tr>
+</table>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a>
+    <ul>
+      <li><a href="#Main-window">Main window</a></li>
+      <li><a href="#Property-editor">Property editor</a></li>
+      <li><a href="#Correct-lustre-expressions">Correct lustre expressions</a></li>
+      <li><a href="#Imported-nodes">Imported nodes</a></li>
+      <li><a href="#Prover-launcher">Prover launcher</a></li>
+      <li><a href="#Saving-and-loading-the-session">Saving and loading the session</a></li>
+    </ul>
+  </li>
+  <li><a href="#ENVIRONMENT">ENVIRONMENT</a></li>
+  <li><a href="#SEE-ALSO">SEE ALSO</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>xlesar - graphical proof manager for lustre</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<p>xlesar</p>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>This tool is a graphical interface to the lustre verification tool <b>ecverif</b>.</p>
+
+<p>More precisely, this tool allows the user to manage a set of properties for a given lustre program. Each property can be edited, annotated, completed with local assumptions. A window allows the user to select the desired options and to launch the prover <b>ecexe</b>.</p>
+
+<h2 id="Main-window">Main window</h2>
+
+<p>The main window allows the user to select a main program and a main node within this program. Once selected, the lists of inputs and outputs are displayed and the user can define properties involving those variables.</p>
+
+<p>The property manager is part of the main window: the user can create, delete and edit properties.</p>
+
+<h2 id="Property-editor">Property editor</h2>
+
+<p>In the main window, one must select a property (by clicking in the properties list) and launch a property editor by clicking <b>Edit</b>. In the property editor window, the user can:</p>
+
+<ul>
+
+<li><p>edit the property name</p>
+
+</li>
+<li><p>define the property, by typing a correct Lutre Boolean expression (see below for details).</p>
+
+</li>
+<li><p>declare a local input (menu <b>Edit</b>, field <b>New input</b>). A local input behaves as a &quot;random&quot; value in the proofs.</p>
+
+</li>
+<li><p>declare and define a local variable (menu <b>Edit</b>, field <b>New variable</b>).</p>
+
+</li>
+<li><p>define a local assertion (menu <b>Edit</b>, field <b>New assertion</b>). The assertion must be a correct Boolean lustre expression.</p>
+
+</li>
+<li><p>write a description of the property. The command <b>Show description</b> from the <b>Edit</b> menu opens a text editor where the user can type his description.</p>
+
+</li>
+</ul>
+
+<h2 id="Correct-lustre-expressions">Correct lustre expressions</h2>
+
+<p>Each lustre expression entered in <b>xlesar</b> is checked for consistency before the prover is launched. Such an expression must be syntactically correct, but <b>xlesar</b> also checks type and the identifier consistency. Every identifier appearing in the expression must exists in the current context. A valid identifier is:</p>
+
+<ul>
+
+<li><p>any global input or output (those from the main node, if it exists).</p>
+
+</li>
+<li><p>any local input or variable that is currently enabled.</p>
+
+</li>
+</ul>
+
+<h2 id="Imported-nodes">Imported nodes</h2>
+
+<p>The tool does not allow the user to define complex objects like nodes. In order to use a node call in the definition of a property (resp. assertion, local variable), the user must <i>import</i> its definition (main window menu <b>Import</b>, menu <b>Files</b>, command <b>Load file</b>). Once loaded, the imported file is parsed by xlesar to find and display all the nodes declaration. From this moment on, the user will be able to use those nodes in the property (resp. assertion or variable) definitions.</p>
+
+<h2 id="Prover-launcher">Prover launcher</h2>
+
+<p>A prover launcher is displayed in the property editor window. This launcher allows the user to select the options and run the proof. It also display the current status of the property (checked, not checked or unknown). When the prover is running, all messages are &quot;echoed&quot; in the window, and the user may kill the proof process by pushing the <b>Stop</b> button.</p>
+
+<h2 id="Saving-and-loading-the-session">Saving and loading the session</h2>
+
+<p>A xlesar session is called a <i>project</i> (extension <b>.lesar</b>). The user may save, load or restart a project via the <b>Files</b> menu in the main window.</p>
+
+<h1 id="ENVIRONMENT">ENVIRONMENT</h1>
+
+<p>The environement variable <b>LUSTRE_INSTALL</b> must exist and hold the path of the lustre v4 distribution.</p>
+
+<h1 id="SEE-ALSO">SEE ALSO</h1>
+
+<p>lustre, lus2ec, ecexe, luciole, simec, lus2oc, ec2oc, ocmin, lus2atg, oc2atg, ec2c, poc, lux, lesar, ecverif, xlesar</p>
+
+<table border="0" width="100%" cellspacing="0" cellpadding="3">
+<tr><td class="_podblock_" style="background-color: #cccccc; color: #000" valign="middle">
+<big><strong><span class="_podblock_">&nbsp;</span></strong></big>
+</td></tr>
+</table>
+
+</body>
+
+</html>
+
+

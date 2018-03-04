@@ -1,0 +1,17 @@
+    Autograph is a stand-alone executable file.
+Only auxiliary files are help files and resource
+files.
+
+    Help files contain the text that will be 
+printed as help information. They can be edited
+and changed to better suit a user.
+Help files are looked for in a specific directory
+provided as a X11 resource.
+
+   Resource file contain all user-defineable
+parameters of the system. A default file is
+provided as "Atg", to be installed as 
+/usr/lib/X11/app-defaults/Atg
+for instance. In case of doubt ask your local
+X11 wizard.
+

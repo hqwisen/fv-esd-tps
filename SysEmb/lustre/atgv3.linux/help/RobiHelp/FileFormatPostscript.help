@@ -1,0 +1,8 @@
+ Autograph produces Postscript output, with a slightly more polished
+look than on screen (due to spline mostly). Fonts used in Postscript
+may differ from the ones on screen, so resources must provide both
+wherever needed. Postscript fonts sizes are not guaranteed to match
+screen sizes.
+
+WARNING: Color Postscript is not implemented. Postscript files may NOT
+be read back into Autograph.

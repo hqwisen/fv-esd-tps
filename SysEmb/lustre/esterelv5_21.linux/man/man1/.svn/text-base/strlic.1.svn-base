@@ -1,0 +1,77 @@
+.TH strlic 1 "24/03/1998" "INRIA / CMA" "ESTEREL COMPILER"
+.SH NAME
+strlic \- Esterel parser \- Version v5_21
+.SH SYNOPSIS
+.B strlic
+[options] file ...
+.SH DESCRIPTION
+\fBstrlic\fR is the Esterel parser, type-checker and intermediate code
+generator. It is normally called via the \fBesterel\fR command. It 
+can also be called directly by the user if necessary.
+.PP
+The \fBstrlic\fR processor
+checks the Esterel input programs for syntax and type
+errors. It produces an \fBic\fP format output. If no input file is specified,
+standard input is used. Output is produced only for valid input files,
+i.e., files that did not generate any error. Warnings do not forbid code
+generation.
+Error messages and warnings are written to the standard error stream.
+Typical use is: 
+.sp
+.RS
+.B strlic < game1.strl > game.ic
+.RE
+.sp
+or 
+.sp
+.RS
+.B strlic game1.strl game2.strl > game.ic
+.RE
+.SH OPTIONS
+The following options are interpreted by \fBstrlic\fP:
+.IP \fB-v\fP 10
+Verbose mode. Print on the standard error stream the different steps of the
+process: parsing, type-checking, and code generation for each
+module.
+.IP \fB-s\fP 10
+Silent mode: perform parsing and
+type-checking but do not generate the \fBic\fP code.
+.IP \fB-w\fP 10
+Suppress all warning messages.
+.IP \fB-W\fP 10
+Display all warning messages (the default is to display only
+potentially harmful warnings).
+.IP \fB-stat\fP 10
+Print statistics on the standard error stream: 
+parsing, type-checking and coding times as well as process size.
+.IP \fB-p1\fP 10
+Generate an unary parallel for each local signal (mandatory in the
+Esterel v4 compilation chain).
+.IP \fB-shared_var\fP 10
+Allow the use of shared variables. A shared variable will produce a
+minor warning.
+.IP \fB-v3\fP 10
+V3 mode: in this mode, boolean signal expressions are translated into
+several present instructions.
+.IP \fB-version\fP 10
+Print the version name on the standard error output stream
+and terminate ignoring all other arguments.
+.IP \fB-access\fP 10
+Print access rights to the processor on the standard error output
+stream and terminate, ignoring all other arguments.
+.IP \fB-info\fP 10
+Print various informations about the processor compilation on the
+standard error output stream and terminate, ignoring all other arguments.
+.SH DIAGNOSTICS
+The diagnostics produced by \fBstrlic\fP compiler are intended 
+to be self-explanatory.
+.SH "SEE ALSO"
+Esterel documentations.
+.br
+esterel(1), iclc(1)
+.SH IDENTIFICATION
+Ecole des Mines de Paris (CMA) and INRIA Sophia-Antipolis.
+.br
+Written by Raphael Bernhard. Updated by Jean-Pierre Paris,
+Francois-Xavier Fornari.
+

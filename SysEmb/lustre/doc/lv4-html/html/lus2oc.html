@@ -1,0 +1,254 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title></title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body>
+<table border="0" width="100%" cellspacing="0" cellpadding="3">
+<tr><td class="_podblock_" style="background-color: #cccccc; color: #000" valign="middle">
+<big><strong><span class="_podblock_">&nbsp;</span></strong></big>
+</td></tr>
+</table>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a>
+    <ul>
+      <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+    </ul>
+  </li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+  <li><a href="#OPTIONS">OPTIONS</a>
+    <ul>
+      <li><a href="#Miscellaneous">Miscellaneous</a></li>
+      <li><a href="#Static-optimization">Static optimization</a></li>
+      <li><a href="#Output-format">Output format</a></li>
+      <li><a href="#Automaton">Automaton</a></li>
+      <li><a href="#Bdds">Bdds</a></li>
+    </ul>
+  </li>
+  <li><a href="#SEE-ALSO">SEE ALSO</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>lus2oc, ec2oc - lustre to Lustre/Esterel Object Code</p>
+
+<h2 id="SYNOPSIS">SYNOPSIS</h2>
+
+<p><b>lus2oc</b> <i>file</i><b>.lus</b> <b>node</b> [<b>options</b>]</p>
+
+<p><b>ec2oc</b> <i>file</i><b>.ec</b> [<b>options</b>]</p>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>The <b>lus2oc</b> command requires a file and a main node; it first calls <b>lus2ec</b> to build the corresponding expanded code, then calls <b>ec2oc</b> with all remaining options.</p>
+
+<p>The <b>ec2oc</b> command builds a sequential program structured as an automaton. Several options allow the user to adjust the automaton generation. The default target format is <i>oc version 5</i>, but the version 2 is still supported, for compatibility with old tools. The default is to write the result in the file &quot;<code>node.oc</code>&quot;.</p>
+
+<h1 id="OPTIONS">OPTIONS</h1>
+
+<h2 id="Miscellaneous">Miscellaneous</h2>
+
+<dl>
+
+<dt id="v"><b>-v</b></dt>
+<dd>
+
+<p>set the verbose mode.</p>
+
+</dd>
+<dt id="help"><b>-help</b></dt>
+<dd>
+
+<p>print available options.</p>
+
+</dd>
+<dt id="default"><b>-default</b></dt>
+<dd>
+
+<p>print default options.</p>
+
+</dd>
+<dt id="o-file.oc"><b>-o</b> <i>file</i><b>.oc</b></dt>
+<dd>
+
+<p>define the output file.</p>
+
+</dd>
+<dt id="pure"><b>-pure</b></dt>
+<dd>
+
+<p>implement Boolean inputs/outputs with &quot;pure&quot; signal (i.e. side-effects). The default is to implement Boolean inputs/outputs with &quot;classic&quot; variables, just like integer or reals.</p>
+
+</dd>
+<dt id="double"><b>-double</b></dt>
+<dd>
+
+<p>implement the lustre type <b>real</b> with the target type <b>double</b> (the default target type is <b>float</b>).</p>
+
+</dd>
+</dl>
+
+<h2 id="Static-optimization">Static optimization</h2>
+
+<dl>
+
+<dt id="min"><b>-min</b></dt>
+<dd>
+
+<p>(default) the initial operator network is minimized before code generation. This minimization is a kind of &quot;common sub-expression checking&quot; except that the network may contain cycles; as a consequence this phase can be expensive, so the user can disable it (cf. <b>-nomin</b>).</p>
+
+</dd>
+<dt id="nomin"><b>-nomin</b></dt>
+<dd>
+
+<p>disable the minimization of the operator network (cf. <b>-min</b>).</p>
+
+</dd>
+<dt id="const"><b>-const</b></dt>
+<dd>
+
+<p>perform static computation of constant expressions.</p>
+
+</dd>
+</dl>
+
+<h2 id="Output-format">Output format</h2>
+
+<dl>
+
+<dt id="oc2"><b>-oc2</b></dt>
+<dd>
+
+<p>generate an <i>oc V2</i> file.</p>
+
+</dd>
+<dt id="oc5"><b>-oc5</b></dt>
+<dd>
+
+<p>(default) generate an <i>oc V5</i> file.</p>
+
+</dd>
+</dl>
+
+<h2 id="Automaton">Automaton</h2>
+
+<p>The main control structure is an automaton, obtained by static simulation of the Boolean variables (called state variables). The user can select the set of state variables:</p>
+
+<dl>
+
+<dt id="pod-0"><b>-0</b></dt>
+<dd>
+
+<p>no state variable; the resulting automaton has only one state. This mode is not supported if the source program contains clocks.</p>
+
+</dd>
+<dt id="pod-1"><b>-1</b></dt>
+<dd>
+
+<p>only clocks are simulated. For single-clocked program, the resulting automaton has always 2 states (the initial one and the non-initial one).</p>
+
+</dd>
+<dt id="pod-2"><b>-2</b></dt>
+<dd>
+
+<p>(default) all Boolean variables are simulated; the resulting program is the &quot;fastest&quot; code that can be generated, but unfortunately its size may be exponentially greater that the source code one. It it advisable to use the <b>-v</b> option, in order to stop the compilation if the automaton size grows too much.</p>
+
+</dd>
+</dl>
+
+<p>The user may choose between two algorithms for the generation:</p>
+
+<dl>
+
+<dt id="data"><b>-data</b></dt>
+<dd>
+
+<p>(default) the data-driven algorithm simulates the Boolean variables without taking into account their actual influence on the outputs. The resulting automaton is in general non-minimal according to the output computation.</p>
+
+</dd>
+<dt id="states-integer"><b>-states</b> <i>integer</i></dt>
+<dd>
+
+<p>works in data-driven mode. The generation stops after the specified number of states (default 10000). This limit avoids the generation of too huge code.</p>
+
+</dd>
+<dt id="demand"><b>-demand</b></dt>
+<dd>
+
+<p>the demand-driven algorithm builds a automaton just &quot;big&quot; enough to perform the computation of the outputs. Using this option is quite equivalent to perform a standard minimization on the automaton produced by the data-driven algorithm.</p>
+
+</dd>
+</dl>
+
+<p>The user can select the way conditional statements are treated:</p>
+
+<dl>
+
+<dt id="S1"><b>-S1</b></dt>
+<dd>
+
+<p>forbid code duplication, i.e. tests are closed as soon as possible.</p>
+
+</dd>
+<dt id="S2"><b>-S2</b></dt>
+<dd>
+
+<p>(default) use an heuristic for opening/closing tests; it forbids duplication of &quot;big&quot; parts of code.</p>
+
+</dd>
+<dt id="S3"><b>-S3</b></dt>
+<dd>
+
+<p>forbid test duplication, i.e. tests are closed only when they are no longer needed.</p>
+
+</dd>
+<dt id="S4"><b>-S4</b></dt>
+<dd>
+
+<p>forbid test closing; this option is the worst one in term of code size, but it can be very useful for analysing the program (see in particular <b>lus2atg</b>).</p>
+
+</dd>
+</dl>
+
+<h2 id="Bdds">Bdds</h2>
+
+<p>The bdd (binary decision diagrams) library is one of the most critical (time and space cost) part of the compiler. The user may change some parameters in order to improve compilation time.</p>
+
+<dl>
+
+<dt id="merge"><b>-merge</b></dt>
+<dd>
+
+<p>perform a &quot;clever&quot; variable ordering before building bdds; this option is sometimes useful when the state generation step cannot even start.</p>
+
+</dd>
+<dt id="bddpage-integer"><b>-bddpage</b> <i>integer</i></dt>
+<dd>
+
+<p>the space devoted to bdds is allocated by pages. Before allocating new pages, the program first performs garbage collection; for big programs, frequent garbage collection may dramatically slow down the compilation, so the user may increase the size of pages, expressed in kilo-unit (default 10).</p>
+
+</dd>
+</dl>
+
+<h1 id="SEE-ALSO">SEE ALSO</h1>
+
+<p>lustre, lus2ec, ecexe, luciole, simec, lus2oc, ec2oc, ocmin, lus2atg, oc2atg, ec2c, poc, lux, lesar, ecverif, xlesar</p>
+
+<table border="0" width="100%" cellspacing="0" cellpadding="3">
+<tr><td class="_podblock_" style="background-color: #cccccc; color: #000" valign="middle">
+<big><strong><span class="_podblock_">&nbsp;</span></strong></big>
+</td></tr>
+</table>
+
+</body>
+
+</html>
+
+

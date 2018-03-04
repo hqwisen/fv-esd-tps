@@ -1,0 +1,6 @@
+  Drawings are translated into Fc2 format, provided they fulfill
+coherency requirements. Possible incorrections are spotted graphically
+using the <Window>:<check coherency> menu button.
+
+WARNING: Translation into Fc2 format is not implemented in this
+version of autograph

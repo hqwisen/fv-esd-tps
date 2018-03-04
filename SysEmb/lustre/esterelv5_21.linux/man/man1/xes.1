@@ -1,0 +1,664 @@
+.TH XES 1 "23MAR99" "INRIA / CMA" "ESTEREL COMPILER"
+.SH NAME
+xes \- X Esterel Simulator \- Version v5_21
+.SH SYNOPSIS
+.B xes 
+object_list
+.br
+.B xes 
+[options] object_list -o \fIsimulator\fP 
+.br
+.B xes 
+[options] \fIsimulator.exe\fP
+
+
+.SH DESCRIPTION
+.B xes
+is a graphic tool  
+which supports interactive mouse-based simulation and source code symbolic 
+debugging of Esterel programs.
+
+.B xes
+is both a linker and a launcher, and for this reason,
+admits  different syntaxes.
+
+The simplest  syntax is when launching the simulation of 
+a Esterel to C generated code, as in this example:
+
+.br
+\fBesterel -simul\fP myprog.strl
+.br
+\fBcc -c \fP 
+myprog.c
+.br
+.B xes
+myprog.o
+
+This syntax may be more complicated, and you can keep for further run
+your own executable simulator. You must provide the basename
+of the simulator and the resulting file will be added the suffix 
+.I .exe, 
+as in this example:
+
+\fBesterel -simul\fP myprog.strl
+.br
+\fBcc -c \fP 
+myprog.c othercode.c
+.br
+.B xes
+myprog.o othercode.o -o foo
+.br
+.B xes
+foo.exe
+
+.B Warning:
+the Esterel code must be compiled with the 
+.B -simul
+option.
+
+.SH OBJECT LIST
+The object list argument of the
+.B xes 
+command is a list of object code files obtained by a C-compilation 
+of the C-generated automaton and the
+user-defined functions (see the 
+.B csimul 
+standard documentation for those).
+The .o suffixes are optional.
+
+.SH OPTIONS
+.IP \fB\-help\fP 20
+prints a usage message.
+.IP \fB\-version\fI 
+display xes current version number.
+.IP \fB\-info\fI 
+display xes characteristics.
+.IP \fB\-access\fI 
+display xes access rights.
+.IP \fB\-display\fI\ display\fP 20
+specifies the X display.
+.IP \fB\-geometry\fI\ geometry\fP 20
+specifies main panel position.
+.IP \fB\-D\fI\ directory\fP 20
+specifies the source directory of Esterel programs (default to the
+current working directory).
+.IP \fB\-script\fI\ res_file\fP 20
+allows to customize the aspect resources (fonts, colors). See section
+RESOURCES.
+.IP \fB\-ns\fI
+no source flag: disable source debugging.
+.IP \fB\-np\fI
+no parse flag: disable source additionnal parsing.
+.IP \fB\-ki\fP 20
+runs the simulator in Keep Inputs mode, (default: Not Keep Inputs);
+see SIMULATOR INPUT AND OUTPUT below.
+.IP \fB\-o\fI\ name\fP 20
+the executable simulator is kept after simulation in the 
+file 
+.I name.exe
+.br 
+WARNING: to avoid confusion with the remaining object files arguments,
+the optionnal filename  must be separated by a comma from the 
+.B
+-o
+option.
+
+
+
+
+.\" START OF TEXT TO EXTRACT
+.SH BASIC SIMULATOR INPUT AND OUTPUT
+.br
+The simulation main panel is used to drive the simulation.
+It splits into zones  
+corresponding to the Esterel interface objects: input signals,
+sensors, output signals,  and execs. 
+
+A simulation step consists in selecting some input signals
+and sending a tick to the Esterel program.
+Clicking an input signal button preselects the signal as present
+for the tick. Clicking again unselects the input. 
+Therefore, input signals are absent by default. This may be changed by
+using the switches on the left of the signal names. See the "High/Low
+Inputs" entry in the "Commands" menu.
+Values of valued input signals or sensors are specified in the
+associated value editor, with commands a la emacs.
+Clicking the "tick"
+bar provokes an Esterel tick with the selected inputs. 
+The output signals emitted by the Esterel program are shown in red.
+
+WARNING: changing  the  value of an input signal does not mean
+that this signal is currently selected. This must be done by clicking
+on the signal's name.
+
+Double-clicking on
+an input is equivalent to selecting the input and sending a tick (the
+"autosend" mode of previous xes versions has disappeared in favor 
+of double-click).
+
+An input event can be incorrect if an input value is missing or has   
+the wrong type, or if an input relation is not satisfied. In
+that case, an error message pops up and  the  event  is  not
+transmitted  to the automaton; the simulation can be resumed
+from the current state by acknowledging the message
+and building a correct input event.
+
+Clicking the Reset button in the main panel
+brings the Esterel program back to its initial state.
+Variables and signals are  reset to uninitialized or 
+to their initial values.
+
+By default, when a transition  has been performed, 
+all inputs become unselected.
+Previously selected inputs remain selected for the next tick
+if the "Keep Inputs" mode is set. This can be done by selecting Keep
+Inputs in the Commands menu. Keep Inputs can be specified as the
+default by the 
+.B -ki
+option of the
+.B xes
+command.
+
+In case of an access to an uninitialized 
+variable during a transition, an error message pops up.  The simulation
+must  be reset since it is impossible in the current version of 
+.B xes
+to resume to the previous state. Beware of uninitialized
+sensors and signals.
+
+.SH EXECS
+
+An exec statement generates an input/output zone
+containing the task name label, two
+argument zones, and the possibly valued associated return signal.
+
+If a task is started by the current transition 
+a red flag is shown before its name. The task name remains red while
+the task is active, and turns orange if the task has been suspended.
+The flag turns black if the task
+is killed. If the task is killed and restarted instantaneously by a loop, 
+the flag is red/black.
+
+The arguments of the task are displayed as two 
+pairs of parentheses which respectively represent
+the reference argument list and
+the value argument list.
+Clicking on the first pair of parentheses of an active task pops up
+the names and current values of the reference arguments.
+Clicking on the second pair of parentheses of an active task pops up
+the values of the value arguments.
+
+An external task is entirely controlled by the user who supplies
+the return signal, its value if valued, and the side-effects to the
+reference arguments.
+To simulate the return of an active task, 
+first edit the returned value if there is one, and 
+click on the
+return button.
+If there are reference arguments,
+an editing window pops up that lets you specify the returned 
+reference values.
+
+Double click is not usable for return signals if there are reference
+arguments.
+
+.SH THE MAIN PANEL MENUS
+
+The three left menus (Commands, Fonts, and Windows)  
+are pulled down with  Mouse  Button  1.
+They can be torn off by clicking on the
+first dashed line separator.
+
+The Commands menu has the following items:
+
+.IP \fBSignal\ Browser\fP 5
+When selected, this checkbutton enables the signal browsing facility.
+See special section SIGNAL BROWSING.
+
+.IP \fBHigh/Low\ Inputs\fP 5
+This checkbutton enables the switches on the left of
+the input signals names in the mainpanel. When enabled, these switches 
+allow to  
+select the default reset status of an input signal (present/absent).
+By default, this status is absent. 
+If the switch of an input signal is up,
+the default status of this signal is present.
+
+.IP \fBKeep\ Inputs\fP 5
+If this toggle is false, which is the default,  selected  inputs
+are  unselected  after a tick.
+If true, selected inputs remain selected for  the  next
+tick.  It can  be  initialized to true by the command
+line option \fB-ki\fP.
+
+.IP \fBClear\ Inputs\fP 5
+Reset all preselected inputs to their default status (absent for
+the next event).
+
+.IP \fBRemove\ Breakpoints\fP 5
+Removes all breakpoints, see SYMBOLIC DEBUGGING below.
+
+.IP \fBRecorder\ \fP 5
+This button pops up a tape player/recorder allowing 
+Esterel session saving and playback.
+See special section RECORDER.
+
+.IP \fBQuit\ \fP 5
+Ends the simulation.
+
+.IP "" 0
+The Fonts menu  allows the  control of global font sizes.
+
+Separate control is given on the font size of the panels 
+(main panel, locals, traps, variables), 
+and on the font size of the source windows.
+
+A local font size control is also available on each
+source window.
+
+.IP "" 0
+The Windows menu controls the other simulation windows.
+
+.IP \fBProgram\ Tree\fP 5
+Display the whole tree of the main module and sub-modules of the Esterel
+program. The source code of a
+sub-module can be popped up by clicking its name in the tree.
+During the simulation, a module name is displayed in red
+if the module is currently active, in blue otherwise.
+See SYMBOLIC DEBUGGING below.
+
+.IP \fBLocals\fP 5
+Pops  up a window containing the local signals,  which  are
+shown in red when emitted in the last tick.
+The same information is available on the  source
+code, see SYMBOLIC DEBUGGING below.
+
+.IP \fBTraps\fP 5
+Pops  up a window containing the trap names,  which  are
+shown in red when exited in the last tick.
+The same information is available on the  source
+code, see SYMBOLIC DEBUGGING below.
+
+.IP \fBVariables\fP 5
+Pops a window containing the  variable  names and values.
+The same information is available on the  source
+code, see SYMBOLIC DEBUGGING below.
+
+.IP \fBSource\ Windows\fP 5
+The last items of the Windows menu are the names of current source
+file windows, see SYMBOLIC DEBUGGING below.
+
+.SH SYMBOLIC DEBUGGING
+.br
+
+At startup,
+.B xes
+looks for
+the source code of the Esterel program in a source directory 
+which can be specified at shell command level by 
+the \fB-D\fP source directory option 
+(default: the current working directory).
+If source code is not found in the assumed directory,
+the user is prompted for the correct pathname of the source location.
+If still no source is found, source debugging cannot be performed.
+If the source files are  found, the  code of the main
+module  pops up in a window whose name is added to the
+main panel Windows menu.
+
+Submodules
+appear in separate windows, either when clicking on their "run"  or
+"copymodule" statement in their father's source window,
+or by clicking on the module name in the Program Tree window.
+When a source window pops up for the first time, its name is added to 
+the main panel Windows menu.
+If  a single submodule is run several
+times, its instances are distinct in the tree
+and they will appear in  distinct  windows.   
+
+The Father button in a source window menubar pops the father's module
+source code. The MainPanel button pops the main panel. This is useful 
+when the main panel is lost under source windows.
+
+Closing a source window using its Close button removes the window from
+the screen, but not from the source window list. It can be recovered
+from there.
+
+Colors  are used to  decorate  the  source
+code,  and  some  keywords  also  appear underlined. Colored
+items are selectable by the mouse, the effect depending on  the type of
+object.
+
+The declaration point of a signal appears  in  blue  if  the
+signal  was  absent in the last
+reaction and in red if the signal was present.  In  either  case,
+clicking  on the signal name pops the current signal value.
+Notice that interface signals of  copied  submodules  remain
+black: these are not real objects since they are replaced by
+actual signals in the father module.
+
+Variables appear in blue at their declaration  point.  Clicking
+on  a variable pops its value.  Similarly, count expressions
+appearing in event occurrences (e,g., await 5 S) or  in  repeat loops  appear
+blue and their values can be viewed by clicking on them.
+
+Keywords of statement that contain a haltpoint
+appear  in  blue  or  red.  They  are "halt", "upto",
+"await", "every",  "each",  and "when" in
+"when immediate".  They
+appear  in  red  if  the  previous  reaction  has precisely
+stopped at that point. For example, "await S" is red exactly
+when  one  is  waiting  for S there.  An "upto", "every", or
+"each" statement is red if and only  if  its  body  is  terminated;  
+one is then simply waiting for the corresponding event.
+Since Esterel is a  parallel  language,  several  concurrent
+haltpoints can be red at the same time.
+
+All statements that involve a watching guard are  underlined  
+in  blue  or  red.  These  statements are "watching",
+"upto", "every", "each", and "when".  The keyword is underlined
+in red  if  the  guard is currently active, i.e. if there is an
+active (red) control point in the statements's body.
+
+.SH BREAKPOINTS
+
+Clicking on a haltpoint sets or removes  a
+breakpoint. Breakpoints set are shown using a grey background
+on the first character.
+When the program reaches a breakpoint the whole word of the haltpoint
+is shown on a grey background, and an
+alert pops up. Simulation is
+continued by pressing the "OK" button.  
+
+To remove a single breakpoint, click on it.
+To remove all breakpoints in a module instance,  click
+on  the  "Remove"  button in the   Breakpoints menu 
+of  its source window. 
+To remove recursively all breakpoints in the sub-tree of a module
+instance,  
+click
+on  the  "Remove recursively"  button in the   Breakpoints menu 
+of  its source window. 
+To remove all breakpoints in the whole program, click  on
+Remove Breakpoints in the main panel Commands menu.
+
+Breakpoints information is also reported in the program tree, see
+"Program Tree" section below.
+
+.SH SYMBOLIC DEBUGGING IN -I INTERPRETATION MODE
+
+When a program is compiled with the -I constructive interpretation
+option, some source keywords are shown with a green background.
+They correspond to the statements executed in the previous tick. 
+This control path 
+feature allows you to find out what the Esterel program actually
+did in the tick. 
+
+Red foreground and green background can coexist.
+For example, consider the program "await I; emit O". At first tick,
+the "await" keyword appears in red on green background, since the
+halt statement implicit in the await statement has been executed (green)
+and control has stopped on it (red).
+At second tick, if
+I is not set, 
+the "await" keyword remains in red over green: the green background
+tells that the implicit test for I
+has been performed, the red foreground tells that
+control stays in the await statement.
+If, instead, I is set at second tick,
+the "await" keyword appears in blue over green: 
+the test contained in the await statement has been performed (green), but the
+await statement has been exited (blue); 
+in that case, the "emit" keyword also has a
+green background since emission of O is executed.
+
+Green backgrounds are inherited in the tree window:
+a module instance name is shown on a green background
+in the tree  if there exist
+green nets in the corresponding source window (things may be 
+a little more complicated, see also CAUSALITY
+ERRORS next).
+
+.SH CAUSALITY ERRORS
+
+When a program is compiled with the -I option, causality problems may
+occur at run-time. When a causality error occurs, a dialog box pops up
+and the problem found is displayed on the source code using green 
+and pink backgrounds. The interpretation of these color codes conforms
+to the constructive semantics used in the Esterel v5 compiler.
+
+A statement is shown on a green background if it MUST be
+executed in the transition. Statements that CANNOT be executed remain
+on standard background. Statements for which it is impossible to prove
+either that they must be executed or that they cannot be executed
+appear on a pink background. The same backgrounds are used for signals
+at their declaration point.
+
+When faced with a causality problem, first  identify the current state
+by finding keywords written in red foreground. Then look 
+for pink
+signals: they are the ones with undetermined status. 
+Finally, look  for places where background
+changes from green to pink: they are tests for undetermined signals.
+
+Because of instantaneous loops in Esterel, it may be the case that
+pink and green backgrounds collide. For instance, a statement
+may terminate in the instant, which should set it green, and the same
+statement can be undetermined if it is re-entered from a loop, which
+should set it pink.
+In that case, we initially display the statement in pink only. 
+
+The causality
+error alert box contains two auxiliary buttons that allow you to hide
+or show green and pink backgrounds. When re-showing  a background
+color, it takes precedence over the other one. This makes it possible
+to analyze causality errors in a finer way.
+
+Pink backgrounds are inherited in the tree window:
+depending on the green/pink precedence,
+a module instance name may be shown on a pink background
+in the tree  if there exist pink nets in the corresponding source window.
+
+.SH STATIC CYCLES
+
+The oriented graph of the control flow in an ESTEREL description may
+contain dependency cycles, which means that the execution of a
+statement depends statically on the result of the statement. When such
+a program is compiled using the -cycles option of sccausal, a dialog
+box pops up and the dependecy cycles are displayed one by one on the
+source using pink backgrounds. 
+
+For each dependency cycle all the related statements and signals are
+shown on a pink background. In the representation of the tree, all
+modules which contain pink statements are displayed on a pink
+background. 
+
+When faced to a dependency cycle, first unfold the tree of the
+program, to identify the modules that contain elements of the
+cycle. Then look for the pink statements and signals and try to
+identify the trace of the control flow.
+
+If there is more than one dependency cycle, the alert box allowing to
+switch to the next dependency cycle. The representation is different
+for each dependency cycle, and the source corresponds to the one
+specified by the alert box.
+
+.SH MULTIPLE EMISSIONS OF SINGLE SIGNALS
+
+A single signal is a valued signal without a combination function
+defined by the user. This means that the value of the signal cannot be
+computed in case of multiple emissions. When a multiple emission of a
+single signal may occur at run-time, a dialog box pops up and the
+problem found is displayed on the source. The red foregroud is used to
+represent the active halting points and the green background is used
+to represent the statements that should be executed in the
+transition. 
+
+When faced to a multiple emission of a single signal, first identify
+the current state by finding the keywords written in red foreground. 
+Then look for the emissions of the single signal that are printed on
+green background - they are the ones that are active. Use the signal
+browser to find all emit statements.
+
+If there is more than one single signal for which a multiple emission
+is detected, the alert box contains a button allowing to switch to the
+next single signal. The states generating a multiple emission for
+different signals are generally different; the error represented in
+the source code corresponds to the signal specified by the alert box.
+
+.SH PROGRAM TREE
+
+The program tree is shown in a separate window which is popped up
+when clicking on the "Program tree" item in the "Windows"
+menu of the main panel, or in the "Tree" button
+in each source window menubar.
+
+The tree can be folded or unfolded at different depths when clicking
+on the tree nodes or on any number in the depth level bar.
+
+Clicking on a module name in the tree pops up the corresponding source
+window.
+
+Foreground and background of each module name displays an information which
+is inherited from the corresponding source window or the source
+windows of its sub-modules.
+Foreground colors may be red or blue.
+Background color may be green, pink, grey, orange, 
+or tree background default color.
+
+Foreground is red (resp. blue) if the module is currently active
+(resp. inactive), i.e. some (resp. no) haltpoints in the module are 
+currently active.
+
+Background color can display two sort of informations.
+The first information concerns the
+module itself (direct information); it is displayed in 
+the the first space preceding the name and
+in the name itself (the head).
+The second information concerns the sub-modules of the module
+(herited information); it is displayed in the space following the name and 
+in the instance index (the tail).
+
+Green or pink color backgrounds refer to nets.
+A green or pink background module head (resp. tail) means:
+there are green or pink nets in this
+module (resp. in its sub-modules). 
+See green/pink precedence in CAUSALITY ERROR
+section. 
+
+Grey color backgrounds refer to breakpoints. 
+A grey space in the head (resp. in the tail) of a module means: 
+there are breakpoints in this 
+module (resp. in its sub-modules). 
+A grey name in the head
+(resp. instance index in the tail) means: there are reached
+breakpoints in this module (resp. in its sub-modules).
+
+Orange flashing background color refers to signal browsing.
+Orange flashing head (resp. tail) for a module means: 
+there are currently browsed signal 
+declarations, emissions, tests, or accesses in this module
+(resp. in its sub-modules).
+
+When alerted by a "Breakpoint reached" popup, or when browsing signal
+declarations, accesses, tests, emissisons,
+or when following causality cycles,
+you can use the tree to retrieve any related information.
+The procedure is the same in all cases:
+beginning  with the root module instance, just recursively unfold in the
+tree the modules which have a tail in the "good" color
+(grey for breakpoints, green or pink for nets, orange for signal browsing).
+This procedure leads to any  concerned sub-module which must have
+its head in the "good" color.
+Click on the name of such a sub-module to pop up its source window
+and browse it to find the final information.
+
+.SH RECORDER
+
+The tape recorder/player window has three parts: a tape library
+browser, a tape player part, a tape recorder part.
+The user can create new tapes or select existing tapes in the tape 
+library.
+A tape is a file in the current directory.
+It contains recorded events in  csimul format.
+Its name is the tape name with  extension '.csimul'.
+Be sure you have the correct Unix file read or write permissions 
+on these files and on the current directory.
+Next versions of xes will include a real directory browser.
+
+A selected tape can be loaded either for playing or for recording.
+A reset-and-load tape operation 
+loads the tape and also resets the Esterel program to its
+initial state.
+When playing a tape in ordinary play mode, panel inputs are disallowed,
+outputs are shown and source code is updated. 
+You can tune the tape speed with the speed slider.
+A playing tape can be stopped by the stop button.
+You can play a tape step by step.
+In silent play mode the tape is played at maximum speed and
+outputs and source code are only  updated after the end of tape occurs.
+
+You can simultaneously record and play with two different tapes.
+
+
+.SH SIGNAL BROWSING
+
+In the Commands menu, the "Signal browser" checkbutton
+enables a signal browsing facility.
+To see where a particular signal is declared, emitted, accessed, or
+displayed, just click with  mouse-button 3 on its name in a panel
+(mainpanel or locals or traps) or in its declaration
+in a source text, or on an instruction referencing this signal
+(emit, await, ...). All occurences of the signal name
+in all the sub-windows of xes will flash in an orange color background,
+together with the module names where the signal appears (run or copymodule
+instructions and tree instances).
+To stop signal browsing, unselect the "Signal browser" checkbutton.
+
+WARNING: the Esterel code must be compiled with the -I option.
+
+.\" END OF TEXT TO EXTRACT
+
+.SH SPECIAL CONSIDERATIONS
+The \fBShow source\fP command of the simulators  requires  the 
+Esterel source files of the automaton to be accessible (usually in the 
+current working directory or in a directory specified by
+the \fB-D\fP command line option).
+.br
+The Esterel code must be compiled with the \fB-simul\fP option.
+
+.SH RESOURCES
+.PP
+The current fonts and colors definitions for
+.B xes
+may be overloaded with the
+.B -script
+.I file
+option.
+ 
+The file given as argument must contain a list of Tcl variables
+assignments (other Tcl code may break xes). 
+The default file xes_res.tcl 
+is given  as an example in the Esterel distribution,
+see section FILES. 
+
+.SH FILES
+.PP
+In the following, $INST_DIR designates the default installation 
+directory for Esterel (ex: /usr/local/lib/esterel). This default
+path can be modified by setting the environment variable ESTEREL.
+.sp
+.nf
+.ta \w'mmmmmm'u +\w'$INST_DIR/lib/libxes.a      'u
+.br
+	$INST_DIR/bin/xes	Xes command shell script
+	$INST_DIR/lib/libxes.a	Esterel X-window simulation library
+	$INST_DIR/lib/xes/xes.def	Xes machine-dependent definitions.
+	$INST_DIR/lib/xes/xes_res.tcl	default Xes resources file.
+.fi
+
+.SH SEE ALSO
+esterel(1),  csimul(3)
+.SH BUGS
+Please report bugs to esterel-bugs@sophia.inria.fr
+.SH AUTHORS
+jpm@sophia.inria.fr, fornari@sophia.inria.fr

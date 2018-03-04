@@ -1,0 +1,6 @@
+ The <Placing>:<On/Off Align> menu button toggles a mode
+in which edge segments (comprising at least one intermediate
+"nail" as end-point) are straightened according to horizontal
+or vertical directions inside a given allowance size. 
+
+ See <Help>:<X11resources> for ways to change this allowance.

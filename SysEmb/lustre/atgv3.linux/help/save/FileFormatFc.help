@@ -1,0 +1,16 @@
+Fc format :
+===========
+
+   Autograph can read file writen in fc format, for this use the
+<File>:<Load fc2> menu button. This version deal only with automaton.
+Automata net description will just be read and ignored.
+   The so loaded automaton contain no position for its vertice, edges
+and labels. Only the initial state appears in the window. Other
+vertice can be unfolded by the user, as the <Placing>:<Explore> menu
+command is automatically selected when loading.
+
+   Autograph can translate drawings in fc format, provided the drawing
+has been first checked correct with the <Windows>:<check Drawing
+Coherency> menu command. You produce fc format with the <Files>:<fc2
+Format> and <Files>:<fc2 Format as>. The second command allows you
+to enter a new filename.

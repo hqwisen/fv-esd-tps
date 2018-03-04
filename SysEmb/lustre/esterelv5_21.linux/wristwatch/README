@@ -1,0 +1,114 @@
+A DIGITAL WRISTWATCH IN ESTEREL - G. Berry (berry@sophia.inria.fr)
+==================================================================
+
+PRESENTATION
+------------
+
+Here is the program for the esterel wristwatch, with full
+xes simulation under ESTEREL V5_20 and C execution under UNIX and
+Windows NT.
+
+
+The postscript file of the associated paper 
+
+   "Programming a Digital Watch in ESTEREL v3"
+
+is in file "paper.ps".
+
+To build all objects files, select the makefile corresponding to your
+architecture, ie makefile.Unix for Unix boxes or makefile.VC for
+Windows NT (makefile.VC is intended to be used with NMAKE) :
+
+- Unix :
+  make -f makefile.Unix
+
+  Note 1: If your compiler requires ANSI-C code, edit makefile.Unix
+          and set ESTEREL_FLAGS to -Ic:-ansi. This is the case on AIX.
+  Note 2: On Solaris, the textual simulator was compiled using
+          SparcWorks cc. The result is incompatible with the libraries
+          used by /usr/ucb/cc. Change CC to /opt/SUNWspro/bin/cc.
+
+- Windows NT :
+  nmake -f makefile.VC
+
+  Note : This makefile uses CL.EXE and LINKER.EXE from VisualC++ 5.0.
+         These programs must be directly accessible. If it is not the
+	 case, edit makefile.VC to get the correct pathes.
+
+The "make" command builds three binary files:
+
+  tkww.exe : the Tk based watch
+  sww[.exe]: the watch tty-oriented simulator (csimul library) (the
+             .exe does not exist on Unix boxes).
+  xww.exe  : the watch xes simulator with symbolic debugging
+ 
+Use the "clean" target to clean the directory of auxiliary files.
+Use the "clobber" target to remove all objects and clean the directory.
+
+The "variants" directory contains the wristwatch variants described in
+the paper. See the README file there.
+
+RUNNING THE TK SIMULATION
+-------------------------
+The "tkww" object file run a graphical simulation with
+an interface that respect more or less the one in paper.ps.
+Type
+
+   tkww
+
+to run it.
+
+RUNNING THE TTY SIMULATION
+--------------------------
+
+To simulate the wristwatch in standard Esterel tty-oriented 
+csimul simulation mode, type 
+
+   sww
+
+You can run a demo simulation by typing 
+
+   sww sww_data
+
+The sww_data.audit is the result that should be produced by the
+previous command.
+
+RUNNING THE XES SIMULATION
+--------------------------
+
+To run the xes simulation, type
+
+   xww
+
+Click on input buttons and look at the source code. In the Control
+menu, click on "Show Tree" to see the module instantiation tree, and click
+on any module name to pop the source code of the module (you can also
+click on the "run" keyword that instantiates the submodule in the
+source window of the parent module). Click on valued signal or
+variable declarations (in blue or red) to pop up their current values. 
+Read the xes.1 man page or more detail.
+
+SUBDIRECTORIES
+--------------
+
+The subdirectories are as follows:
+
+- watch : the WATCH module and its C data-handling code
+
+- stopwatch : the STOPWATCH module and its C data-handling code
+
+- alarm : the ALARM module and its C data-handling code
+
+- button : the BUTTON module
+
+- display : the DISPLAY module and its C data-handling code
+
+- beep : the C data-handling code for the beeper
+
+- tkmain : the main C programs for Unix Tk simulation.
+
+- variants : the variants of the wristwatch, as described in the paper
+
+Please report any misfunctioning to :
+
+e-mail: esterel-bugs@sophia.inria.fr

@@ -1,0 +1,23 @@
+Installation :
+==============
+
+The atg distrib contain :
+
+   - the atg binary and its man,
+
+   - the resources file named Atg,
+   - a resource file named AtgBlackAndWhite for black and white screen to
+     move in the Atg file when needed,
+
+   - the help directory,
+
+   - the shell command psfp which used to make full page listing of postscript
+     file and its man,
+
+   - the sa2atg binary used to translate old ".sa" syntax to new ".atg" syntax
+     and its man,
+
+   - the XKeysymDB file: to avoid error message like
+   <Warning: translation table syntax error: Unknown keysym name: .../...>,
+   set the XKEYSYMDB shell variable to this file.
+

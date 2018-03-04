@@ -1,0 +1,18 @@
+Internal format :
+=================
+
+  Autograph uses an internal format for saving and restoring drawings
+including graphical attributes and possibly incoherent (as nets).
+
+  Files are loaded with the <Files>:<Load atg> menu command, and saved
+with <Files>:<atg Format> or <Files>:<atg Format as> (then click on
+each window to be saved).
+
+  Filenames are suffixed by ".atg".
+
+
+Old ".sa" file format :
+-----------------------
+
+  The sa2atg Unix command (included in the atg distribution)
+translates the older ".sa" syntax to actual ".atg" syntax.

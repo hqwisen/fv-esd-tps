@@ -1,0 +1,19 @@
+% p11.strl 
+% from G. Berry's  book
+% cyclic non-constructive (non-constructive variant of P2)
+
+module P11 :
+
+output O;
+
+signal S in 
+   present O then 
+      emit S;
+      present S then
+         await tick
+      end;
+      emit O
+   end
+end signal
+
+end module

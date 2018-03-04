@@ -1,0 +1,10 @@
+ The <Placing>:<Backward Explore> menu allows unfolding of all
+ unexplored edges leading to a prescribed vertex.
+
+ To explore a vertex backward, just:
+
+-first,  click down inside the desired vertex;
+-second, release the mouse button to give the main general direction.
+
+New states shall be dispersed in a quadrant obeying this direction.
+

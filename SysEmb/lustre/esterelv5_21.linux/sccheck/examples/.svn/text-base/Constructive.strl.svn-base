@@ -1,0 +1,19 @@
+% cyclic constructive
+
+module Constructive :
+
+input I1, I2;
+relation I1 # I2;
+output O1, O2;
+
+await tick;
+[
+   present [O1 and I1] then 
+      emit O2
+   end present
+||
+   present [O2 and I2] then 
+      emit O1
+   end present
+]
+end module

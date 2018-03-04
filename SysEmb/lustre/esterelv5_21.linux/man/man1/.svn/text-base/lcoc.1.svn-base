@@ -1,0 +1,66 @@
+.TH lcoc 1 "10/08/98" "INRIA / CMA" "ESTEREL COMPILER"
+.SH NAME
+lcoc \- Esterel compiler \- Version v5_21
+.SH SYNOPSIS
+.B lcoc
+[options] file ...
+.SH DESCRIPTION
+\fBlcoc\fR is the Esterel v3 compiler to automata.
+It produces an \fBoc\fR format output from one or more \fBlc\fR input
+files (or \fBic\fR files if no Esterel \fBrun\fP instruction is used).
+If there is no input file, the standard input stream is read. The
+\fBic\fP files describe Esterel \fImodules\fP to be processed, and the
+\fBoc\fP output file describes the computed automata.
+Typical use is: 
+.IP
+.B lcoc < game1.ic > game1.oc
+.PP
+or 
+.IP
+.B lcoc game1.ic > game1.oc
+.SH OPTIONS
+The following options are interpreted by \fIlcoc\fP.
+.IP \fB-v\fR 10
+Verbose option: print the name of each compiled module on the standard error
+stream.
+.IP \fB-s\fP 10
+Silent mode: performs binding but does not generate the
+\fBoc\fP code.
+.IP \fB-w\fP 10
+Suppress all warning messages.
+.IP \fB-W\fP 10
+Display all warning messages (the default is to display only harmful warnings).
+.IP \fB-stat\fR 10
+Print statistics on the standard error stream: 
+parsing and compiling time and process size.
+.IP \fB-size\fR 10
+Print automata size statistics on the standard error stream: 
+number of states, number of actions, and number of action calls.
+.IP \fB-show\fR 10
+Display dynamically on the standard error stream the number of states 
+generated and analysed so far.
+.IP "\fB-oldcausality\fP"
+Enable the v3_1r4 causality error detection. For example,
+the following program: "emit S; present S else emit S end" is
+no longer accepted by the compiler unless this option is used.
+.IP \fB-version\fP 10
+Print the version name on the standard error output stream
+and terminate ignoring all other arguments.
+.IP \fB-access\fP 10
+Print access rights to the processor on the standard error output
+stream and terminate, ignoring all other arguments.
+.IP \fB-info\fP 10
+Print various informations about the processor compilation on the
+standard error output stream and terminate, ignoring all other arguments.
+.SH BUGS
+There can be no more than 32 nested trap instructions. Otherwise, the
+compiler complains and stops.
+.SH SEE ALSO
+esterel(1), iclc(1), occ(1), ocdebug(1)
+.br
+\fIEsterel documentations\fR
+.SH IDENTIFICATION
+Ecole des Mines de Paris (CMA) and INRIA.
+.br
+Written by Frederic Boussinot. Updated by Jean-Pierre
+Paris, Xavier Fornari.

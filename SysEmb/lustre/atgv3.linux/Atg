@@ -1,0 +1,322 @@
+! atg Resources
+
+! Widget Title
+atgbinary*title: Autograph
+atgbinary*iconTitle: Icon Autograph
+atgbinary*windowTitle: Autograph Window
+atgbinary*windowIconTitle: Autograph Window Icon
+atgbinary*helpDir: /atg/help
+
+! Widget Position and Size
+atgbinary*x: 100
+atgbinary*y: 100
+atgbinary*windowWidth: 300
+atgbinary*windowHeight: 400
+atgbinary*drawingWidth: 300
+atgbinary*drawingHeight: 400
+atgbinary*windowExploreWidth: 300
+atgbinary*windowExploreHeight: 400
+atgbinary*drawingExploreWidth: 300
+atgbinary*drawingExploreHeight: 400
+atgbinary*windowMinWidth: 100
+atgbinary*windowMinHeight: 100
+atgbinary*windowMaxWidth: 1000
+atgbinary*windowMaxHeight: 800
+atgbinary*globalWindowMinWidth: 100
+atgbinary*globalWindowMinHeight: 100
+atgbinary*globalWindowMaxWidth: 400
+atgbinary*globalWindowMaxHeight: 400
+atgbinary*nameReadWindowWidth: 300
+atgbinary*nameReadWindowHeight: 200 
+atgbinary*deltaXAdjustSize: 50
+atgbinary*deltaYAdjustSize: 50
+
+! Graphic Object Size
+atgbinary*boxMinWidth: 10
+atgbinary*boxMinHeight: 10
+atgbinary*vertexRadius: 8
+atgbinary*vertexInitialRadius: 5
+atgbinary*vertexExploreRadius: 4
+atgbinary*portRadius: 5
+atgbinary*pointRadius: 2
+atgbinary*webRadiusHoriz: 12
+atgbinary*webRadiusVert: 2
+atgbinary*exploreRadius: 80
+atgbinary*minExploreRadius: 10
+atgbinary*loopExploreSize: 36
+! write 0 rather than 1 for fast raster, line will be 1 pixel width on screen
+atgbinary*lineWidth: 0
+atgbinary*rubberThinLineWidth: 0
+atgbinary*rubberThickLineWidth: 5
+atgbinary*boxLineWidth: 3
+atgbinary*vertexLineWidth: 0
+atgbinary*webLineWidth: 0
+atgbinary*portLineWidth: 0
+atgbinary*edgeLineWidth: 0
+!atg*arrowDelta: .17
+!atg*arrowRadius: 11
+
+! Graphic Object Selection Zone
+atgbinary*clickingZoneArroundPoint: 5
+atgbinary*clickingZoneArroundEdge: 5
+atgbinary*clickingZoneArroundVertex: 0
+atgbinary*clickingZoneArroundWeb: 5
+atgbinary*clickingZoneArroundName: 0
+atgbinary*clickingZoneArroundBox: 0
+atgbinary*clickingZoneArroundPort: 5
+
+!atg*nameSelectionSize: 4
+!atg*boxSelectionSize: 8
+!atg*portSelectionSize: 4
+!atg*vertexSelectionSize: 6
+!atg*webSelectionSize: 4
+!atg*edgeSelectionSize: 4
+!atg*pointSelectionSize: 10
+
+!atg*edgeNameEven: 0
+
+! Widget Colors
+atgbinary*foreground: darkslateblue
+atgbinary*background: honeydew
+atgbinary*windowExploreBackground: azure
+atgbinary*windowLoadedBackground: azure
+atgbinary*windowCopyBackground: honeydew
+atgbinary*helpWindowForeground: Black
+atgbinary*helpWindowBackground: LemonChiffon
+atgbinary*windowScrolledForeground: Black
+atgbinary*windowScrolledBackground: light cyan
+atgbinary*drawingForeground: Black
+atgbinary*drawingBackground: azure
+atgbinary*nameReadForeground: HotPink4
+atgbinary*nameReadBackground: azure
+atgbinary*fileNameReadForeground: HotPink4
+atgbinary*fileNameReadBackground: light cyan
+
+! Parsing Resources
+atgbinary*indent: 0
+atgbinary*indentIncr: 3
+atgbinary*parsingEchoing: 0
+atgbinary*shortFcKeywords: 0
+atgbinary*shortAtgFormat: 0
+atgbinary*atgSuffixe: .atg
+atgbinary*fcSuffixe: .fc2
+
+! Graphic Object Colors
+atgbinary*rubberForeground: DimGray
+atgbinary*rubberBackground: Black
+atgbinary*vertexForeground: DarkSlateGray
+atgbinary*vertexBackground: SlateGray1
+atgbinary*hilightVertexForeground: Red
+atgbinary*hilightVertexBackground: DarkSlateGray
+atgbinary*boxForeground: AntiqueWhite4
+atgbinary*boxBackground: LemonChiffon
+atgbinary*hilightBoxForeground: Red
+atgbinary*hilightBoxBackground: Lightgoldenrod
+atgbinary*webForeground: DarkSlateGray
+atgbinary*webBackground: LightPink
+atgbinary*hilightWebForeground:  Red
+atgbinary*hilightWebBackground:  HotPink
+atgbinary*nameForeground: maroon
+atgbinary*nameBackground: maroon
+atgbinary*hilightNameForeground: Red
+atgbinary*hilightNameBackground: Red
+atgbinary*portForeground: AntiqueWhite4
+atgbinary*portBackground: LimeGreen
+atgbinary*hilightPortForeground: Red
+atgbinary*hilightPortBackground: Aquamarine
+atgbinary*edgeForeground: DarkSlateGray
+atgbinary*edgeBackground: DarkSlateGray
+atgbinary*hilightEdgeForeground: Red
+atgbinary*hilightEdgeBackground: DarkSlateBlue
+
+! Graphic Object Label Color
+atgbinary*behavLabelVertexForeground: HotPink4
+atgbinary*structLabelVertexForeground: SteelBlue4
+atgbinary*logicLabelVertexForeground: darkgoldenrod4
+atgbinary*hookLabelVertexForeground: darkgreen
+atgbinary*behavLabelEdgeForeground: HotPink4
+atgbinary*structLabelEdgeForeground: SteelBlue4
+atgbinary*logicLabelEdgeForeground: darkgoldenrod4
+atgbinary*hookLabelEdgeForeground: darkgreen
+atgbinary*behavLabelBoxForeground: HotPink4
+atgbinary*structLabelBoxForeground: SteelBlue4
+atgbinary*logicLabelBoxForeground: darkgoldenrod4
+atgbinary*hookLabelBoxForeground: darkgreen
+atgbinary*behavLabelPortForeground: HotPink4
+atgbinary*structLabelPortForeground: SteelBlue4
+atgbinary*logicLabelPortForeground: darkgoldenrod4
+atgbinary*hookLabelPortForeground: darkgreen
+atgbinary*behavLabelWebForeground: HotPink4
+atgbinary*structLabelWebForeground: SteelBlue4
+atgbinary*logicLabelWebForeground: darkgoldenrod4
+atgbinary*hookLabelWebForeground: darkgreen
+
+! Graphic Object Label Font
+atgbinary*behavLabelPortFont:*-helvetica-bold-r-normal--10-*
+atgbinary*behavLabelPortPostscriptFont:Helvetica 10
+atgbinary*structLabelPortFont:*-helvetica-bold-r-normal--10-*
+atgbinary*structLabelPortPostscriptFont:Helvetica 10
+atgbinary*logicLabelPortFont:*-helvetica-bold-r-normal--10-*
+atgbinary*logicLabelPortPostscriptFont:Helvetica 10
+atgbinary*hookLabelPortFont:*-helvetica-bold-r-normal--10-*
+atgbinary*hookLabelPortPostscriptFont:Helvetica 10
+atgbinary*behavLabelWebFont:*-courier-bold-r-normal--10-*
+atgbinary*behavLabelWebPostscriptFont:Courier 10
+atgbinary*structLabelWebFont:*-courier-bold-r-normal--10-*
+atgbinary*structLabelWebPostscriptFont:Courier 10
+atgbinary*logicLabelWebFont:*-courier-bold-r-normal--10-*
+atgbinary*logicLabelWebPostscriptFont:Courier 10
+atgbinary*hookLabelWebFont:*-courier-bold-r-normal--10-*
+atgbinary*hookLabelWebPostscriptFont:Courier 10
+atgbinary*behavLabelVertexFont:*-times-bold-r-normal--11-*
+atgbinary*behavLabelVertexPostscriptFont:Times-Roman 11
+atgbinary*structLabelVertexFont:*-times-bold-r-normal--11-*
+atgbinary*structLabelVertexPostscriptFont:Times-Roman 11
+atgbinary*logicLabelVertexFont:*-times-bold-r-normal--11-*
+atgbinary*logicLabelVertexPostscriptFont:Times-Roman 11
+atgbinary*hookLabelVertexFont:*-times-bold-r-normal--11-*
+atgbinary*hookLabelVertexPostscriptFont:Times-Roman 11
+atgbinary*behavLabelEdgeFont:*-times-bold-r-normal--12-*
+atgbinary*behavLabelEdgePostscriptFont:Times-Roman 12
+atgbinary*structLabelEdgeFont:*-times-bold-r-normal--12-*
+atgbinary*structLabelEdgePostscriptFont:Times-Roman 12
+atgbinary*logicLabelEdgeFont:*-times-bold-r-normal--12-*
+atgbinary*logicLabelEdgePostscriptFont:Times-Roman 12
+atgbinary*hookLabelEdgeFont:*-times-bold-r-normal--12-*
+atgbinary*hookLabelEdgePostscriptFont:Times-Roman 12
+atgbinary*behavLabelBoxFont:*-helvetica-bold-r-normal--12-*
+atgbinary*behavLabelBoxPostscriptFont:Helvetica-Bold 12
+atgbinary*structLabelBoxFont:*-helvetica-bold-r-normal--12-*
+atgbinary*structLabelBoxPostscriptFont:Helvetica-Bold 12
+atgbinary*logicLabelBoxFont:*-helvetica-bold-r-normal--12-*
+atgbinary*logicLabelBoxPostscriptFont:Helvetica-Bold 12
+atgbinary*hookLabelBoxFont:*-helvetica-bold-r-normal--12-*
+atgbinary*hookLabelBoxPostscriptFont:Helvetica-Bold 12
+
+
+! Foreground Menu
+atgbinary*nbForegrounds: 9
+atgbinary*foreground0: DimGray
+atgbinary*foreground1: Black
+atgbinary*foreground2: White
+atgbinary*foreground3: Blue
+atgbinary*foreground4: Red
+atgbinary*foreground5: Green
+atgbinary*foreground6: Yellow
+atgbinary*foreground7: Cyan
+atgbinary*foreground8: Magenta
+
+! Background Menu
+atgbinary*nbBackgrounds: 9
+atgbinary*background0: DimGray
+atgbinary*background1: Black
+atgbinary*background2: White
+atgbinary*background3: Blue
+atgbinary*background4: Red
+atgbinary*background5: Green
+atgbinary*background6: Yellow
+atgbinary*background7: Cyan
+atgbinary*background8: Magenta
+
+! Font Menu
+atgbinary*nbFonts: 30
+atgbinary*font0:*-helvetica-bold-r-normal--8-*
+atgbinary*postscriptFont0:Helvetica-Bold 8
+atgbinary*font1:*-helvetica-bold-r-normal--10-*
+atgbinary*postscriptFont1:Helvetica-Bold 10
+atgbinary*font2:*-helvetica-bold-r-normal--12-*
+atgbinary*postscriptFont2:Helvetica-Bold 12
+atgbinary*font3:*-helvetica-bold-r-normal--14-*
+atgbinary*postscriptFont3:Helvetica-Bold 14
+atgbinary*font4:*-helvetica-medium-o-normal--8-*
+atgbinary*postscriptFont4:Helvetica-Oblique 8
+atgbinary*font5:*-helvetica-medium-o-normal--10-*
+atgbinary*postscriptFont5:Helvetica-Oblique 10
+atgbinary*font6:*-helvetica-medium-o-normal--12-*
+atgbinary*postscriptFont6:Helvetica-Oblique 12
+atgbinary*font7:*-helvetica-medium-o-normal--14-*
+atgbinary*postscriptFont7:Helvetica-Oblique 14
+atgbinary*font8:*-helvetica-medium-r-normal--8-*
+atgbinary*postscriptFont8:Helvetica 8
+atgbinary*font9:*-helvetica-medium-r-normal--10-*
+atgbinary*postscriptFont9:Helvetica 10
+atgbinary*font10:*-helvetica-medium-r-normal--12-*
+atgbinary*postscriptFont10:Helvetica 12
+atgbinary*font11:*-helvetica-medium-r-normal--14-*
+atgbinary*postscriptFont11:Helvetica 14
+atgbinary*font12:*-times-bold-r-normal--8-*
+atgbinary*postscriptFont12:Times-Bold 8
+atgbinary*font13:*-times-bold-r-normal--10-*
+atgbinary*postscriptFont13:Times-Bold 10
+atgbinary*font14:*-times-bold-r-normal--12-*
+atgbinary*postscriptFont14:Times-Bold 12
+atgbinary*font15:*-times-bold-r-normal--14-*
+atgbinary*postscriptFont15:Times-Bold 14
+atgbinary*font16:*-times-medium-i-normal--8-*
+atgbinary*postscriptFont16:Times-Italic 8
+atgbinary*font17:*-times-medium-i-normal--10-*
+atgbinary*postscriptFont17:Times-Italic 10
+atgbinary*font18:*-times-medium-i-normal--12-*
+atgbinary*postscriptFont18:Times-Italic 12
+atgbinary*font19:*-times-medium-i-normal--14-*
+atgbinary*postscriptFont19:Times-Italic 14
+atgbinary*font20:*-times-medium-r-normal--8-*
+atgbinary*postscriptFont20:Times-Roman 8
+atgbinary*font21:*-times-medium-r-normal--10-*
+atgbinary*postscriptFont21:Times-Roman 10
+atgbinary*font22:*-times-medium-r-normal--12-*
+atgbinary*postscriptFont22:Times-Roman 12
+atgbinary*font23:*-times-medium-r-normal--14-*
+atgbinary*postscriptFont23:Times-Roman 14
+atgbinary*font24:*-symbol-medium-r-normal--10-*
+atgbinary*postscriptFont24:Symbol 10
+atgbinary*font25:*-symbol-medium-r-normal--12-*
+atgbinary*postscriptFont25:Symbol 12
+atgbinary*font26:*-courier-medium-r-normal--8-*
+atgbinary*postscriptFont26:Courier 8
+atgbinary*font27:*-courier-medium-r-normal--10-*
+atgbinary*postscriptFont27:Courier 10
+atgbinary*font28:*-courier-medium-r-normal--12-*
+atgbinarybinary*postscriptFont28:Courier 12
+atgbinarybinary*font29:*-courier-medium-r-normal--14-*
+atgbinarybinary*postscriptFont29:Courier 14
+
+atgbinary*vertexDebugSourceColor : magenta
+atgbinary*vertexDebugTargetColor : orange
+atgbinary*vertexDebugColor : orange
+atgbinary*boxDebugColor : magenta
+atgbinary*webDebugColor : aquamarine
+atgbinary*nameDebugColor : gold
+atgbinary*portDebugColor : cyan
+atgbinary*edgeDebugColor : blue
+
+atgbinary*numberOfIterationForSpring : 10
+
+
+*XmText*translations: #override\n\
+    <Key>osfDelete: delete-previous-character()\n\
+    Ctrl<Key>A: beginning-of-line()\n\
+    Ctrl<Key>b: backward-character()\n\
+    Meta<Key>B: backward-word()\n\
+    Ctrl<Key>D: delete-next-character()\n\
+    Ctrl<Key>E: end-of-line()\n\
+    Ctrl<Key>F: forward-character()\n\
+    Meta<Key>F: forward-word()\n\
+    Ctrl<Key>K: kill-to-end-of-line()\n\
+    Ctrl<Key>N: next-line()\n\
+    Ctrl<Key>P: previous-line()\n\
+    Ctrl<Key>U: kill-to-start-of-line()\n\
+    Ctrl<Key>W: kill-selection()\n\
+    Ctrl<Key>V: next-page()\n\
+    Meta<Key>V: previous-page()\n\
+    Ctrl<Key>Y: unkill()
+*XmTextField*translations: #override\n\
+    <Key>osfDelete: delete-previous-character()\n\
+    Ctrl<Key>A: beginning-of-line()\n\
+    Ctrl<Key>b: backward-character()\n\
+    Meta<Key>B: backward-word()\n\
+    Ctrl<Key>D: delete-next-character()\n\
+    Ctrl<Key>E: end-of-line()\n\
+    Ctrl<Key>F: forward-character()\n\
+    Meta<Key>F: forward-word()
+

@@ -1,0 +1,9 @@
+Here are some examples of Lustre programs (see README files in each directory):
+
+minus contains a very small verification program, together with an
+      example of session. It may be the first example to try.
+
+uturn contains a complete verification program for the example illustrating
+      our paper in SIGSOFT'91.
+
+parity illustrates the use of arrays and recursive nodes.

@@ -1,0 +1,81 @@
+% The BUTTON module for watch, stopwatch2
+
+module BUTTON :
+
+% Input buttons:
+
+input UL, % upper-left button
+      UR, % upper-right button
+      LL, % lower-left button
+      LR; % lower-right button
+
+relation UL # UR # LL # LR;    % all buttons are incompatible
+
+% Outputs of the watch mode:
+
+output WATCH_MODE_COMMAND;
+
+output ENTER_SET_WATCH_MODE_COMMAND,
+       SET_WATCH_COMMAND,
+       NEXT_WATCH_TIME_POSITION_COMMAND,
+       EXIT_SET_WATCH_MODE_COMMAND;
+
+
+output TOGGLE_24H_MODE_COMMAND;
+output TOGGLE_CHIME_COMMAND;
+
+% Outputs of the stopwatch mode:
+
+output STOPWATCH_MODE_COMMAND;
+
+output EXIT_STOPWATCH_MODE_COMMAND;
+
+output START_STOP_COMMAND,
+       LAP_COMMAND;
+
+[
+   loop
+
+      % Watch and set-watch mode
+      % (exit by LL in watch mode only, not in set-watch mode)
+
+      emit WATCH_MODE_COMMAND;
+      trap WATCH_AND_SET_WATCH_MODE in
+         loop
+
+            % watch mode
+
+            do       % upto UL, that turns to set-watch mode
+                  await LL do exit WATCH_AND_SET_WATCH_MODE end
+               ||
+                  every LR do emit TOGGLE_24H_MODE_COMMAND end
+               ||
+                  every UR do emit TOGGLE_CHIME_COMMAND end
+            upto UL;
+
+            % set-watch mode
+
+            emit ENTER_SET_WATCH_MODE_COMMAND;
+            do       % upto UL, that brings back to watch mode
+                  every LL do emit NEXT_WATCH_TIME_POSITION_COMMAND end
+               ||
+                  every LR do emit SET_WATCH_COMMAND end
+            upto UL;
+            emit EXIT_SET_WATCH_MODE_COMMAND
+         end loop
+      end trap;
+
+      % Stopwatch mode (exit by LL)
+      % LR is START/STOP, UR is LAP
+
+      emit STOPWATCH_MODE_COMMAND;
+      do       % upto LL
+            every LR do emit START_STOP_COMMAND end
+         ||
+            every UR do emit LAP_COMMAND end
+      upto LL;
+      emit EXIT_STOPWATCH_MODE_COMMAND
+   end loop
+]
+end module
+

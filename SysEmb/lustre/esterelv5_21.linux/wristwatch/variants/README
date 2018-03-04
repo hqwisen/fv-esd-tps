@@ -1,0 +1,19 @@
+Here are the variants of the wristwatch.
+
+   - "w"  means watch
+   - "s1" means stopwatch 1 (the original one, in file "stopwatch1.strl")
+   - "s2" means stopwatch 2 (the one that forgets about LAP mode, in file
+                             "stopwatch2.strl")
+   - "s"  means any stopwatch
+   - "a"  means alarm
+
+For example, "button-ws1a.strl" is the button interpreter for watch,
+stopwatch 1, and alarm, while "display-ws.strl" is the display handler
+for watch and stopwatch (the display doesn't care about which stopwatch
+is there) .
+
+To build a variant, e.g. the "ws2a" wristwatch, just type
+
+   make wristwatch-ws2a.c
+
+

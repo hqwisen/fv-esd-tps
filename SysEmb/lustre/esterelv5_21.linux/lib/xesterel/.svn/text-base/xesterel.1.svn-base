@@ -1,0 +1,51 @@
+.TH xesterel 1 "31/03/1999" "INRIA / CMA" "ESTEREL COMPILER"
+.SH NAME
+xesterel \- A GUI over the Esterel compiler \- Version v5_21
+.SH SYNOPSIS
+.B xesterel
+[files]
+.SH DESCRIPTION
+\fBxesterel\fR is graphical user interface over the esterel(1)
+compiler. It offers a simple way to select files to compile, and to
+select various compilation options. It also provides a simple
+interface to compile C generated code, and to call the Esterel
+graphical simulator xes(1).
+.PP
+The documentation of \fBxesterel\fR is on-line (HELP button), and
+help balloons are set on every active elements.
+.PP
+Typical use is:
+.IP
+.B xesterel
+.PP
+or
+.IP
+.B xesterel foo.strl bar/bar.strl ../foobar.strl
+
+In the first case, \fBxesterel\fR is simply launched, while in the second
+case, \fBxesterel\fR is  launched and files foo.strl bar/bar.strl and ../foobar.strl are preselected 
+.SH BUGS
+\fBxesterel\fR is on the Tcl/Tk toolkit, release 4.2 and more. This
+package and the wish interpretor may be found at:
+.IP
+http://www.scriptics.com/
+.SH FILES
+The following files store options and are not mandatory. They can
+be produced by xesterel (see menu Options, and on-line help).
+.br
+$HOME/.xstrlrc: user personnal option file
+.br
+<xesterel dir>/xstrlrc: xesterel site option file
+
+.SH DIAGNOSTICS
+Error messages should be self-explanatory.
+.SH "SEE ALSO"
+Esterel documentations.
+.sp 0
+esterel(1)
+.SH IDENTIFICATION
+.sp 0
+Ecole des Mines de Paris (CMA) and INRIA Sophia-Antipolis.
+.sp 0
+Written by Xavier Fornari
+

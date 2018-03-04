@@ -1,0 +1,15 @@
+% p9.strl 
+% from G. Berry's book
+% book : cyclic non-constructive (but logically correct!)
+
+module P9 :
+
+output O1, O2;
+
+   present O1 then emit O1 end
+||
+   present O1 then 
+      present O2 else emit O2 end
+   end
+
+end module

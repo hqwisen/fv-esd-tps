@@ -1,0 +1,25 @@
+Mouse buttons :
+===============
+
+  Autograph distinguishes between left/middle/right mouse button.
+
+The left button :
+-----------------
+   Allows all functions. Selects commands from menu buttons and then
+applies them repeatedly. It is always imperative to click on these
+objects or areas to which the function is to be applied.
+
+The middle button :
+-------------------
+ Is a short-hand for move commands on all objects or labels (or selection, 
+see below).
+
+The right button :
+------------------
+  Is a short-hand for the <Globals>:<Select> command.  Grouping
+objects by selection allows them to be applied further commands as a
+whole ("copy" for instance). Individual objects are
+selected/deselected in a toggle mode fashion through this mouse
+button. Rectangular regions can also be toggled by dragging the mouse
+with this button down.
+

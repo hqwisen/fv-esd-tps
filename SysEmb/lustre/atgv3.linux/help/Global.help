@@ -1,0 +1,28 @@
+Global :
+========
+   This menu contains functions that may be applied on objects of all
+types indistinctly. These functions can also be applied on a current
+selection altogether.
+
+   The <Globals>:<Select> menu button allows grouping of objects in
+selections (the mouse right button is a permanent short-hand for
+object select, see help on <Mouse Button> for details). Objects can be
+selected in a toggle fashion, either by individual clicking, or by
+dragging a phantom over a rectangular zone comprising the object
+entirely.
+
+CAUTION: Actually only boxes, vertices and webs can be selected, with
+the understanding that ports on selected boxes, edges connecting
+objects both selected and labels on selected objects are taken as part
+of the selection.
+
+   Autograph offers copy/paste with <Globals>:<Copy> and
+<Globals>:<Paste> menu buttons. The copied part is pictured in a
+specific buffer window that can be edited. Both copy and paste
+operations require the user to click afterwards on the object or the
+location to receive the function (clicking on a selected object will
+copy the whole selection). In particular, you CANNOT simply paste
+selected objects without copying them first.
+
+   <Globals>:<Hilight On/Off> allows you to show some particular
+graphic object on a drawing.

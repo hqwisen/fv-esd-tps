@@ -1,0 +1,22 @@
+.TH csimul 3 "21/01/1999" "INRIA / CMA" "ESTEREL COMPILER"
+.SH NAME
+libcsimul.a \- Esterel terminal-oriented simulator \- Version v5_21
+.SH SYNOPSIS
+.B esterel -simul
+-B foo foo1.strl foo2.strl ...
+.sp 0
+.B cc
+foo.c [other application files]
+.B -lcsimul
+.SH DESCRIPTION
+See the Esterel C simulation manual.
+.SH SEE ALSO
+esterel(1), occ(1), sscc(1), scc(1), xes(1)
+.br
+\fIEsterel documentations\fR
+.SH IDENTIFICATION
+.sp 0
+Ecole des Mines de Paris (CMA) and INRIA.
+.sp 0
+Written by Gerard Berry; updated by Frederic
+Mignard and Jean-Pierre Paris.

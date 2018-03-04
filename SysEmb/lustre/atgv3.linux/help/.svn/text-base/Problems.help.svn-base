@@ -1,0 +1,30 @@
+   Please Report Bugs to vr@cma.cma.fr
+   ===================================
+
+Rubberband :
+------------
+If the rubberband (dashed rectangle which appear when you move an
+object) is not visible or if the color is too light, you can try to
+set the two following resources with different colors :
+            atg*rubberForeground: DimGray
+            atg*rubberBackground: Black
+
+
+<Label>:<Show Label/Object> : 
+-----------------------------
+   The used color is the hilight color of the Name/Objetc but the
+combinaison mode is Xor, so the effective color is not predictable.
+
+
+<Windows>:<Delete (k)> :
+------------------------
+   Delete a Window by the window manager is not actually handle by
+Autograph and may cause bus error problem.
+
+
+<Files>:<Load Fc2 (f)> :
+------------------------
+                        --- debugging version ---
+   When a label reference in an fc2 file refers to a "hole" of the
+corresponding table, we create a dummy label : "Unknown_Label" and
+we load the fc2 file.

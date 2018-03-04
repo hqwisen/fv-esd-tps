@@ -1,0 +1,11 @@
+Placing Automatic :
+===================
+
+   The <Placing>:<Spring> menu command will provide automatic layout
+of automaton using the tool spring V1.1 implemented by mbl@lri.lri.fr
+- Copyright 1991, LRI / Universite de Paris-Sud.
+
+   When you clic into a vertex, the whole automaton will be drawned in
+a new window.
+
+

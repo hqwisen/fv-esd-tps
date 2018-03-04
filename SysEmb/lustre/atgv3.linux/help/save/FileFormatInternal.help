@@ -1,0 +1,18 @@
+Internal format :
+=================
+
+   Autograph had an internal format for saving and loading drawings.
+Files are loaded with the <Files>:<Load atg> menu command, and saved
+with <Files>:<atg Format> or <Files>:<atg Format as>. The second
+command allows you to enter a new filename for a drawing. Filenames are
+suffixed by ".atg".
+
+   The first time you save a drawing, you have to click into the
+window, then autograph prompts you a file selection box where you can
+edit or choose a filename.
+
+Old ".sa" file format :
+-----------------------
+
+   The sa2atg binary allow you to translate file from the old ".sa"
+syntax to new ".atg" syntax.

@@ -1,0 +1,14 @@
+Net :
+=====
+
+  The graphical content of an Autograph window, with all its objects
+and labels, is supposed to form a Net description. Nevertheless during
+edition unstable drawings may be produced. Correctness is only checked
+prior to translation into FC2 format.
+
+  Translation is then performed with the <Files>:<Fc2 format> menu
+button (again: click on windows to translate). Each net shall be named
+after its window title (see menu button <Window>:<Title>).
+
+  Descriptions of elementary objects are found in respective help files.
+

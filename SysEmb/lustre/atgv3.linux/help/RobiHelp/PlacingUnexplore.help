@@ -1,0 +1,3 @@
+ The <Placing>:<Unexplore> menu button allows refolding  of either
+ vertice or edges, out of view. A vertex with a (re)folded outgoing
+ transition regains its "unexplored" circular mark  on display.

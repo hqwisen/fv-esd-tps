@@ -1,0 +1,41 @@
+Exploration :
+=============
+
+   Autograph allows parts of some automata to be hidden, not
+displayed.  This is typically the case for fc2 automata files coming
+from verification systems. Such invisible automata can be -fully or
+partially- interactively explored by the user, using the
+<Placing>:<Explore> menu button (`x' for keyboard short-hand).
+
+   A (visible) state whose outgoing edges are not all visible is
+decorated with a smaller circle inside its shape (it is said to be
+"non fully explored"). To explore its invisible transition one clicks
+inside the state, leaving the mouse button down, and release the
+button at a location providing a main dircetion together with a
+distance. New reached states, or intermediate nails for edges leading
+to existing states, are then placed in a quadrant around the main
+direction and at integer multiple distances of the one provided. New
+states shall again be unexplored, so that this function unfolds
+automata one step at a time.
+
+   Vertice may also be explored backwards with <Placing>:<Explore Back (X)>
+(considering incoming edges).  Still, a vertex bears the "unexplored"
+tag exactly until explored forwards.
+
+   The <Placing>:<Unexplore (U)> menu command allows to fold back
+both vertice or edges for screen management and clarity.
+
+Highlighting unexplored vertice during exploration :
+----------------------------------------------------
+  The <Window>:<See/Hide Global View> provides you a scaled view of
+the window (you clic on) where the unexplored vertices are
+highlighted. If you clic in this global view window, you can move a
+rectangular box to change the current view of the edition window. See
+<Help>:<Window>.
+
+Hiding Label during exploration :
+-------------------------------
+  When labels darken the screen, you can hide it all using
+<Label>:<All>:<Hide all>. Labels remain unvisible until you use
+<Label>:<All>:<Restore>, which display the default label of all
+objects.

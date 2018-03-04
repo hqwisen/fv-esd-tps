@@ -1,0 +1,49 @@
+#######################################################################
+# CONFIGURATION SECTION - Change the parameters to match your machine #
+#                         and installation                            #
+#######################################################################
+# Where the Esterel compiler lives.
+ESTEREL_DIR=$(ESTEREL)
+
+# esterel compiler
+ESTEREL_COMMAND = $(ESTEREL_DIR)\bin\esterel.exe
+
+# esterel compiling flags
+ESTEREL_FLAGS = -I
+# uncomment this option is your C compiler requires Ansi code 
+# This is the case for AIX.
+#ESTEREL_FLAGS = -Ic:ansi
+
+
+# where to find simulator libraries (normally, change only ESTEREL_LIB)
+
+ESTEREL_LIB = $(ESTEREL_DIR)\lib
+
+CSIMUL_A    = $(ESTEREL_LIB)\libcsimul.a
+
+XES         = $(ESTEREL_DIR)\bin\xes.bat
+
+# NT Def
+MAKEFILE    = makefile.VC
+
+MV          = rename
+RM	    = erase /f
+IFEXIST     = if exist
+IFNOTEXIST  = if not exist
+THEN        = 
+
+CC          = cl.exe
+CC_CFLAGS   = /nologo /ML /D "WIN32" /D "NDEBUG" -Fo$@
+LINKER      = link.exe
+LINKER_FLAGS= /nologo /subsystem:console /incremental:no /out:$@ \
+	      kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib\
+              advapi32.lib shell32.lib msvcrt.lib /nodefaultlib:libc.lib
+
+
+TK_CFLAGS   = -D_X86_=1 -DWIN32 -D_WIN32 -D_MT -D_DLL -DUSE_TCLALLOC=0 -D_WINDOW
+
+PATHSEP     = \#
+OBJ         = .obj
+EXE         = .exe
+
+!INCLUDE makefile.all

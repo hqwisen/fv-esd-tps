@@ -1,0 +1,28 @@
+Label Meaning :
+===============
+
+   Like in fc2 format graphic objects are labeled by four distinct
+fields: STRUCT(ure), BEHAV(iour), LOGIC and HOOK. Distinctive meanings
+are explained in the Fc2 documentation (see help on fileformat Fc2).
+
+  By resources (see the Atg file) we give a visibility to each type of
+label of each graphic object :
+
+    for Vertices and Boxes      : only the STRUCT label are visible as they
+                                  are the name of these objects.
+    for Edges, Ports and Webs   : only The BEHAV labels are visible as they
+                                  are the behaviour of these objects.
+
+   The LOGIC and HOOK fields are by default hiden on every objects.
+
+
+
+Exploration :
+=============
+
+   During the exploration the STRUCT label of vertices are hidden.
+
+  By menu the user can hide or show a type of Label : for example
+during the exploration the user can hide all the BEHAV labels by
+selecting the <Labels>:<Behav>:<Show Hide All> and clicking on the
+window and must click again to show the BEHAV labels.

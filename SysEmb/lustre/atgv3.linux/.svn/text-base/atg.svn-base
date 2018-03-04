@@ -1,0 +1,7 @@
+#!/bin/sh 
+DIR=/import/common/src/lustre/current/ATG/atgv3.linux
+PATH=$DIR:$PATH \
+XENVIRONMENT=$DIR/Atg \
+XKEYSYMDB=$DIR/XKeysymDB \
+ATG_HELP_DIR=$DIR/help \
+$DIR/atgbinary $*

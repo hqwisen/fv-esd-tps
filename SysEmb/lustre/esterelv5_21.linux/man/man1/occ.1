@@ -1,0 +1,93 @@
+.TH occ 1 "21/01/1999" "INRIA / CMA" "ESTEREL COMPILER"
+.SH NAME
+occ, sscc, scc \- Esterel and Lustre C code producers \- Version v5_21
+.SH SYNOPSIS
+.B occ
+[options] file ...
+.sp
+.B sscc
+[options] file ...
+.sp
+.B scc
+[options] file ...
+.sp
+.SH DESCRIPTION
+The \fBocc\fP (resp. \fBsscc\fP, \fBscc\fP) code producer takes as
+input one or more \fBoc\fP (resp. \fBssc\fP, \fBsc\fP) files 
+and produces standard executable C code.
+If there is no input file, the standard input is read.
+Typical use is: 
+.sp
+.RS
+.B occ < game.oc
+.RE
+.sp
+or 
+.sp
+.RS
+.B occ -B game game.oc
+.RE
+.sp
+or 
+.sp
+.RS
+.B sscc -B game game.ssc
+.RE
+.LP
+The following options are interpreted by \fBocc\fP, \fBsscc\fP and \fBscc\fP:
+.IP \fB-simul\fP 10
+Produce code suited to interactive simulations. This option is
+mandatory for using \fBcsimul\fP or \fBxsimul\fP libraries.
+.IP "\fB-inline\fR (occ only)" 10
+Generate inline-code instead of tables and indirect function calls for
+the automaton. This option generates faster, and sometimes smaller,
+objects for small automatons. This option is *NOT* compatible with the
+-simul, -sc or -ssc options.
+.IP \fB-ansi\fP 10
+Generate ansi C code instead of standard C.
+.IP "\fB\-B\fP \fBname\fP" 10
+Specify an output file base name. The suffix ".c" is added
+automatically. If this option is omitted  the output code is printed
+in file \fBocc_out.c\fP.
+.IP "\fB\-D\fP \fBdirectory\fP" 10
+Specify  a directory where the output file will be placed.
+The default is the current directory.
+.IP \fB-v\fP 10
+Verbose mode: print the name of each input module on the standard
+error stream.
+.IP \fB-size\fP 10
+Print size statistics on the standard error stream: the number of
+actions, the number of states and the bytecode size of the generated
+automaton.
+.IP \fB-stat\fP 10
+Print statistics on the standard error stream: the execution time and
+the process size.
+Implemented on BSD 4.x systems only.
+.IP \fB-s\fP 10
+Silent mode. No output file is generated.
+.IP \fB-oc\fP 10
+Translate \fBoc\fP format into C programming language. This is
+the default option.
+.IP \fB-ssc\fP 10
+Translate \fBssc\fP format into C programming language.
+.IP \fB-version\fP 10
+Print the version name on the standard error output stream
+and terminate, ignoring all other arguments.
+.IP \fB-access\fP 10
+Print access rights to the processor on the standard error output
+stream and terminate, ignoring all other arguments.
+.IP \fB-info\fP 10
+Print various informations about the processor compilation on the
+standard error output stream and terminate, ignoring all other
+arguments.
+.SH "SEE ALSO"
+Esterel documentations.
+.sp 0
+esterel(1), lcoc(1), sscoc(1), ocdebug(1), sscdebug(1), csimul(3),
+xes(3) 
+.SH IDENTIFICATION
+.sp 0
+Ecole des Mines de Paris (CMA) and INRIA, Sophia-Antipolis
+.sp 0
+Written by Gerard Berry; updated by Frederic
+Mignard, Jean-Pierre Paris and Xavier Fornari

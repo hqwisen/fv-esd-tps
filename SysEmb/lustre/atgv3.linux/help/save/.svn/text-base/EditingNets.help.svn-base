@@ -1,0 +1,19 @@
+Net :
+=====
+
+A Net is the graphical content of any Autograph window.
+
+   It contains boxes, vertice and webs, as well as ports on boxes and
+edges linking vertice, ports and webs in a directional manner.
+Finally all objects may bear labels, sorted in any of the 4 fields of
+FC2 format: struct, behav, logic, hook. A net bears a name, in the
+form of the window title (see menu button <Window>:<Title>).
+
+   Physical objects description is found in respective help files,
+with the edition operations.
+
+   A net(work) may be correct or not, in structure. Correctness is
+only checked prior to translation into FC2 format. As an example, a
+net with some transition joining two states included in different
+boxes is incorrect. Correctness rules are described in the Autograph
+documentation.

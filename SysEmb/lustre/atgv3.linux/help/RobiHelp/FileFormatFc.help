@@ -1,0 +1,16 @@
+Autograph reads files in FC2 format, provided they describe
+a single automaton and satisfy some correctness requirements
+(see <Windows>:<check Drawing Coherency>).. 
+
+The structure is loaded as "unexplored", so that only the initial
+state appears in the popped-up window. Successive states can be 
+unfolded by the user. The <Placing>:<Explore> mode is automatically
+selected when loading.
+
+Applying the <Files>:<Load Fc2> button will pop a dialog window. Just
+click with the mouse cursor in the edition area, then type the file
+name without its .fc2 extension. The DEL keyboard key will erase any
+string in this area being selected by the window-manager drag.
+
+WARNING: Autograph does not produce correct Fc2 format files for
+automata yet (well, almost).

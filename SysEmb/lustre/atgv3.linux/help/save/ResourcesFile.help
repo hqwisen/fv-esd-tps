@@ -1,0 +1,266 @@
+atg*title: Autograph
+atg*iconTitle: Icon Autograph
+atg*windowTitle: Autograph Window
+atg*windowIconTitle: Autograph Window Icon
+atg*helpDir: /p2/meije/autograph/C++/nsrc/atg/help
+atg*x: 100
+atg*y: 100
+atg*windowWidth: 300
+atg*windowHeight: 400
+atg*drawingWidth: 300
+atg*drawingHeight: 400
+atg*shortFcKeywords: 0
+atg*windowExploreWidth: 300
+atg*windowExploreHeight: 400
+atg*drawingExploreWidth: 300
+atg*drawingExploreHeight: 400
+atg*windowMinWidth: 100
+atg*windowMinHeight: 100
+atg*windowMaxWidth: 1000
+atg*windowMaxHeight: 800
+atg*globalWindowMinWidth: 100
+atg*globalWindowMinHeight: 100
+atg*globalWindowMaxWidth: 400
+atg*globalWindowMaxHeight: 400
+atg*vertexRadius: 8
+atg*vertexInitialRadius: 5
+atg*vertexExploreRadius: 4
+atg*portRadius: 5
+atg*pointRadius: 2
+atg*webRadiusHoriz: 12
+atg*webRadiusVert: 2
+!atg*labelRadius: 5
+atg*nameSelectionZone: 0
+atg*boxSelectionZone: 0
+atg*portSelectionZone: 0
+atg*vertexSelectionZone: 0
+atg*webSelectionZone: 3
+atg*edgeSelectionZone: 4
+atg*pointSelectionZone: 5
+atg*clickingSizeArroundPoint: 10
+atg*clickingSizeArroundEdge: 10
+atg*clickingSizeArroundVertex: 0
+atg*clickingSizeArroundWeb: 5
+atg*clickingSizeArroundName: 0
+atg*clickingSizeArroundBox: 0
+atg*clickingSizeArroundPort: 5
+atg*edgeNameEven: 0
+atg*boxMinWidth: 10
+atg*boxMinHeight: 10
+atg*foreground: MidnightBlue
+atg*background: LemonChiffon
+atg*windowExploreBackground: azure
+atg*windowLoadedBackground: azure
+atg*windowCopyBackground: honeydew
+atg*helpWindowForeground: Black
+atg*helpWindowBackground: White
+atg*windowScrolledForeground: Black
+atg*windowScrolledBackground: White
+atg*drawingForeground: DimGray
+atg*drawingBackground: azure
+atg*nameReadForeground: MidnightBlue
+atg*nameReadBackground: LemonChiffon
+atg*fileNameReadForeground: MidnightBlue
+atg*fileNameReadBackground: LemonChiffon
+atg*nameReadWindowWidth: 300
+atg*nameReadWindowHeight: 200 
+atg*exploreRadius: 80
+atg*minExploreRadius: 10
+atg*loopExploreSize: 36
+atg*indent: 0
+atg*indentIncr: 3
+! write 0 rather than 1 for fast raster, line will be 1 pixel width on screen
+atg*lineWidth: 0
+atg*rubberThinLineWidth: 0
+atg*rubberThickLineWidth: 5
+atg*rubberForeground: DimGray
+atg*rubberBackground: Black
+atg*boxLineWidth: 3
+atg*vertexLineWidth: 0
+atg*webLineWidth: 0
+atg*portLineWidth: 0
+atg*edgeLineWidth: 0
+atg*arrowDelta: .17
+atg*arrowRadius: 11
+atg*arrowTangente: .35
+atg*arrowLength: 10
+atg*deltaXAdjustSize: 50
+atg*deltaYAdjustSize: 50
+atg*parsingEchoing: 0
+atg*shortAtgFormat: 0
+atg*atgSuffixe: .atg
+atg*fcSuffixe: .fc2
+atg*objecthilightColor: Red
+atg*vertexColor: CadetBlue
+atg*boxColor: SeaGreen
+atg*edgeColor: SlateGray
+atg*webColor: coral
+atg*portColor: chocolate
+atg*nameColor: maroon
+atg*vertexForeground: DarkSlateGray
+atg*vertexBackground: SlateGray1
+atg*hilightVertexForeground: Red
+atg*hilightVertexBackground: DodgerBlue
+atg*boxForeground: AntiqueWhite4
+atg*boxBackground: LemonChiffon
+atg*hilightBoxForeground: IndianRed2
+atg*hilightBoxBackground:  LightGoldenRod
+atg*webForeground: DarkSlateGray
+atg*webBackground: LightPink
+atg*hilightWebForeground:  Red
+atg*hilightWebBackground:  HotPink
+atg*nameForeground: maroon
+atg*nameBackground: chocolate
+atg*hilightNameForeground: salmon
+atg*hilightNameBackground: peru
+atg*portForeground: BurlyWood4
+atg*portBackground: LimeGreen
+atg*hilightPortForeground: DeepPink
+atg*hilightPortBackground: Aquamarine
+atg*edgeForeground: DarkSlateGray
+atg*edgeBackground: salmon
+atg*hilightEdgeForeground: Red
+atg*hilightEdgeBackground: DarkSlateBlue
+atg*ColorButton*background: Red
+atg*nbForegrounds: 9
+atg*foreground0: DimGray
+atg*foreground1: Black
+atg*foreground2: White
+atg*foreground3: Blue
+atg*foreground4: Red
+atg*foreground5: Green
+atg*foreground6: Yellow
+atg*foreground7: Cyan
+atg*foreground8: Magenta
+atg*nbBackgrounds: 9
+atg*background0: DimGray
+atg*background1: Black
+atg*background2: White
+atg*background3: Blue
+atg*background4: Red
+atg*background5: Green
+atg*background6: Yellow
+atg*background7: Cyan
+atg*background8: Magenta
+atg*behavLabelVertexForeground: maroon
+atg*structLabelVertexForeground: CadetBlue
+atg*logicLabelVertexForeground: goldenrod
+atg*hookLabelVertexForeground: MediumSeaGreen
+atg*behavLabelEdgeForeground: maroon
+atg*structLabelEdgeForeground: CadetBlue
+atg*logicLabelEdgeForeground: goldenrod
+atg*hookLabelEdgeForeground: MediumSeaGreen
+atg*behavLabelBoxForeground: maroon
+atg*structLabelBoxForeground: CadetBlue
+atg*logicLabelBoxForeground: goldenrod
+atg*hookLabelBoxForeground: MediumSeaGreen
+atg*behavLabelPortForeground: maroon
+atg*structLabelPortForeground: CadetBlue
+atg*logicLabelPortForeground: goldenrod
+atg*hookLabelPortForeground: MediumSeaGreen
+atg*behavLabelWebForeground: maroon
+atg*structLabelWebForeground: CadetBlue
+atg*logicLabelWebForeground: goldenrod
+atg*hookLabelWebForeground: MediumSeaGreen
+atg*nbFonts: 30
+atg*font0:*-helvetica-bold-r-normal--8-*
+atg*postscriptFont0:Helvetica-Bold 8
+atg*font1:*-helvetica-bold-r-normal--10-*
+atg*postscriptFont1:Helvetica-Bold 10
+atg*font2:*-helvetica-bold-r-normal--12-*
+atg*postscriptFont2:Helvetica-Bold 12
+atg*font3:*-helvetica-bold-r-normal--14-*
+atg*postscriptFont3:Helvetica-Bold 14
+atg*font4:*-helvetica-medium-o-normal--8-*
+atg*postscriptFont4:Helvetica-Oblique 8
+atg*font5:*-helvetica-medium-o-normal--10-*
+atg*postscriptFont5:Helvetica-Oblique 10
+atg*font6:*-helvetica-medium-o-normal--12-*
+atg*postscriptFont6:Helvetica-Oblique 12
+atg*font7:*-helvetica-medium-o-normal--14-*
+atg*postscriptFont7:Helvetica-Oblique 14
+atg*font8:*-helvetica-medium-r-normal--8-*
+atg*postscriptFont8:Helvetica 8
+atg*font9:*-helvetica-medium-r-normal--10-*
+atg*postscriptFont9:Helvetica 10
+atg*font10:*-helvetica-medium-r-normal--12-*
+atg*postscriptFont10:Helvetica 12
+atg*font11:*-helvetica-medium-r-normal--14-*
+atg*postscriptFont11:Helvetica 14
+atg*font12:*-times-bold-r-normal--8-*
+atg*postscriptFont12:Times-Bold 8
+atg*font13:*-times-bold-r-normal--10-*
+atg*postscriptFont13:Times-Bold 10
+atg*font14:*-times-bold-r-normal--12-*
+atg*postscriptFont14:Times-Bold 12
+atg*font15:*-times-bold-r-normal--14-*
+atg*postscriptFont15:Times-Bold 14
+atg*font16:*-times-medium-i-normal--8-*
+atg*postscriptFont16:Times-Italic 8
+atg*font17:*-times-medium-i-normal--10-*
+atg*postscriptFont17:Times-Italic 10
+atg*font18:*-times-medium-i-normal--12-*
+atg*postscriptFont18:Times-Italic 12
+atg*font19:*-times-medium-i-normal--14-*
+atg*postscriptFont19:Times-Italic 14
+atg*font20:*-times-medium-r-normal--8-*
+atg*postscriptFont20:Times-Roman 8
+atg*font21:*-times-medium-r-normal--10-*
+atg*postscriptFont21:Times-Roman 10
+atg*font22:*-times-medium-r-normal--12-*
+atg*postscriptFont22:Times-Roman 12
+atg*font23:*-times-medium-r-normal--14-*
+atg*postscriptFont23:Times-Roman 14
+atg*font24:*-symbol-medium-r-normal--10-*
+atg*postscriptFont24:Symbol 10
+atg*font25:*-symbol-medium-r-normal--12-*
+atg*postscriptFont25:Symbol 12
+atg*font26:*-courier-medium-r-normal--8-*
+atg*postscriptFont26:Courier 8
+atg*font27:*-courier-medium-r-normal--10-*
+atg*postscriptFont27:Courier 10
+atg*font28:*-courier-medium-r-normal--12-*
+atg*postscriptFont28:Courier 12
+atg*font29:*-courier-medium-r-normal--14-*
+atg*postscriptFont29:Courier 14
+atg*behavLabelPortFont:*-helvetica-medium-r-normal--10-*
+atg*behavLabelPortPostscriptFont:Helvetica 10
+atg*structLabelPortFont:*-helvetica-medium-r-normal--10-*
+atg*structLabelPortPostscriptFont:Helvetica 10
+atg*logicLabelPortFont:*-helvetica-medium-r-normal--10-*
+atg*logicLabelPortPostscriptFont:Helvetica 10
+atg*hookLabelPortFont:*-helvetica-medium-r-normal--10-*
+atg*hookLabelPortPostscriptFont:Helvetica 10
+atg*behavLabelWebFont:*-courier-medium-r-normal--10-*
+atg*behavLabelWebPostscriptFont:Courier 10
+atg*structLabelWebFont:*-courier-medium-r-normal--10-*
+atg*structLabelWebPostscriptFont:Courier 10
+atg*logicLabelWebFont:*-courier-medium-r-normal--10-*
+atg*logicLabelWebPostscriptFont:Courier 10
+atg*hookLabelWebFont:*-courier-medium-r-normal--10-*
+atg*hookLabelWebPostscriptFont:Courier 10
+atg*behavLabelVertexFont:*-times-medium-r-normal--11-*
+atg*behavLabelVertexPostscriptFont:Times-Roman 11
+atg*structLabelVertexFont:*-times-medium-r-normal--11-*
+atg*structLabelVertexPostscriptFont:Times-Roman 11
+atg*logicLabelVertexFont:*-times-medium-r-normal--11-*
+atg*logicLabelVertexPostscriptFont:Times-Roman 11
+atg*hookLabelVertexFont:*-times-medium-r-normal--11-*
+atg*hookLabelVertexPostscriptFont:Times-Roman 11
+atg*behavLabelEdgeFont:*-times-medium-r-normal--10-*
+atg*behavLabelEdgePostscriptFont:Times-Roman 10
+atg*structLabelEdgeFont:*-times-medium-r-normal--10-*
+atg*structLabelEdgePostscriptFont:Times-Roman 10
+atg*logicLabelEdgeFont:*-times-medium-r-normal--10-*
+atg*logicLabelEdgePostscriptFont:Times-Roman 10
+atg*hookLabelEdgeFont:*-times-medium-r-normal--10-*
+atg*hookLabelEdgePostscriptFont:Times-Roman 10
+atg*behavLabelBoxFont:*-helvetica-bold-r-normal--12-*
+atg*behavLabelBoxPostscriptFont:Helvetica-Bold 12
+atg*structLabelBoxFont:*-helvetica-bold-r-normal--12-*
+atg*structLabelBoxPostscriptFont:Helvetica-Bold 12
+atg*logicLabelBoxFont:*-helvetica-bold-r-normal--12-*
+atg*logicLabelBoxPostscriptFont:Helvetica-Bold 12
+atg*hookLabelBoxFont:*-helvetica-bold-r-normal--12-*
+atg*hookLabelBoxPostscriptFont:Helvetica-Bold 12
+

@@ -1,0 +1,11 @@
+ Autograph supports an internal format for saving and loading
+drawings. Files are loaded with the <Files>:<Load atg> menu button,
+and saved with <Files>:<atg Format>.
+
+The first time you save a drawing, Autograph prompts a dialog window
+where you can edit the filename using the Backspace and Delete keys.
+Just click with the mouse cursor in the edition area, then type the
+file name with or without its .atg extension. The DEL keyboard key
+will erase any string in this area being selected by the
+window-manager drag.
+

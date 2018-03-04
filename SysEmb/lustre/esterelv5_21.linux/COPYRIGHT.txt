@@ -1,0 +1,45 @@
+Esterel Compiler version 5.21 Copyright and License Information
+===============================================================
+
+Esterel products are owned and licensed exclusively by Ecole des Mines de
+Paris (EMP), ARMINES, and INRIA, Licensors.
+
+Licensors grant to you, Licensee, a non-exclusive, non-transferable license
+to use the Esterel v5_21 binary code version (Binary Software) without fee.
+Licensee may distribute the Binary Software to third parties provided that
+the copyright notice and this statement appear on all copies of the software
+and documentation or portions thereof.
+
+LICENSORS MAKE NO REPRESENTATIONS OR WARRANTIES ABOUT THE SUITABILITY OF THE
+BINARY SOFTWARE, EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR
+NON-INFRINGEMENT. LICENSORS SHALL NOT BE LIABLE FOR ANY DAMAGES SUFFERED
+EITHER BY LICENSEE AS A RESULT OF USING, MODIFYING OR DISTRIBUTING THE
+BINARY SOFTWARE OR ITS DERIVATIVES, OR BY THIRD PARTIES TO WHOM THE BINARY
+SOFTWARE HAS BEEN DISTRIBUTED. THE BINARY SOFTWARE IS SUPPLIED AS SUCH, AND
+LICENSORS SHALL NOT PROVIDE MAINTENANCE OR USER-ASSISTANCE.
+
+By downloading, using or copying this Binary Software, Licensee agrees to
+abide by the intellectual property laws and the terms of this License.
+Ownership of the software shall remain solely in Licensors.
+
+Licensors shall have the right to terminate this license immediately by
+written notice upon Licensee's breach of, or non-compliance with, any of its
+terms. Licensee shall be liable for any infringement or damages resulting
+from Licensee's failure to abide by the terms of this License.
+
+
+   * Ecole des Mines de Paris
+     60 Bd St Michel
+     75275 Paris Cedex 06, France
+
+   * ARMINES
+     60 Bd St Michel
+     75275 Paris Cedex 06, France
+
+   * INRIA
+     Domaine de Voluceau
+     78150 Rocquencourt, France
+
+
+

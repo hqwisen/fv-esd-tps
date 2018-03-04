@@ -1,0 +1,57 @@
+    Autograph is a graphical editor and display support for
+communicating systems and reactive automata, in the framework
+of process algebra theory (CCS, Meije, Lotos and other 
+relevant calculi, see help:translation).
+
+    Descriptions may be edited using the following types of
+objects: boxes   (processes)
+         ports   (communication end-points)
+         vertice (dynamic automata states)
+         edges   (automata transitions and port connections)
+         "webs"  (multisynchronisations)
+         labels  (tagging other objects)
+See help:editing and help:labels for more details.
+
+    Autograph fronts the user with a menubar, displaying
+several menus: 
+   help      (dividing further in topics)
+   I/O file  (loading and saving, see help:system management)
+   window    (create and and manage drawing areas, see
+                                      help:system management)
+   labels    (
+   box       (     edition menus, see help:edition and
+   port      (     help:labels.
+   vertex    (
+   web       (
+   edge      (
+   selection (sub-drawings manipulations, see 
+                                help:system management)
+   color     (changing the color of objects, see
+                                help:system management)
+
+   Autograph is mouse driven, with specific functions picked
+from menus, bound to mouse buttons, and applied to editing
+areas. See help:mouse for further details on buttons 
+interpretation. 
+
+   Edition in Autograph is non-structural: incorrect drawings
+are permitted for draft purpose. Correctness itself depends
+on the specific algebra and verification engine aimed at.
+See help:translation.
+
+   Autograph reads and writes descriptions (of process
+networks and/or automata) in a dedicated format. Graphical
+placements may be fully or partially omitted from this
+descriptions, and interactive positioning from the user is
+allowed (WARNING: Currently, only for automata). See
+help:explore for more details.
+
+   Apart from labels, which bear semantic informations onto
+objects, other attributes may be applied graphically. Some
+are dependant on the target calculus, some are Autograph
+display, some are mere color highlights. See help:attributes
+for more details.
+
+   Autograph allows a selection mechanism, to apply functions
+onto a set of objects at once. Examples are alignement
+functions. See help:SelectAlign for more details.

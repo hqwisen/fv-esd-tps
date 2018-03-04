@@ -1,0 +1,32 @@
+Edge :
+======
+
+   Edges are directed and composed of line segments. They join any
+couple of objects with types in {port, web, vertex}. They are multiple
+named.
+
+   To create an edge you select the <ObjectsEdit>:<Edge>:<Create (e)>
+menu command ('e' is the keyboard shortcut), you click inside the
+source object, as long as you maintain the button down, a segment
+shadow follow the mouse cursor. If you release the button in a port, a
+vertex or a web then the edge is created straight, else a segment is
+created and you must continue until you give the target object.
+
+   Points may be added, moved or killed by menu.
+
+   The shape of the edge arrow is fixed by resources: length of the
+arrow and angle between the arrow and the edgesegment.
+
+   Like every graphic objects a resource value fixe the clicking zone
+arround the edge.
+
+   The menu commands <ObjectsEdit>:<Edge>:<change Source> and
+<ObjectsEdit>:<Edge>:<change Target> allow to redirect a given edge.
+It is not yet implemented.
+
+   The menu commands <ObjectsEdit>:<Edge>:<Show Source> and
+<ObjectsEdit>:<Edge>:<Show Target> highlight the corresponding
+objects.
+
+Edge line width can be fixed by resources :
+    atg*edgeLineWidth: 0 (mean 1 but draw by fast raster)

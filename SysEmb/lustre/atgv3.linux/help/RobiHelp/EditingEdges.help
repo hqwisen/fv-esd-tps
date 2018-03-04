@@ -1,0 +1,52 @@
+   Edges are broken arrows, which may join any 
+couple of objects with types in {port,web,vertex}.
+
+  How to create an edge:
+1- select the "edition:edge:create" menu function.
+2- designates the source object with left mouse
+   button (keeping the button down). Each successive
+   button release will then add a new angle point
+   to the broken line, until the button is finally
+   released inside an appropriate target object.
+
+  Points may be added, moved or killed with proper
+menu functions.
+
+  Edges are selected/moved/killed alongside with
+their endpoint objects. When only one endpoint is
+selected, the edge is reshaped from the first point
+encountered.
+
+  Unlike other objects edges may be multiply
+labelled, saving line occupancy in the drawing area.
+
+  An edge has default colors:
+      Atg*edgeforeground
+Further edge attributes may alter color shades.
+
+ The shape of the arrow head also depends on X11
+resources, for length:
+  Atg*arrowradius
+and angle:
+  Atg*arrowdelta
+
+ Edge are unidimensional objects, and therefore 
+hard to be accurately clicked on. A resource value
+  Atg*deltaline
+allow to seize an edge "up to" so many pixels.
+
+ Relevance of edges (for instance joining a
+vertex to a port) is NOT checked until explicit
+translation/completion is required by the user.
+
+ When system:flags:align is on, point locations
+are straightened at move to align as much as 
+possible respective to outgoing edge segments.
+
+WARNING: not yet implemented:
+The menu functions Edition:edge:changeSource
+and Edition:edge:changeTarget allow to redirect
+a given edge from the point where it gets selected.
+The menu functions Edition:edge:showSource
+and Edition:edge:showTarget simply highlight the
+corresponding objects.

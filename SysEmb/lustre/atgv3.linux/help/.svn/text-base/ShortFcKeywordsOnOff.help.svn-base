@@ -1,0 +1,6 @@
+Short Fc Keywords On Off :
+==========================
+
+When this flag is On, keywords of fc format are given in their
+shortland notation. For more precisions, see the fc2 reference
+manual.

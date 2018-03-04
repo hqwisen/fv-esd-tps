@@ -1,0 +1,7 @@
+#!/bin/sh
+if test -z "$ESTEREL"
+then
+ESTEREL=/u/beta/0/esterel/v5_21/tapes/esterelv5_21.linux
+fi
+export ESTEREL
+$ESTEREL/bin/esterel.exe "$@"

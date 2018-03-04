@@ -1,0 +1,247 @@
+.TH sccheck 1 "25/03/1999" "INRIA / CMA" "ESTEREL COMPILER"
+.SH NAME
+sccheck, sccausal \- Causal analysis of ESTEREL programs \- Version v5_21
+.SH SYNOPSIS
+.B sccheck
+[options] file ...
+
+.B sccausal
+[options] file ...
+.SH DESCRIPTION
+\fBsccheck\fR checks whether a program in \fBsc\fP code is
+constructive, and, if yes, checks that no single signal can be emitted
+more than once.  The \fBsccheck\fR processor does not generate
+code. It is normally called via the \fBesterel\fR command with the
+\fB-Icheck\fR option.
+.PP
+\fBsccausal\fR is the full Esterel constructiveness analyzer. It reads
+a program in \fBsc\fP code, checks it for constructiveness, and, if it
+is found constructive, produces a sorted circuit code in \fBssc\fP
+format. The \fBsccausal\fR processor is normally called via the
+\fBesterel\fR command with the \fB-causal\fR option.
+.PP
+The \fBsccheck\fR command is equivalent to \fBsccausal\fR -s -single.
+.PP
+Constructiveness analysis is necessary because Esterel programs can
+have cyclic dependencies, which translate to combinationally cyclic
+Boolean control circuits. For more information on constructiveness, 
+see the Esterel v5 documentation.
+.PP
+The \fBsccausal\fR algorithm begins with the FSM representing the
+control of an Esterel program.  It breaks all combinational cycles and
+assigns unknown values to each circuit node and each input
+corresponding to a broken cycle. It uses the reached state set to
+perform an incremental TVF (three-valued functions) computation: the
+reached states are computed at the same time as the TVFs, at each
+iteration.  We begin by computing the TVFs for the network given the
+initial state, and at each iteration (each pass through the network),
+we compute the new TVFs given the current state set (using the
+cofactor operation), and we use these TVFs to compute the next state
+set.  The iteration continues until no new states are found, or until
+an unstable state is reached.  The final
+FSM, which is functionally equivalent to the original but contains no
+combinational cycles, is written in \fBssc\fR code.
+
+.PP
+Error messages and warnings are written to the standard error stream.
+Typical use is: 
+.IP
+.B esterel -Icheck foo.strl
+.PP
+which performs the following call:
+.IP
+.B
+sccheck < foo.strl
+.PP
+or
+.IP
+.B sccausal < game1.sc > game.ssc
+.PP
+or equivalently 
+.IP
+.B sccausal game2.sc -B game
+
+.SH OPTIONS
+The following options are common to all Esterel processors.
+.IP \fB-version\fP 10
+Print the version name on the standard error output stream
+and terminate, ignoring all other arguments.
+
+.IP \fB-info\fP 10
+Display various information about the current \fBsccausal\fR processor
+on the standard error output stream and terminate, ignoring all other
+arguments.
+
+.IP \fB-access\fP 10
+Print access rights to the processor on the standard error output
+stream and terminate, ignoring all other arguments.
+
+.IP \fB-stat\fP 10
+Print statistics on the standard error stream:
+CPU times required for parsing the input and 
+performing the causal analysis; physical memory requirement for the process.
+\fI(Not implemented in current version)\fP.
+
+.IP \fB-s\fP 10
+Silent mode: perform parsing and
+causality analysis but do not produce the \fBssc\fP code.
+
+.IP \fB-v\fP 10
+Verbose mode.
+
+.PP
+The following option performs the analysis of the static cycles of the
+\fBsc\fR program.
+.IP \fB-cycles\fP 10
+Performs a topological sort of the oriented graph corresponding to the
+\fBsc\fR description. If there are non-trivial strongly connected
+components (SCC) then it prints an error message giving the
+coordinates of each SCC and the names of signals that close that
+particular SCC. If the XES call was not canceled by the user, the
+error is then shown using the XES interface.
+
+.PP
+The following options control the algorithm for causality analysis.
+.IP \fB-cofactor\fP 10
+Use a priori information about the reachable states to simplify the
+BDDs using the cofactor BDD operation.  The a priori information is derived
+from both the relations specified in the Esterel program and
+information internally derived about mutually exclusive register
+values. (The latter comes from the \fBselectinc\fR wires; see sc6
+format description.)  The TVFs for the  
+input signals are cofactored with respect to this information,
+and the TVFs for the remaining nodes in the network are computed in
+topological order; no further cofactoring is necessary since the cofactor
+operation is transitive.
+
+.IP \fB-restrict\fP 10
+Use a priori information about the reachable states to simplify the
+BDDs using the BDD restrict operation.  Note that since the restrict
+operation is not transitive, it must be applied to each node after the
+TVF is computed.
+
+.IP \fB-no_inc\fP 10
+This options computes the TVFs first and then the reachable state
+space. It iteratively computes the
+TVFs (three-valued functions) for each node in the network in
+topological order, and substitutes the appropriate functions for the
+cut-cycle inputs.  The iteration is repeated until no TVFs change.
+The set of \fBunstable states\fR is then computed as the set of states
+in which some node has an undefined value.  The circuit is then
+momentarily assumed constructive, a combinationally-acyclic version is
+created from the TVFs, and the reachable state set for this FSM is
+computed.  The circuit is declared to be constructive if no unstable
+state is reached during the reachable state computation.
+
+.IP \fB-inc\fP 10
+Use the reached state set to perform an incremental TVF computation:
+the reached states are computed at the same time as the TVFs, at each
+iteration.  We begin by computing the TVFs for the network given the
+initial state, and at each iteration (each pass through the network),
+we compute the new TVFs given the current state set (using the
+cofactor operation), and we use these TVFs to compute the next state
+set.  The iteration continues until no new states are found, or until an
+unstable state is reached. This is the default option.
+
+.IP \fB-sift\fP 10
+Use sifting to dynamically reorder the BDD variables when performing
+BDD operations. Can save a lot of memory, but uses more time.
+
+.PP
+The following options control the optimization of the data structure that
+produces the \fBssc\fR code.
+.IP \fB-o1\fP 10
+After causality analysis is complete, optimize the BDDs for the
+FSM by applying sifting (changing the BDD variable ordering) and
+simplification (cofactoring with respect to the reachable states).
+Note that the simplification will have no effect if the \fB-inc\fR
+option is used.
+
+.IP \fB-o2\fP 10
+After causality analysis is complete, optimize the structure of
+the resulting FSM (which is represented by BDDs) by removing redundant
+latches.
+
+.PP
+The following command is used for verification of single signals
+.IP \fB-single\fP 10
+Checks that for any reached state no single signal is emitted twice 
+(default for sccheck).
+
+.PP
+The following option is used for testing the \fBsccausal\fR program.
+.IP \fB-tvf\fP 10
+Forces TVF computation and causality analysis even for acyclic circuits.
+Used for regression testing.
+
+.PP
+The following options allows to generate \fBBLIF\fR (\fBB\fRerkeley
+\fBL\fRogic \fBI\fRnterchange \fBF\fRormat) versions of the processed
+file: 
+
+.IP \fB-cyclic_blif\fP 10
+If the circuit is cyclic, generates the \fBBLIF\fR version before
+performing causal analysis. If a \fIbasename\fR was specified using
+the \fB-B\fR option, then the name of this blif file will be
+cyclic_\fIbasename\fR.ssc.blif, cyclic.blif otherwise.
+
+.IP \fB-blif\fP 10
+If the circuit is causal, generates the acyclic \fBBLIF\fR version
+after the causal analysis. If a \fIbasename\fR was specified using
+the \fB-B\fR option, then the name of this blif file will be
+\fIbasename\fR.blif, sccausal.blif otherwise.
+
+.PP
+The following option avoids interfacing with \fBXES\fR simulator:
+.IP \fB-no_xes\fP 10
+By default, when an error is detected, \fBXES\fR simulator is called
+to graphically display the error. This option avoid the call to
+\fBXES\fR.
+
+.PP 
+The following option verifies the \fBsc\fP file without \fBssc\fP code
+generation: 
+.IP \fB-check\fP 10
+Performs causality analysis.  If the circuit is causal, checks that
+for any reached state no single signal is emitted twice.  Does not
+generate the \fBssc\fP code.
+
+.SH Optimization
+Constructiveness analysis can be expensive.  The \fB-inc\fR option is
+usually the best for memory-intensive analysis, because the TVFs are
+computed only for the reachable states of the system.  However, in the
+case where an intermediate reached state set has a large BDD, it may
+not be efficient.  In addition, this option may require more time as
+each network-TVF computation is interleaved with a cofactor operation
+with respect to the reached-state set.  In general, for
+memory-intensive programs, \fB-inc\fR performs better than
+\fB-restrict\fR, which performs better than \fB-cofactor\fR.  The
+option \fB-sift\fP can be useful in all cases to reduce memory
+consumption.
+
+For CPU-intensive programs, \fB-cofactor\fR performs better
+than \fBrestrict\fR (they are nearly identical operations, but restrict
+must be applied to every node).  The \fB-inc\fR option is more difficult
+to predict.  It requires an application of cofactor at each iteration
+and hence may take longer; at the same time it uses (possibly) smaller
+BDDs which may be faster and compensate for the extra cost at each iteration.
+
+.SH BUGS
+The current version is under test, and as such, may exhibit anomalies.
+
+.SH DIAGNOSTICS
+If the input circuit is non-constructive, a counter-example input sequence
+is printed and the xes simulator is called to display the error graphically.
+
+.SH "SEE ALSO"
+Esterel documentation. The paper "Constructive Analysis of Cyclic
+Circuits" by T. Shiple, G. Berry, and H. Touati.
+.sp
+esterel(1), lcsc(1), scssc(1)
+.SH IDENTIFICATION
+Ecole des Mines de Paris (CMA) and INRIA Sophia-Antipolis.
+.sp
+Written by Tom Shiple & Horia Toma & Amar Bouali.
+.sp
+Based on the TiGeR BDD and FSM library, property of Digital Equipment
+Corp.  and distributed by the XORIX company.

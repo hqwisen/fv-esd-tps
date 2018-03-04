@@ -1,0 +1,22 @@
+May 19 2015 -> re-made Makefile and glue code
+Oct 22 1999
+
+This directory contains the programs of the digital watch.
+
+The directory LUSTRE_SRC contains the Lustre program.
+
+The directory C_SRC contains the interface programs, in C.
+
+You will get the program "watch",
+which takes as parameters 4 characters, corresponding to the 4 buttons of the 
+watch. For instance, typing "watch iokl" calls the watch with
+
+    . key "i" bound to upper left button
+    . key "o" bound to upper right button
+    . key "k" bound to lower left button
+    . key "l" bound to lower right button
+
+Type "q" to quit.
+
+By default, the base time is the 1/10 of second.
+

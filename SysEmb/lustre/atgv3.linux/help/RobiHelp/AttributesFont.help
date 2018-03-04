@@ -1,0 +1,25 @@
+ Font attributes are used to write labels on edited objects, of various
+ info classes respective to FC2 format (behav, struct, logic, hook).
+
+ Font can be changed individually, or on selected sets of
+ labels altogether, through any button in the <Attribute>:<Font>
+ menu. Font buttons in the menu are assigned through X11 resources
+
+atg*font<int>         (for instance atg*font5 :*-times-medium-r-normal--10-*),
+atg*postscriptFont<int>                  for postscript printing.
+
+ Their number must be provided as: 
+
+atg*nbFonts : <int>
+
+ The default font for labelling each object type is set by resources, as
+ well as a font for highlighting the labels. Resources names are:
+
+atg*behavLabelBoxFont
+atg*behavLabelBoxPostscriptFont
+
+ and similarly for vertex, port, edge or web instead of box, and
+struct, logic or hook instead of behav.
+
+
+

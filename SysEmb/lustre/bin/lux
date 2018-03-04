@@ -1,0 +1,136 @@
+#!/bin/sh
+#
+# Compilateur lustre -> executable
+# 3 utilisations possibles :
+# 
+# 1) Compilation oc (via poc)
+# lux <file>.oc
+#
+# 2) Compilation ec (via ec2c)
+# lux <file>.ec
+#
+# 3) Compilation lustre (via ec2c)
+# lux <file>.lus [-m <node>]
+#
+#====================
+# PARAMETRES DU SHELL
+#====================
+CC=cc
+LUS2EC=lus2ec
+EC2C=ec2c
+OC2C=poc
+
+EXE=`basename $0`
+VERSION=3.0
+echo "--$EXE version $VERSION"
+
+_USAGE() {
+   echo "--usage: $EXE <file>.<oc|ec|lus> [node]"
+};
+
+_OC2EXE() {
+	echo "--calling $OC2C version `$OC2C -version`"
+	$OC2C -o $BASE -loop $FILE
+	if test $? -ne 0
+	then
+		echo "=> compilation abborted"
+		exit $?
+	fi
+	echo "--calling $CC"
+	$CC $BASE.c ${BASE}_loop.c -o $BASE
+	if test $? -ne 0
+	then
+		echo "=> compilation abborted"
+		exit $?
+	fi
+	echo "=>done: \"$BASE\""
+};
+
+_EC2EXE() {
+	echo "--calling $EC2C version `$EC2C -version`"
+	$EC2C -loop -o $BASE $FILE
+	if test $? -ne 0
+	then
+		echo "=> compilation abborted"
+		exit $?
+	fi
+	echo "--calling $CC"
+	$CC $BASE.c ${BASE}_loop.c -o $BASE
+	if test $? -ne 0
+	then
+		echo "=> compilation abborted"
+		exit $?
+	fi
+	echo "=>done: \"$BASE\""
+};
+
+_LUS2EXE() {
+	$LUS2EC $FILE $NODE
+	if test $? -ne 0
+	then
+		echo "=> compilation abborted"
+		exit $?
+	fi
+	echo "--calling $EC2C version `$EC2C -version`"
+	$EC2C -loop $NODE.ec
+	if test $? -ne 0
+	then
+		echo "=> compilation abborted"
+		exit $?
+	fi
+	echo "--calling $CC"
+	$CC $NODE.c ${NODE}_loop.c -o $NODE
+	if test $? -ne 0
+	then
+		echo "=> compilation abborted"
+		exit $?
+	fi
+	echo "=>done: \"$NODE\""
+};
+
+if test $# -lt 1
+then
+	_USAGE
+   exit 1
+fi;
+FILE=$1
+FILENAME=`basename $FILE`
+
+BASE=`expr $FILENAME : '\(.*\)\.[^.]*'` 
+EXT=`expr $FILENAME : '.*\.\([^.]*\)'` 
+#echo BASE=$BASE
+#echo EXT=$EXT
+
+case $EXT in
+   lus)
+      shift
+		if test $# -ne 1
+		then
+			_USAGE
+         echo "=> [node] expected for lus file"
+			exit 1
+		fi;
+		NODE=$1
+		echo "--compiling lustre file \"$BASE.$EXT\""
+      _LUS2EXE
+   ;;
+   ec)
+		echo "--compiling ec file \"$BASE.$EXT\""
+		_EC2EXE
+   ;;
+   oc)
+		_OC2EXE
+   ;;
+	*)
+		echo "unknown suffix \"$EXT\""
+	;;
+esac
+
+exit
+
+
+if 
+
+poc -loop $FILE
+echo $CC $BASE.c ${BASE}_loop.c -o $BASE
+$CC $BASE.c ${BASE}_loop.c -o $BASE

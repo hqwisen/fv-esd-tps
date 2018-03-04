@@ -1,0 +1,16 @@
+Fc2 format :
+===========
+
+  This format is used for file exchange between verification tools, at
+the level of single automata and -more generally- hierarchical finite
+networks of such. Fc2 syntax is not user-friendly but allows compact
+description of large objects.
+
+  Autograph can read -plain- automata in fc2 format, through the
+<File>:<Load fc2> menu button. Initial states are then displayed in
+new window, and the mouse left button is put in <Placing>:<Explore>
+mode (see corresponding help file).
+
+  Autograph translates correct window contents (automataon, or nets)
+into fc2 format with the <Files>:<fc2 Format> menu button (then click
+desired windows).  Correctness is checked. 

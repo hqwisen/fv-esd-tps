@@ -1,0 +1,10 @@
+Autograph uses 3 formats:
+
+Fc2:        communication with verification systems, allows
+            representation of single automata or process networks.
+            This format was designed as part of the
+            Esprit BRA Concur(2) project.
+
+atg:        private format, for drawing representation (unstructured).
+
+postscript: output format for postscript printers and inclusions.

@@ -1,0 +1,20 @@
+Postscript format :
+===================
+
+   Autograph can produce postscript format for drawings. Postscript
+files are produced with <Files>:<Postscript Format> or
+<Files>:<Postscript Format As> menu button. The look is slightly
+different than on screen. It does not take color into account. The
+edge have splines insteade of break lines. The graphic object fonts
+depend on resource.
+
+   Postscript files can be included into latex files with the psfig
+latex style.
+
+   If you want to print a postscript file on your lazer writer, you
+must use before the psfp shell command given in the distrib of
+autograph. This command take as input a postscript file containing a
+BoundingBox, and produce on the standard output another postscript
+file in which your drawing in scaled to fit in a full A4 page.
+
+   The produced postscript is black and white.

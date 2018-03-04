@@ -1,0 +1,20 @@
+Show Label / Show Objetc : 
+   The used color is the hilight color of the Name/Objetc but the
+   combinaison mode is Xor, so the effective color is not predictable.
+
+Select :
+   Select Object (resp. Label) will deselect Label (resp. Object).
+      
+Delete Window :
+   Delete a Window by the window manager is not actually handle by
+   Autograph and may cause bus error problem.
+
+Load Automaton to Explore :
+   The initial vertex need a position and its name too.
+
+Load Fc2 :             --- debugging version ---
+   When a label reference in an fc2 file refers to a "hole" of the
+   corresponding table, we build a dummy label ("BEWARE_DUMMY_LABEL") and
+   we display the fc2 file.
+
+----------   Please Report Bugs to autograph@cma.cma.fr   ---------

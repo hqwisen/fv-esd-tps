@@ -1,0 +1,25 @@
+   Autograph uses left/middle/right mouse buttons,
+with the following interpretation:
+
+left button   - picks menu functions and applies 
+  them to drawing areas or windows, appropriately.
+  Because of Autograph multiwindow management, the
+  user is required to click inside the window to
+  which a window function should apply (Save, for
+  instance).
+
+middle button - moves all kind of objects, 
+  including labels. When a current selection 
+  exists, moving a selected object will move them
+  all.
+
+right button  - selects or unselects objects, in a
+  toggle fashion. Dragging the mouse down will
+  (un)selectall objects in the shadow rectangle
+  area. Clicking outside any object removes all
+  selections.
+
+WARNING: not yet implemented:
+Keyboard shorthands may  be used to select
+left button functions without browsing through
+the menus .

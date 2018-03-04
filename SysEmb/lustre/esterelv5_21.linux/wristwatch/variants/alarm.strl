@@ -1,0 +1,146 @@
+% The ALARM module
+
+module ALARM :
+
+% Declarations of ALARM
+
+% To handle the alarm time:
+
+type ALARM_TIME_TYPE;
+constant INITIAL_ALARM_TIME : ALARM_TIME_TYPE;
+procedure TOGGLE_24H_MODE_IN_ALARM_TIME (ALARM_TIME_TYPE) ();
+
+input TOGGLE_24H_MODE_COMMAND;
+
+output ALARM_TIME : ALARM_TIME_TYPE;
+
+% To set the alarm time:
+
+type ALARM_TIME_POSITION;
+constant INITIAL_ALARM_TIME_POSITION : ALARM_TIME_POSITION;
+function NEXT_ALARM_TIME_POSITION (ALARM_TIME_POSITION) : ALARM_TIME_POSITION;
+         % say from hours to 10-minutes to minutes and circularly
+         % (not relevant for ESTEREL)
+procedure SET_ALARM_TIME (ALARM_TIME_TYPE) (ALARM_TIME_POSITION);
+         % applies a setting command
+
+input ENTER_SET_ALARM_MODE_COMMAND,
+      SET_ALARM_COMMAND,
+      NEXT_ALARM_TIME_POSITION_COMMAND,
+      EXIT_SET_ALARM_MODE_COMMAND;
+
+output START_ENHANCING : ALARM_TIME_POSITION,
+       STOP_ENHANCING : ALARM_TIME_POSITION;
+
+% To communicate with a watch:
+
+type WATCH_TIME_TYPE;
+function COMPARE_ALARM_TIME_TO_WATCH_TIME
+                          (ALARM_TIME_TYPE, WATCH_TIME_TYPE) : boolean;
+
+input WATCH_TIME : WATCH_TIME_TYPE;
+input WATCH_BEING_SET;
+
+% To beep:
+
+type BEEP_TYPE;
+constant ALARM_BEEP_VALUE : BEEP_TYPE;
+constant ALARM_DURATION : integer;
+
+input S;
+input TOGGLE_ALARM_COMMAND,
+      STOP_ALARM_BEEP_COMMAND;
+
+output ALARM_STATUS : boolean;
+output BEEP : BEEP_TYPE;
+
+% Input relations:
+
+relation WATCH_BEING_SET => WATCH_TIME;
+
+         % all the other signals are pairwise incompatible,
+         % except STOP_ALARM_BEEP_COMMAND that may appear anytime
+relation   S
+         # TOGGLE_24H_MODE_COMMAND
+         # TOGGLE_ALARM_COMMAND
+         # ENTER_SET_ALARM_MODE_COMMAND
+         # SET_ALARM_COMMAND
+         # NEXT_ALARM_TIME_POSITION_COMMAND
+         # EXIT_SET_ALARM_MODE_COMMAND;
+
+signal START_BEEPING in
+   var ALARM_TIME := INITIAL_ALARM_TIME : ALARM_TIME_TYPE,
+       ALARM_STATUS := false : boolean in
+
+      % initializations
+      emit ALARM_TIME (ALARM_TIME);
+      emit ALARM_STATUS (ALARM_STATUS);
+
+      % main loop
+
+      loop
+         % normal mode
+         do % upto ENTER_SET_ALARM_MODE_COMMAND
+            loop
+               await
+                  case TOGGLE_24H_MODE_COMMAND do
+                     call TOGGLE_24H_MODE_IN_ALARM_TIME (ALARM_TIME)();
+                     emit ALARM_TIME (ALARM_TIME)
+                  case TOGGLE_ALARM_COMMAND do
+                     ALARM_STATUS := not ALARM_STATUS;
+                     emit ALARM_STATUS (ALARM_STATUS)
+                  case WATCH_TIME do
+                     present WATCH_BEING_SET else
+                        if COMPARE_ALARM_TIME_TO_WATCH_TIME
+                                            (ALARM_TIME, ? WATCH_TIME)
+                           and ALARM_STATUS
+                        then 
+                           emit START_BEEPING 
+                        end if
+                     end present
+               end await
+            end loop
+         upto ENTER_SET_ALARM_MODE_COMMAND;
+
+         % set-alarm mode
+         % (one might also accept TOGGLE_24H_MODE_COMMAND
+         % and TOGGLE_ALARM_COMMAND; for this one just has to
+         % copy the corresponding cases above into the next await).
+         % Notice that the alarm does not ring in set mode
+
+         var ALARM_TIME_POSITION : ALARM_TIME_POSITION in
+            do % upto EXIT_SET_ALARM_MODE_COMMAND
+               ALARM_TIME_POSITION := INITIAL_ALARM_TIME_POSITION;
+               emit START_ENHANCING (ALARM_TIME_POSITION);
+               loop
+                  await
+                     case SET_ALARM_COMMAND do
+                        call SET_ALARM_TIME (ALARM_TIME)
+                                            (ALARM_TIME_POSITION);
+                        emit ALARM_TIME (ALARM_TIME)
+                     case NEXT_ALARM_TIME_POSITION_COMMAND do
+                        emit STOP_ENHANCING (ALARM_TIME_POSITION);
+                        ALARM_TIME_POSITION := NEXT_ALARM_TIME_POSITION 
+                                                 (ALARM_TIME_POSITION);
+                        emit START_ENHANCING (ALARM_TIME_POSITION)
+                  end await
+               end loop
+            upto EXIT_SET_ALARM_MODE_COMMAND;
+            emit STOP_ENHANCING (ALARM_TIME_POSITION);
+            ALARM_STATUS := true;
+            emit ALARM_STATUS (ALARM_STATUS)
+         end var
+      end loop
+   end var
+||
+   % how to beep
+   every START_BEEPING do
+      do
+         do
+            loop emit BEEP (ALARM_BEEP_VALUE) each S
+         upto STOP_ALARM_BEEP_COMMAND
+      watching ALARM_DURATION S
+   end every
+end signal
+end module
+

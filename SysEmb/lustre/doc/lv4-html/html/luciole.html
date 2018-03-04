@@ -1,0 +1,271 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title></title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body>
+<table border="0" width="100%" cellspacing="0" cellpadding="3">
+<tr><td class="_podblock_" style="background-color: #cccccc; color: #000" valign="middle">
+<big><strong><span class="_podblock_">&nbsp;</span></strong></big>
+</td></tr>
+</table>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a>
+    <ul>
+      <li><a href="#Main-window">Main window</a></li>
+      <li><a href="#Boolean-mode:-auto-step-vs-compose">Boolean mode: auto step vs compose</a></li>
+      <li><a href="#Input-output-layout">Input/output layout</a></li>
+    </ul>
+  </li>
+  <li><a href="#OPTIONS">OPTIONS</a></li>
+  <li><a href="#IOP-FORMAT">IOP FORMAT</a>
+    <ul>
+      <li><a href="#Lexical-aspects">Lexical aspects</a></li>
+      <li><a href="#Syntax">Syntax</a></li>
+      <li><a href="#THE-RESSOURCE-FILE">THE RESSOURCE FILE</a></li>
+    </ul>
+  </li>
+  <li><a href="#ENVIRONMENT">ENVIRONMENT</a></li>
+  <li><a href="#SEE-ALSO">SEE ALSO</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>luciole, simec - Lustre graphical simulation</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<p><b>luciole</b> <i>file</i><b>.lus</b> <b>node</b> [ <b>options</b>]</p>
+
+<p><b>luciole</b> <i>file</i><b>.ec</b> [ <b>options</b> ]</p>
+
+<p><b>simec</b> <i>file</i><b>.ec</b> [ <b>options</b> ]</p>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>The Lustre graphical simulation is based on the same library than the file-to-file simulator <b>ecexe</b>. The main tool is <b>simec</b>, based on tcl-tk for the graphical aspects.</p>
+
+<p>When called with a lustre file name, the script <b>luciole</b> calls <b>lus2ec</b> and then <b>simec</b> with the remaining options (otherwise it behaves like <b>simec</b>).</p>
+
+<h2 id="Main-window">Main window</h2>
+
+<p><b>simec</b> opens a main window containing a widget for each input and each output of the ec program. Input widgets allow the user to set the input values, while output widgets just show the current values of the program output. Basically, Boolean inputs are implemented by buttons, while numerical inputs are implemented by &quot;scale widgets&quot;.</p>
+
+<h2 id="Boolean-mode:-auto-step-vs-compose">Boolean mode: auto step vs compose</h2>
+
+<p>The behavior of Boolean inputs depend on the <i>mode</i>:</p>
+
+<ul>
+
+<li><p>In <i>auto-step</i> mode, Boolean inputs are supposed to be exclusive, and a step is performed as soon as an input button is pressed.</p>
+
+</li>
+<li><p>In <i>compose</i> mode, Boolean inputs are displayed as &quot;check buttons&quot;: the user may select/deselect Boolean inputs without performing a computation step.</p>
+
+</li>
+</ul>
+
+<p>Whatever is the current mode, the pre-defined button <b>Step</b> allows the user to provoque a computation step.</p>
+
+<p>The current mode can be changed via the <b>Clocks</b> menu.</p>
+
+<h2 id="Input-output-layout">Input/output layout</h2>
+
+<p>Input/output widgets are organized into lines and columns. The tool normally opens a panel with a column for the inputs, and a column for the outputs, but the user may define a customized layout by defining an associated <i>Input Output Panel</i> file (<b>iop</b> extension). When called with <i>foo.ec</i>, <b>simec</b> first searches for a file whose name is <i>foo.iop</i>, and tries to use it as a layout description.</p>
+
+<p>Since no specific tool is available, the best way to customize the input/output panel for a program <i>file.ec</i> is to first get the default <i>iop</i> description by using the <b>save file.iop</b> command in the <b>Files</b> menu, and then edit the resulting file.</p>
+
+<h1 id="OPTIONS">OPTIONS</h1>
+
+<dl>
+
+<dt id="h"><b>-h</b></dt>
+<dd>
+
+<p>(help) display available options.</p>
+
+</dd>
+<dt id="v"><b>-v</b></dt>
+<dd>
+
+<p>set verbose mode: every reaction is echoed on standard output. The output format follows the <i>rif</i> conventions; as a consequence the outputed text can be used as a correct Reactive Input Flow description by tools that support this format (cf. <b>sim2chro</b>).</p>
+
+</dd>
+<dt id="auto"><b>-auto</b></dt>
+<dd>
+
+<p>start in <i>auto step</i> mode.</p>
+
+</dd>
+<dt id="comp"><b>-comp</b></dt>
+<dd>
+
+<p>start in <i>compose</i> mode.</p>
+
+</dd>
+<dt id="p-file.iop"><b>-p</b> <i>file</i><b>.iop</b></dt>
+<dd>
+
+<p>(panel) specify a particular layout description.</p>
+
+</dd>
+</dl>
+
+<h1 id="IOP-FORMAT">IOP FORMAT</h1>
+
+<h2 id="Lexical-aspects">Lexical aspects</h2>
+
+<ul>
+
+<li><p>Comments: all characters between &quot;<code>//</code>&quot; and the end of the line are ignored; all characters between &quot;<code>/*</code>&quot; and the following &quot;<code>*/</code>&quot; are ignored.</p>
+
+</li>
+<li><p><i>number</i> is an integer or real notation.</p>
+
+</li>
+<li><p><i>ident</i> means any string of alphanumeric characters, including <i>number</i>.</p>
+
+</li>
+<li><p><i>string</i> means any string of printable characters enclosed whithin quotes.</p>
+
+</li>
+</ul>
+
+<h2 id="Syntax">Syntax</h2>
+
+<p>Parts whithin brackets are optional; <i>item-list</i> simply means one or more &quot;space-separated&quot; items.</p>
+
+<p>Additional information can be added to integer and real types.</p>
+
+<p>A panel expression is built with the n-ary operators <b>line</b> and <b>col</b>. Leaf expressions are references to input, output or panel identifiers. The leaf <b>box</b> has no meaning: it simply &quot;takes place&quot; in the layout. An identifier must be declared before it can be used. The panel <b>top</b> must be the last declared.</p>
+
+<h2 id="THE-RESSOURCE-FILE">THE RESSOURCE FILE</h2>
+
+<p>The user may customize <b>luciole</b> by defining a ressource file, whose name must be <b>luciolerc.tcl</b>. The extension outlines the fact that this file <i>is a tcl/tk script file</i>. A standard ressource file is provided in the Lustre distribution which can be copied and modified:</p>
+
+<pre><code>        $LUSTRE_INSTALL/lib/luciolerc.tcl</code></pre>
+
+<p>The ressource file is automatically searched when luciole has initialized its window. The file is searched first in the current directory, then in the user home directory, and at last in the lustre distribution library:</p>
+
+<pre><code>        ./luciolerc.tcl 
+        ./.luciolerc.tcl
+        ~/luciolerc.tcl
+        ~/.luciolerc.tcl
+        $LUSTRE_INSTALL/lib/luciolerc.tcl</code></pre>
+
+<p>The first encountered file in the previous list is evaluated <i>as it is</i> by the luciole tcl interpret, and, as a consequence, it has (potentially) access to all internal variable defined by luciole. However it is strongly recommended to only use a few set of variables, as it is explained in the standard ressource file. The most useful variables are:</p>
+
+<dl>
+
+<dt id="Global-verbose"><b>Global(verbose)</b></dt>
+<dd>
+
+<p>(read/write) holds a Boolean value (<b>1</b> or <b>0</b>) indicating wheter the verbose mode is set or not.</p>
+
+</dd>
+<dt id="Global-verbose_channel"><b>Global(verbose_channel)</b></dt>
+<dd>
+
+<p>(read/write) holds a tcl channel identifier (initially <b>stdout</b>) indicating where to put messages in verbose mode.</p>
+
+</dd>
+<dt id="Global-show_step_ctr"><b>Global(show_step_ctr)</b></dt>
+<dd>
+
+<p>(read/write) is a Boolean indicating if the step counter is shown (<b>1</b>) or not (<b>0</b>).</p>
+
+</dd>
+<dt id="Global-show_step"><b>Global(show_step)</b></dt>
+<dd>
+
+<p>(read/write) is a Boolean indicating if the step button is shown (<b>1</b>) or not (<b>0</b>).</p>
+
+</dd>
+<dt id="Global-auto_step"><b>Global(auto_step)</b></dt>
+<dd>
+
+<p>(read/write) is a Boolean indicating if luciole runs in <i>auto-step mode</i> (<b>1</b>) or in <i>compose mode</i> (<b>0</b>).</p>
+
+</dd>
+</dl>
+
+<p>Note that some command line options (<b>-v</b>, <b>-auto</b>, <b>-comp</b>) may override commands in the ressource file.</p>
+
+<p>Informations on the current program are also available; <i>those variables may not be modified</i>:</p>
+
+<dl>
+
+<dt id="Global-module_name"><b>Global(module_name)</b></dt>
+<dd>
+
+<p>(read only) is the name of the running lustre node (string).</p>
+
+</dd>
+<dt id="Global-input_names"><b>Global(input_names)</b></dt>
+<dd>
+
+<p>(read only) is the list of input names (string list).</p>
+
+</dd>
+<dt id="Global-input_types"><b>Global(input_types)</b></dt>
+<dd>
+
+<p>(read only) is the list of input types (string list).</p>
+
+</dd>
+<dt id="Global-output_names"><b>Global(output_names)</b></dt>
+<dd>
+
+<p>(read only) is the list of output names (string list).</p>
+
+</dd>
+<dt id="Global-output_types"><b>Global(output_types)</b></dt>
+<dd>
+
+<p>(read only) is the list of output types (string list).</p>
+
+</dd>
+</dl>
+
+<p>At last, a tk container widget (i.e. a <i>frame</i>) is reserved in the lurette window for user&#39;s customization. Most preciselly, this widget (initially empty) is located in the luciole menubar, and its typical use is to add one or more user-defined menu buttons</p>
+
+<dl>
+
+<dt id="Global-user_menu"><b>Global(user_menu)</b></dt>
+<dd>
+
+<p>(read only) contains the tk-path of a frame where the user can pack his/her own menus.</p>
+
+</dd>
+</dl>
+
+<p>The standard ressource file is an example of how to create such a menu: it adds a menu button <b>Tools</b>, with a command <b>sim2chro</b> that dynamically launches the chronogram manager <i>sim2chro</i>.</p>
+
+<h1 id="ENVIRONMENT">ENVIRONMENT</h1>
+
+<p>The environement variable <b>LUSTRE_INSTALL</b> must exist and hold the path of the lustre v4 distribution.</p>
+
+<h1 id="SEE-ALSO">SEE ALSO</h1>
+
+<p>lustre, lus2ec, ecexe, luciole, simec, lus2oc, ec2oc, ocmin, lus2atg, oc2atg, ec2c, poc, lux, lesar, ecverif, xlesar</p>
+
+<table border="0" width="100%" cellspacing="0" cellpadding="3">
+<tr><td class="_podblock_" style="background-color: #cccccc; color: #000" valign="middle">
+<big><strong><span class="_podblock_">&nbsp;</span></strong></big>
+</td></tr>
+</table>
+
+</body>
+
+</html>
+
+

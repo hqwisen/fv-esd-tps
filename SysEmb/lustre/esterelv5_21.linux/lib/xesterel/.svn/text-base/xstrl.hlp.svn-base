@@ -1,0 +1,416 @@
+# -*- tcl -*-
+# === INTRO ===
+section Introduction {
+   bf xesterel 
+   rm " is a graphical user interface build over the Esterel compiler. "
+   rm "It allows the construction of a complete command for the compiler"
+   rm " and the access to simulator and tools. This manual is divided into several "
+   rm "sections. Section "
+   ref Compilation Compilation Compilation
+   rm " describes the main panel interface. It also describes "
+   rm " the options panel. Section "
+   ref Running Running Running
+   rm " describes how to run commands. Finally, section "
+   ref Customization Customization Customization
+   rm " describes how to change and to save some specific options, "
+   rm "such as compiler name or simulator name."
+   cr
+   par "All possible "
+   it interesting
+   rm " things have a balloon help. So, just move your mouse from "
+   rm "there to here and look at the help."
+}
+
+# === COMPILATION ===
+section Compilation {
+   mark Compilation
+   rm "The main panel is used to select source files and to select "
+   rm "global compiler options. Roughly, it is divided into 4 parts: "
+   enumerate {
+     item {
+        rm "a file browser."
+     }
+     item {
+        rm "a compiler options part."
+     }
+     item {
+        rm "an run/simulation part."
+     }
+     item {
+        rm "a command part."
+     }
+   }
+   rm "The command part contains the built command. It evolves according "
+   rm "to the selected files and options. This field is not edit-able "
+   rm "(but this can be changed, see section "
+   ref Customization Customization Customization
+   rm ") but one can select it with the mouse or the "
+   bf Copy
+   rm " entry of the "
+   bf Edit
+   rm " menu."
+
+#--- Browser ---
+   subsection "File Browser" {
+      rm "The first object is the "
+      bf "Root Dir."
+      rm " entry. All the pathes used in the final Esterel command "
+      rm "will be relative to this directory. This allows localization. "
+      par
+      rm "The file browser shows the current directory and its path "
+      rm "from the root directory in a menu. Below, one has the list "
+      rm "of the directory contained in current directory, and the "
+      rm "list of the files that match extensions in the "
+      bf "Files:"
+      rm " menu. To change of directory: "
+      itemize {
+      	 item {
+      	    rm "use the current directory menu to move up, or "
+	    rm "the UpDir button."
+      	 }
+      	 item {
+      	    rm "Double click on a directory, or select it and type Return."
+      	    rm " You can also type the first letter of a directory to "
+	    rm " select it."
+      	 }
+      	 item {
+      	    rm "Beside the UpDir button there is the Directory "
+	    rm "History button, which memorizes all the directories used."
+         }
+      }
+      rm "On NT platform, there is also a menu to change current "
+      rm "drive."
+      par "File selection is done like directory selection. Multiple "
+      rm "selection is possible by dragging mouse with button 1 pressed, "
+      rm "or by pressing Shift-Button-1. Multiple separate selections are"
+      rm " also possible with Ctrl-Button-1."
+      
+      par "When files are selected, use Return (or Double-Click for one file"
+      rm " to use them. If a file is not used within the final command, "
+      rm "then it is added to it and marked with a `"
+      bf +
+      rm "' characters. Used filed are remembered across directories, "
+      rm "thus is is really easy to select and unselect files."
+      par "Below the browser, there are three options of the compiler. "
+       description {
+	   item {Main module} {
+	       rm "defines the main Esterel module to use, in case of "
+	       rm "several root modules."
+	   }
+	   item Basename {
+	       rm "defines the basename of the "
+	       rm "compiler output. If there is only one input file, the "
+	       rm "Esterel compiler use the base name of this file, else it "
+	       rm "uses \"esterel\"."
+	   }
+	   item Dirname {
+	       rm "defines the target "
+	       rm "directory for the results. Default is the current directory."
+	   }
+       }
+      rm "To activate these options one must fill the entry and select "
+      rm "the associated check button."
+   }
+   
+   # --- Options ---
+   subsection "Compiler Options" {
+      rm "These part give access to the global compilation options. "
+      rm "The first options defined the compilation type, the target language "
+      rm "to use and the specific options related to causality analysis."
+      
+      par "Then one has global options such as simulation code or not. "
+      rm "There is also a special button that gives access to advanced "
+      rm "options. Using this new panel, it is possible to set options "
+      rm "specific to each processor that composes the Esterel compiler. "
+      rm "Just select a processor and set the available options of it."
+      rm "There are two special options in the advanced options panel. " 
+      rm "The Backup option "
+      rm "is used to select an alternative processor in replacement of "
+      rm "the current one. The Browse button may help to find the "
+      rm "executable. see "
+      ref "Browsed entries" "Short Cuts" Cuts
+      rm ". The \"Wizard\" option is used to pass arbitrary "
+      rm "strings as options to the processor. This is reserved to expert "
+      rm "users."
+   }
+   
+   # --- running or simulating ---
+   subsection "Run and/or Simulate" {
+      rm "Finally, one has two buttons, \"Run...\" to run the built "
+      rm "esterel command, and \"Simulate & Tools\" to call a "
+      rm "simulator user defined tools. "
+      rm "These actions will be described in the following section."
+   }
+
+}
+
+# === Simulation ===
+section "Running" {
+   mark Running
+   rm "This section describes the different  modes to run "
+   rm "the final esterel command, or the tool command."
+   # --- running mode ---
+   subsection "Running mode" {
+      rm "There 3 ways of running a command, once it has been built:"
+      enumerate {
+      	 item {
+      	    rm "Using a console, i.e. a console window will pop up and show "
+      	    rm "the command execution."
+      	 }
+      	 item {
+      	    rm "Using stdout, i.e. the execution will be shown on stdout "
+      	    rm "instead of in the console."
+      	 }
+      	 item {
+      	    rm "The command will not be be run. Instead, it will "
+      	    rm "be printed on stdout."
+         }
+      }
+       bf "Only console mode is available on NT."
+      par "See Options menu to set the desired execution mode. "
+      rm "One can also select a command with the mouse and paste it "
+      rm "elsewhere." 
+   }
+   # --- Esterel ---
+   subsection "Running an Esterel command" {
+      rm "Running the esterel built command is just clicking on the "
+      rm "\"Run...\" button or hitting <Return> in the command line. "
+      rm "The command will be executed according to the execution mode."
+   }
+   # --- Simulation ---
+   subsection "Running a simulation" {
+      rm "Using "
+      bf xesterel
+      rm " one can also call simulators on new produced code. First "
+      rm "click on the \"Simulate & Tools\" button of the main panel. A simulation "
+      rm "panel will then pop up. It contains a file browser as the main "
+      rm "panel. Select one or more files. These files can be "
+      rm "object files, or C code, or whatever, depending of the extension "
+      rm "filter. The simulation command line is filled with the selected "
+      rm "files and the simulating command. This command depends on the "
+      rm "action that the user wants to do. Two basic actions are possible:"
+      description {
+      	 item Simulation {
+      	    rm "This is the default. A simulation command uses object files."
+      	 }
+      	 item Compilation {
+      	    rm "One may want to first compile a file to get an object "
+      	    rm "in order to simulate it. This is the purpose of the "
+	    rm "\"Compile\" action."
+         }
+      }
+      rm "Once the command is built, click on the \"Dot It\" button to "
+      rm "run, just as in the main panel. "
+      par "Simulators and compilers are chosen from the \"Options\" "
+      rm  "menu. One can also add user " 
+      ref "defined tools." Customization tools
+      
+   }
+}
+
+# === Customization ===
+section Customization {
+   mark Customization
+   par "The \"Options\" menu is used to defined some global behavior."
+   par "One can choose the esterel compiler. Use the \"Browse\" button "
+   rm "to search the executable."
+   par "Several simulators may be used. Select in the list the simulator "
+   rm "you need. If you want a specific simulator not in the list, edit "
+   rm "the simulator field and add it using the \"+\" button. You can "
+   rm "remove a simulator from the list with the \"-\" button. In the "
+   rm "final command, \"%s\" will be replaced with the selected file(s)."
+
+   par "The \"C compile command\" is used in the Simulation panel to produce "
+   rm "an object file. As for simulator commands, \"%s\" will be "
+   rm "replaced with the selected file(s)."
+
+   par "The \"Viewer Command\" field is used to select a viewer to "
+   rm "inspect files (see \"View\" of \"File\" menu). xesterel uses "
+   rm "a builtin simple viewer, but one can specify an other viewer. "
+   rm "\"%s\" will be replaced by the selected file."
+
+   mark tools
+   par "The \"Other tools\" part allows the user to add, edit or "
+   rm  "remove her/his own tools. These tools will appear in the "
+   rm  "simulation panel. To add a tool, click on \"Add\" button. "
+   rm " A small panel will pop up with fields. They are:"
+   description {
+      item "Tool name" {
+         rm "The tool name as it will appear in a menu."
+      }
+      item Command {
+         rm "The command that invokes the tool. %s will be replaced "
+	 rm "by the currently selected file. A command may also end "
+	 rm "by a \"&\", in which case, it will be run as a detached "
+	 rm "process."
+      }
+      item "File type" {
+         rm "File type as it will appear in the file browser file "
+	 rm "selection menu."
+      }
+      item "Ext. regexp" {
+         rm "Regular expression used to select file of \"File "
+	 rm "type\". Several regexp are separated with a white "
+	 rm "space."
+      }
+   }
+   rm "Here is an example:"; cr
+   bf "Tool name:"; rm " Xeve"; cr
+   bf "Command:"; rm " xeve %s &"; cr
+   bf "File type:"; rm " BLIF"; cr
+   bf "Ext regexp:"; rm " *.blif"; cr
+
+   par "The \"Execution mode\" button is used to fix the execution "
+   rm " mode. see "
+   ref Running Running Running
+   rm " section."
+
+   par "The \"Allow Command Line Edition\" enables or disables the "
+   rm "edition capabilities of the command entries. When this "
+   rm "check button is on, one can freely edit the esterel, or simulator "
+   rm "commands."
+
+   par "The \"OK\" button fixes the new choices for the current "
+   rm  "session. \"Cancel\" closes the panel without any changes. "
+   rm "\"Defaults\" restores the hard-coded defaults."
+
+   par "The \"Save Options\" entry of the \"Options\" menu saves the "
+   rm "current choices and the current global options for the Esterel "
+   rm "compiler. Thus, you can call your preferred command without "
+   rm "rebuilding it each time. Advanced options are not saved. "
+   rm {Save file is $HOME/.xstrlrc and is editable. But be careful.}
+   par "Global definitions may also be stored in a file called "
+   bf xstrlrc
+   rm " placed in the xesterel Tcl source directory. These definitions "
+   rm "will be common to all the xesterel instances. To create this "
+   rm "file, edit your options and save them. Then copy your own xstrlrc "
+   rm "file as the common one."
+   
+}
+
+# === Short Cuts ====
+section "Short Cuts" {
+   mark Cuts
+   rm "This section describe some short cuts used."
+   cr
+   par bf "Browsers"
+   rm "There are built upon the Tcl list box widget, and thus, inherit "
+   rm "their behavior. Added behaviors are: "
+   enumerate {
+      item {
+         rm "<Return> is use selection. i.e. visit sub directory for "
+         rm "directory browser, use files for selected files."
+      }
+      item {
+         rm "<Double-Button-1> selects and activates entry under mouse."
+      }
+      item {
+         rm "Any key (a,b,...) selects the first entry beginning with that "
+         rm "letter."
+      }
+   }
+   rm "Directory browsers are in "
+   it browse
+   rm " mode meaning that only one entry can selected at a time."
+   rm " File browse are in "
+   it extended
+   rm " mode. One can select several files by dragging mouse with "
+   rm "button pressed, or using <Shift-Button-1> or <Ctrl-Button-1>."
+   rm "Up and Down arrows can also be used."
+   cr
+   par bf "Browsed entries"
+   rm "A browsed entry is an entry with a browse button. It is used to "
+   rm "define a file or directory name. You can freely edit such entry. "
+   rm "You can also used <Tab> in the entry for auto-completion. Entries "
+   rm "are also edit-able "
+   it "à la"
+   rm " emacs."
+}
+
+section Menus {
+  rm "This section describes the menu bar."
+  subsection "File Menu" {
+     description {
+	item Run {
+	   rm "run the current esterel command according to execution "
+	   rm "mode."
+	}
+	item "Simulate & Tools" {
+	   rm "pop up the simulation panel."
+	}
+	item View {
+	   rm "View selected files. Call a builtin viewer, or your "
+	   rm "preferred editor."
+	}
+	item Save {
+	    rm "Save the current Esterel command in a file. "
+	    rm "If this is done for the first time, ask for the kind of "
+	    rm "file is needed. Successive calls will registry the "
+	    rm "command in the same file, overriding previous record."
+        }
+	item {Save as...} {
+	    rm "Pop-up menu to save current Esterel command as:"
+	    itemize {
+		item {
+		    rm "a Makefile"
+		}
+		item {
+		    rm "a command script"
+		}
+	    }
+	}    
+	item {Configuration...} {
+	    rm "Pop-up menu to load or save a configuration. "
+	    rm "A configuration is a file that contains all the "
+	    rm "information about xesterel current state, ie "
+	    rm "Esterel command, current selected files, options, ..." 
+	    rm "This is useful to keep working state."
+	}
+	item "Quit" {
+	   rm "exit xesterel."
+	}
+     }
+  }
+  subsection "Edit Menu" {
+  rm "Contains a single entry that copy into the X selection the "
+  rm "current esterel command."
+  }
+  subsection "Options Menu" {
+    description {
+       item "General Preferences" {
+	  rm "pop up a panel to edit general preferences, such as "
+	  rm "compiler to use."
+       }
+       item "Save Options" {
+	  rm "save settings defined in General Preferences, and "
+	  rm {current global compiler options in file $HOME/.xstrlrc.}
+       }
+    }
+  }
+  subsection "Help Menu" {
+    description {
+       item "On Box" {
+	  rm "show this help."
+       }
+       item "About" {
+	  rm "pop up an about window. Click on it to close."
+       }
+       item "Balloons" {
+	  rm "activate or deactivate balloons."
+       }
+    }
+  }
+}
+
+section Bugs {
+   par "Known bugs: coherence between global options is not yet checked."
+   par "Certainly some bugs here and there."
+}
+
+section Acknowledgments {
+   par "Help is based on an old version of a help developed by "
+   rm "Jay Sekora (js@priceton.edu). It is distributed with Tcl/Tk "
+   rm "as jstools."
+   par "Balloons are directly taken from TkDesk by Christian Bolik "
+   rm "(zzhibol@rrzn-user.uni-hannover.de)."
+}

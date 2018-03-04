@@ -1,0 +1,51 @@
+
+#######################################################################
+# CONFIGURATION SECTION - Change the parameters to match your machine #
+#                         and installation                            #
+#######################################################################
+# Where the Esterel compiler lives.
+ESTEREL_DIR= ..
+
+# esterel compiler
+ESTEREL_COMMAND = $(ESTEREL_DIR)/bin/esterel
+
+# esterel compiling flags
+ESTEREL_FLAGS = -I
+# uncomment this option is your C compiler requires Ansi code 
+# This is the case for AIX.
+#ESTEREL_FLAGS = -Ic:-ansi
+
+
+# where to find simulator libraries (normally, change only ESTEREL_LIB)
+
+ESTEREL_LIB = $(ESTEREL_DIR)/lib
+
+CSIMUL_A    = $(ESTEREL_LIB)/libcsimul.a
+
+XES         = $(ESTEREL_DIR)/bin/xes
+
+# NT Def
+MAKEFILE    = makefile.Unix
+
+
+MV          = mv
+RM	    = rm -f
+IFEXIST     = test -f
+IFNOTEXIST  = test ! -f
+THEN        = &&
+
+# use /opt/SUNWspro/bin/cc on Solaris
+CC          = cc
+CC_CFLAGS   = -o $@
+LINKER      = $(CC)
+LINKER_FLAGS= -o $@
+
+TK_CFLAGS   = 
+
+PATHSEP     = /
+
+OBJ         = .o
+EXE         =
+
+TKWATCH_CFLAGS = -D`uname -s`
+include makefile.all

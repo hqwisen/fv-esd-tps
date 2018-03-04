@@ -1,0 +1,24 @@
+ Editable objects have (optional) background color to fill their inside shape.
+ The <Attribute>:<Background>:<Visible On/off> menu button toggles background
+ painting.
+
+ Background colors can be changed individually, or on selected sets of
+ objects altogether, through any color button in the <Attribute>:<Background>
+ menu. Colors can be reverted to original (<Attribute>:<Background>:<Default>).
+ Color buttons in the menu are assigned through X11 resources
+
+atg*background<int>  (for instance atg*background5 : green ), and
+
+ their number must be provided as: 
+
+atg*nbBackgrounds : <int>
+
+ The default background value for each object type is set by resources, as
+ well as a background for highlighting them. Resources names are:
+
+atg*boxBackground
+atg*hilightBoxbackground
+
+ and similarly for vertex, port, edge, web instead of box.
+
+

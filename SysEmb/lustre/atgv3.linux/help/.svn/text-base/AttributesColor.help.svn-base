@@ -1,0 +1,43 @@
+Colors :
+========
+
+   Foreground and background colors are used to paint objects and labels. 
+They are set by resources, according parameter divisions recorded below.
+
+   Each type of object has standard colors. For example:
+
+         atg*boxForeground :          AntiqueWhite4
+         atg*boxBackground :          LemonChiffon
+
+   Object types also have specific colors for objects when highlighted
+
+         atg*hilightBoxForeground :   Red
+         atg*hilightBoxBackground :   Lightgoldenrod
+
+   Colors of labels are given according to both its type (struct, behav, 
+logic or hook) and the type of its object.
+
+         atg*behavLabelBoxForeground : HotPink4
+         atg*structLabelBoxForeground: SteelBlue4
+         atg*logicLabelBoxForeground : darkgoldenrod4
+         atg*hookLabelBoxForeground  : darkgreen
+
+   Highlighted labels have all the same color, disregarding types.
+
+         atg*hilightNameForeground :   salmon
+         atg*hilightNameBackground :   peru
+
+
+   You can give a new color to a graphic object (to the whole
+selection if the object is selected) by menu. The menu button are
+<Attributes>:<Foreground> and <Attributes>:<Background>.  The range of
+available colors in the menu is also set by resource and cannot be
+dynamically changed from atg. In particular the number of such color
+buttons must be set by resource.
+
+  The <Default> button of the <Foreground> and <Background> menus
+resets color to original according to types.  The
+<Attributes>:<Background>:<Visible On/Off> button allows or disallows
+background filling on individual objects or selections. Originally
+only boxes do not have visible backgrounds.
+

@@ -1,0 +1,13 @@
+% p3.strl 
+% from G. Berry's book
+% cyclic non-constructive
+
+module P3 :
+
+output O;
+
+present O else 
+   emit O 
+end 
+
+end module

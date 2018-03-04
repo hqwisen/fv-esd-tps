@@ -1,0 +1,735 @@
+Colors :
+========
+   Foreground and background colors are used to paint objects and labels. 
+ They are set by resources, according  parameter divisions recorded below.
+
+   Each type of object has standard colors. For example:
+         atg*boxForeground:       AntiqueWhite4
+         atg*boxBackground:       LemonChiffon
+
+   Object types also have specific colors for objects  when highlighted.
+         atg*hilightBoxForeground: Red
+         atg*hilightBoxBackground: Lightgoldenrod
+
+   Colors of labels are given according to both its type (struct, behav, 
+ logic or hook) and the type of its object.
+         atg*behavLabelBoxForeground:  HotPink4
+         atg*structLabelBoxForeground: SteelBlue4
+         atg*logicLabelBoxForeground:  darkgoldenrod4
+         atg*hookLabelBoxForeground:   darkgreen
+
+   Highlighted labels have all the same color, disregarding types.
+         atg*hilightNameForeground:  salmon
+         atg*hilightNameBackground:  peru
+
+
+   Individual objects (or selections) can also be assigned color by menu
+ with the  <Attributes>:<Foreground> and <Attributes>:<Background> buttons.
+ The range of available colors in the menu is also set by resource and
+ cannot be dynamically changed from atg. In particular the number of such
+ color buttons must be set by resource.
+
+   The <Default> button of the <Foreground> and <Background>  menus resets
+ color to original according to types.
+   The <Attributes>:<Background>:<Visible On/Off> button allows or disallows
+ background filling on individual objects or selections. Originally only
+ boxes do not have visible backgrounds.
+
+
+
+
+
+
+
+
+Font :
+======
+
+   Labels  have different default fonts, fixed by resources, 
+ according to types (struct, behav, logic, hook) and type of labeled
+ object (box, port, vertex ...). For example:
+       atg*behavLabelBoxFont: *-helvetica-bold-r-normal--12-*
+       atg*structLabelBoxFont:*-helvetica-bold-r-normal--12-*
+       atg*logicLabelBoxFont: *-helvetica-bold-r-normal--12-*
+       atg*hookLabelBoxFont:  *-helvetica-bold-r-normal--12-*
+
+   Postscript fonts must also be similarly provided:
+       atg*behavLabelBoxPostscriptFont:  Helvetica-Bold 12
+       atg*structLabelBoxPostscriptFont: Helvetica-Bold 12
+       atg*logicLabelBoxPostscriptFont:  Helvetica-Bold 12
+       atg*hookLabelBoxPostscriptFont:   Helvetica-Bold 12
+
+   Individual objects or selctions can also be changed label fonts through
+ the <Attributes>:<Font>  menu. This menu content is again fixed by
+ resources, including the number of fonts declared, and cannot be dynamically
+ changed in atg.
+
+   The <Font>:<Default> button resets the original font on the label.
+
+
+
+
+
+Box :
+=====
+
+   Boxes represent (sub)processes. A box is a rectangular frame, which
+may contain ports on its boundary (see help:Editing:Ports).
+ 
+  How to create a box:
+1- select the "edition:box:create" menu function.
+2- drag the mouse left button for opposite corners in the drawing area.
+Creation may fail for too small a size.
+
+   Proper nesting of boxes, and absence of overlapping, is NOT checked
+until explicit translation/completion is required by the user.
+
+   Boxes can be reshaped or rescaled from any corner, using the
+Edition:box:reshape/rescale functions. In the first case ports are
+projected orthogonally, while in the second case they keep proportions
+along the side of the box.  Reshape may abort when ports would project
+outside boundaries.
+
+ Box size attributes can be fixed by resources :
+           atg*boxLineWidth: 3
+           atg*boxMinWidth:  10
+           atg*boxMinHeight: 10
+
+
+
+
+
+Edge :
+======
+
+   Edges are directed broken lines (not splines). They join any
+couple of objects with types in {port, web, vertex}. They bear possibly
+several labels (implicitly representimg multi-edges).
+
+   To create an edge:
+1. select the <ObjectsEdit>:<Edge>:<Create (e)> menu command 
+     ('e' is the keyboard shortcut);
+2. click inside the source object (with left mouse button), keep button down;
+3. Each mouse button release will create a new pinning nail, except when
+   a proper target object, where the edition will end.
+
+   Nails may be added, moved or killed by menu.
+
+   The menu commands <ObjectsEdit>:<Edge>:<change Source> and
+<ObjectsEdit>:<Edge>:<change Target> will allow to redirect a given edge.
+CAUTION:  not yet implemented.
+
+   The menu commands <ObjectsEdit>:<Edge>:<Show Source> and
+<ObjectsEdit>:<Edge>:<Show Target> highlighst the corresponding
+objects.
+
+   Additional resource are present to set up utility values:
+ length of the arrowhead;
+ angle between the arrow and the edgeline;
+ approximation of the clicking zone to select and grasp the edge.
+ edge line width (atg*edgeLineWidth: 0 uses fast raster).
+
+
+
+
+Net :
+=====
+
+   The graphical content of an Autograph window, with all its objects
+ and labels, is supposed to form a Net description. Nevertheless during 
+ edition unstable drawings may be produced. Correctness is
+ only checked prior to translation into FC2 format, through the
+ <Window>:<check coherency> menu button (click on window to check then).
+ Correctnes rules are listed in the autograph documentation.
+
+   Translation is then performed with the <Files>:<Fc2 format> menu
+ button (again: click on windows to translate). Each net shall be
+ named after its window title (see menu button <Window>:<Title>).
+
+   Descriptions of elementary objects are found in respective help files.
+
+
+
+
+
+
+Port :
+======
+
+   Ports represent communication gates. They are represented as circles
+ on boxes.
+
+   How to create a port:
+1- select the <ObjectsEdit>:<Ports>:<Create> menu button
+   ('p' is the keyboard short-hand)
+2- click with the mouse left button inside the desired box. The
+   port will be placed at the nearest projected location on the
+   box boundary.
+
+   Ports can be connected together either:
+- graphically, by edges and possibly "webs" for multisynchronisations
+- textually, by label identifications.
+
+   Ports are selected/moved/killed along with their box. They
+ can also be moved on the box surface or killed independently.
+
+   When <Placing>:<Align On/Off> toogle button is on (default: off),
+ ports locations are straightened on ports move to align them to some
+ extend with other objects attached through edges.
+
+ Port size attributes can be fixed by resources:
+        atg*portRadius : 5
+        atg*portLineWidth: 0 (default, uses fast raster)
+
+
+
+
+Vertices :
+==========
+
+   Vertice represent automata states.  They are round-shaped, and
+could appear anywhere in the drawing area.
+
+   How to create a vertex:
+1- select the <ObjectsEdit>:<Vertice>:<Create> menu button
+   (or type 'v' in the window where you want to create a vertex
+    it will select the same menu mode)
+2- click with the mouse left button inside drawing area.
+
+  A vertex can be made initial, and can be "unexplored", meaning that
+SOME of its outgoing transitions are folded back (see
+<Help>:<Placing>:<Exploration>). Both properties are displayed as
+smaller inner circles, using default colors and sizes:
+
+
+   Vertex size attributes can be fixed by resources :
+           atg*vertexRadius:        8
+           atg*vertexInitialRadius: 5
+           atg*vertexExploreRadius: 4
+           atg*vertexLineWidth:     0
+
+
+
+
+Web :
+=====
+
+   Webs are elliptic shaped nodes gathering multiple connections
+ including more than two ports (simple connections can be represented
+ by a plain edge between ports).
+   Examples are:
+  Lotos multisynchronisations,
+  Synchronisation vectors of automata, 
+  Petri nets transitions, etc.
+
+Webs can be connected though edges to ports or vertices.
+
+   How to create a web:
+1- select the <GraphicObjects>:<Webs>:<Create> menu button,
+   ('w' for keyboard short-hand).
+2- click with the mouse left button inside drawing area.
+
+   Vertex size attributes can be fixed by resources :
+          atg*webRadiusHoriz: 12
+          atg*webRadiusVert:  2
+          atg*webLineWidth:   0 (uses fast raster)
+
+
+
+
+
+Fc2 format :
+===========
+
+   This format is used for file exchange between verification tools,
+ at the level of single automata and -more generally- hierarchical
+ finite networks of such. Fc2 syntax is not user-friendly but allows
+ compact description of large objects.
+
+   Autograph can read -plain- automata in fc2 format, through the
+ <File>:<Load fc2> menu button. Initial states are then displayed in new
+ window, and the mouse left button is put in <Placing>:<Explore> mode
+ (see corresponding help file).
+
+   Autograph translates correct window contents (or: nets) into fc2 format
+ with the <Files>:<fc2 Format> menu button (then click desired windows).
+ Correctness is checked prior with the <Windows>:<check Coherency> menu 
+ button.
+
+
+
+
+
+
+Internal format :
+=================
+
+   Autograph uses an internal format for saving and restoring drawings
+ including graphical attributes and possibly incoherent (as nets).
+Files are loaded with the <Files>:<Load atg> menu command, and saved
+with <Files>:<atg Format> or <Files>:<atg Format as> (then click on
+each window to be saved). Filenames are suffixed by ".atg".
+
+Old ".sa" file format :
+-----------------------
+
+   The sa2atg Unix command (included in the atg distribution) translates
+ the older ".sa" syntax to actual ".atg" syntax.
+
+
+
+
+Postscript format :
+===================
+
+   Autograph produces postscript from drawings, using the
+ <Files>:<Postscript Format> or <Files>:<Postscript Format As> menu button
+ (then click on each window to translate). Postscript display uses splines
+ instead of broken-line edges, and currently does not support color. Fonts
+ used for labels are set by resource.
+
+   The pstex and psfp unix utility commands (included in the distribution)
+ allow respectively inclusion in latex or scaling to A4 f(ull)p(age).
+
+
+
+
+
+
+General description :
+=====================
+
+   Autograph is a graphical front-end interface containing editor,
+ object management and translator features for automata networks in the
+ scope of process calculi theory.
+
+User interface :
+----------------
+   Edition functions are found in the menubar and applied to graphical area
+ windows by mouse clicking. Dedicated text editors allow semantic
+ labeling such as names of behaviours and communications. See relevant help
+ on mouse button, windows and further editing topics.
+
+Graphic Objects :
+-----------------
+   Known objects are boxes, ports (on them), vertices, edges and webs.
+ Together they build automata and networks of such. Objects can be labeled,
+ and labels are further refined according to meaning, amongst four fields:
+ structure, behaviour, logic, hook.
+   Autograph offers classical features of graphical editors
+ (create/move/delete/select on objects, cut-and-paste and alignment features)
+ and also more domain-specific functions. see further help on ObjectsEdit,
+Placing and Attributes for more details.
+
+Input/output formats :
+----------------------
+   Autograph uses a private graphical format, an exchange format for
+ automata network descriptions, and postscript as an output.
+ See help on files for more precise presentation of file formats.
+
+Visualisation :
+---------------
+   Apart from graphical edition, Autograph is meant to display results
+ from verification tools. The current version supports only automaton
+ exploration in this regard. See help on Placing:Exploration.
+
+
+
+
+
+Global :
+========
+   This menu contains functions that may be applied on objects of all
+ types indistinctly. These functions can also be applied on a
+ current selection altogether.
+
+   The <Globals>:<Select> menu button allows grouping of objects in
+ selections (the mouse right button is a permanent short-hand for object
+ select, see help on mouse button for details). Objects can be selected in
+ a toggle fashion, either by individual clicking, or by dragging a phantom
+ over a rectangular zone comprising the object entirely.
+
+CAUTION: Actually only boxes, vertices and webs can be selected, with the
+understanding that ports on selected boxes, edges connecting objects both
+selected and labels on selected objects are taken as part of the selection.
+
+   Autograph offers copy/paste with <Globals>:<Copy> and <Globals>:<Paste> 
+ menu buttons. The copied part is pictured in a specific buffer window 
+ that can be edited. Both copy and paste operations require the user to
+ click afterwards on the object or the location to receive the function
+ (clicking on a selected object will copy the whole selection).
+ In particular, you CANNOT simply paste selected objects without copying
+ them first.
+
+   <Globals>:<Hilight On/Off> allows you to show some particular
+graphic object on a drawing.   Autograph writes and reads files in a dedicated
+format, easily parsed and produced. Files are
+usually suffixed in ".sa" Unix names. Automata with
+missing graphical assignments may be loaded, 
+providing "unexplored" states. See help:explore.
+
+Files:load    -prompts for a file name in a dialog 
+            window, and will create a new window.
+Files:save    -requires an additional mouse click in
+            each window whose contend is to be saved.
+Files:save as -additional prompts for a file name to
+            save the description.
+
+   Postscript files may also be produced, ALTHOUGH
+NOT READ BACK, including a %%BoundingBox value
+allowing later inclusions. Drawings are not scaled 
+in any way to fit page sizes.
+
+WARNING: Not yet implemented:
+A file browser for fast load/save.
+Networks exploration.
+Translation to more semantic FC2 format files
+   (developped inside ESPRIT BRA CONCUR2 project).
+Correctness and completion menus to check drawings.
+
+
+
+
+Implementation :
+================
+
+  autograph is written in C++, uses the XWindow library (Xlib),
+the Xt Intrinsics toolkit and the Osf Motif widget library set.
+
+
+
+
+Installation :
+==============
+
+The atg distrib contains :
+
+   - the makefile, by running "make atg" you obtain a shell script
+     named atg.
+
+   - the atg.bin binary file and its man pages,
+
+   - the Atg resources file, to be copied in a proper directory of X11
+       resources 
+
+   - the help directory, whose directory path address is to be set in the
+       Atg resource file as " atg*helpDir " or with the shell variable
+       AUTOGRAPH_HELP_DIR.
+
+   - the shell command psfp and its man pages, for full page display
+       of autograph postscript output.
+
+   - the sa2atg binary used to translate all old ".sa" syntax into
+     new ".atg" syntax,
+
+   - the XKeysymDB file: to avoid error message like <Warning:
+     translation table syntax error: Unknown keysym name: .../...>, set the
+     XKEYSYMDB shell variable to this file.
+
+
+Key Shortcut :
+==============
+
+File :
+======
+   Load atg (l) Load fc (L) Save atg (s) Save atg sa (S)
+   Save postscript (o) Save postscript as (O)
+   Save fc (f) Save fc as (F)
+Window :
+========
+   Create (I) Adjust Size (C) See/Hide Global View (G)
+   Delete (D) Title (t) Move Partial View (M) Undo (u)
+   Check Drawing Coherency (c)
+ObjectsEdit :
+=============
+   Boxes : Create (b) Move (@) Resize (r) Delete (B) 
+   Ports : Create (p) Move (#) Delete (P)
+   Edges : Create (e) Delete (E) UnExplore Show Target (+)
+           Show Source (-) Create Nail (n) Move Nail (&)
+           Delete Nail (N)
+   Vertice : Create (v) Initial (i) Move ($) Delete (V)
+   Webs : Create (w) Move (%) Delete (W)
+Label :
+=======
+   Create/Edit Default (a) Create/Edit All (4) Reedit (R) Bufferize (g)
+   struct : Show/Hide (z) Show/Hide All  (Z)
+   Behav : Show/Hide (y) Show/Hide All  (Y)
+   Logic : Show/Hide (k) Show/Hide All  (K)
+   Hook : Show/Hide (g) Show/Hide All    (G)
+   All :
+      Show/Hide (j) Show/Hide 4 fields (J) Move (*)
+      Delete (A) Show Label/Object   (:)
+Globals :
+=========
+   Select (.) Copy (?) Paste (!) Delete (d) Move (m) Hilight On/Off (,)
+Placing :
+=========
+   Explore (x) Explore Backward (X) UnExplore (U)
+   Align : Left (1) Column (2) Right (3) Bottom (5) Row (6) Top (7) Circle (8)
+
+
+
+
+Label :
+=======
+
+   In fc2 format objects are labeled by semantic decorations in four
+distinct fields: struct(ure), behav(iour), logic and hook. Distinctive 
+meanings are explained in the Fc2 documentation (see help on fileformat Fc2).
+
+   With the <Label>:<Create/Edit All> command (`4' as keyboard short-hand)
+ one can enter the 4 label fields for any object clicked on. The label 
+ editor allows some emacs-like commands, including some mouse functions.
+ Each field can be individually made visible or not on the drawing
+ for the current object. When editing a non labeled object, most recent
+ editing values are inserted in editors by default. When editing an already
+ labeled object, its current labeling is provided in the editor fields.
+
+   The <Label>:<Create/Edit Default> menu allows fast edition of most
+ frequently used fields (then only one editor is provided). Boxes and
+ vertices are then labeled  in the (process algebraic) struct field,
+ while ports, webs and edges are labeled in the (action) behav field.
+
+   Label fonts and colors will depend on both the types of
+the label and of the labeled object. See <Help>:<Attributes>:<Foregound>.
+
+   Edges can be multiply labeled (each label having 4 field). To modify
+ then an existing label, there is a <Label>:<Reedit> menu button to
+ select a label (and not an object)to be modified by edition. Also
+ <Label>:<Bufferize> simply brings an existing label (with all 4
+ fields) into the editor, where it can then be pasted on unlabeled objects
+ as the last default value.
+
+Show/Hide Label :
+-----------------
+
+   Labels can be made visible/invisible without using the editor. A number of
+ menu buttons allow to toggle, either according to label types (in
+ struct,behav,hook,logic) or for all types, the display of labels for each
+ individual object (or selection) one will click on afterwards. See
+ for instance <Labels>:<Hook>:<See/Hide>. Also, menu buttons allow to hide
+ or restore ALL labels of a given type on ALL objects of the window(s) that
+ receive a click from then.
+
+   <Label>:<Show Label/Object> highlights objects or labels to show their
+ correspondance. 
+
+
+
+
+
+Mouse buttons :
+===============
+
+   Autograph distinguishes between left/middle/right mouse button.
+
+The left button :
+-----------------
+   Allows all functions.
+ Selects commands from menu buttons and then applies them repeatedly. It is
+ always imperative to click on these objects or areas to which the function
+ is to be applied.
+
+The middle button :
+-------------------
+ Is a short-hand for move commands on all objects or labels (or selection, 
+ see below).
+
+The right button :
+------------------
+ Is a short-hand for <Globals>:<Select> command.
+ Grouping objects by selection allows them to be applied further commands
+ as a whole ("copy" for instance). Individual objects are selected/deselected
+ in a toggle mode fashion through this mouse button. Rectangular regions
+ can also be toggled by dragging the mouse with this button down.
+
+
+
+
+
+Alignment :
+===========
+
+   Selected objects can be aligned according to different shapes:
+      <Placing>:<Align>:<Left>   
+      <Placing>:<Align>:<Right>  
+      <Placing>:<Align>:<Column> (vertically centered)
+      <Placing>:<Align>:<Bottom> 
+      <Placing>:<Align>:<Top>    
+      <Placing>:<Align>:<Row>    (horizontally centered)
+      <Placing>:<Align>:<Circle> 
+
+   For each of these commands a phantom shall appear when pulling the
+ mouse button down, which can be moved and will figure the ruler
+ against which objects shall be projected when releasing the button.
+ In case of <Circle>, the initial click figures the center and the
+ place of release indicates the radius. Objects will be slid from
+ their current position on the half-line rooted in the circle center
+ until they reach the circle itself (circular projection).
+
+   When `on' (default: off), the <Placing>:<On/Off Align> toggle menu
+ lets "almost" vertical or horizontal edge segments be straightened.
+WARNING: not yet implemented.
+
+
+
+
+
+
+Placing Automatic :
+===================
+
+   The <Placing>:<Vertex Automatic> menu command will provide automatic
+layout of the selected parts of automata.
+WARNING: not yet implemented.
+
+
+
+
+
+Exploration :
+=============
+
+   Autograph allows parts of some automata to be hidden, not displayed.
+ This is typically the case for fc2 automata files loaded from  verification
+ systems. Such invisible automata can be -fully or partially- interactively
+ explored by the user, using the <Placing>:<Explore> menu button
+ (`E' for keyboard short-hand).
+
+   A (visible) state whose outgoing edges are not all visible is decorated
+ with a smaller circle inside its shape (it is said to be "non fully
+ explored"). To explore its invisible transition one clicks inside the
+ state, leaving the mouse button down, and release the button at a location
+ providing a main dircetion together with a minimal distance. New reached
+ states, or intermediate nails for edges leading to existing states, are
+ then placed in a quadrant around the main direction and at integer multiple
+ distances of the one provided. New states shall again be unexplored, so
+ that this function unfolds automata one step at a time.
+
+   Vertice may also be explored backwards with <Placing>:<Explore Back>
+(considering incoming edges).  Still, a vertex bears the "unexplored"
+tag exactly until explored forwards.
+
+   The <Placing>:<Unexplore (U)> menu command allows to fold back
+both vertice or edges for screen management and clarity.
+
+   For large drawings exceeding the window size, the "global view" provides
+highlights of unexplored vertices for easy retrieval. See help on global
+views. 
+
+
+
+
+
+
+   Please Report Bugs to autograph@cma.cma.fr or vr@cma.cma.fr
+   ===========================================================
+
+Warning: translation table syntax error: Unknown keysym name: .../...
+-------------------------------------------------------------
+   If you get this error message while running atg, set the shell
+variable XKEYSYMDB to the XKeysymDB file of the atg distrib and rerun
+atg.
+
+
+Rubberband :
+------------
+If the rubberband (dashed rectangle which appear when you move an
+object) is not visible or if the color is too light, you can try to
+set the two following resources with different colors :
+            atg*rubberForeground: DimGray
+            atg*rubberBackground: Black
+
+
+<Label>:<Show Label/Object> : 
+-----------------------------
+   The used color is the hilight color of the Name/Objetc but the
+combinaison mode is Xor, so the effective color is not predictable.
+
+
+<Windows>:<Delete (k)> :
+------------------------
+   Delete a Window by the window manager is not actually handle by
+Autograph and may cause bus error problem.
+
+
+<Files>:<Load Fc2 (f)> :
+------------------------
+                        --- debugging version ---
+   When a label reference in an fc2 file refers to a "hole" of the
+corresponding table, we build a dummy label ("BEWARE_DUMMY_LABEL") and
+we display the fc2 file.
+
+
+<Help>:
+-------
+    The first time atg display a Motif widget, its width is bad.
+
+
+
+
+
+Global :
+========
+
+   Autograph allows objects selection (with the mouse right button),
+or label selection (with the <Label>:<Select> menu button).
+
+  Objects are (de)selected in a toggle fashion, either individually by clicking
+ on the object, or inside a rectangular zone defined by dragging the mouse.
+
+  Several menu functions will work on the selection as a whole when  applied
+ to any of its components (move, color or font changes, etc). Other functions
+ will only make sense when a selection is provided (alignments).
+
+
+
+
+  Drawings are translated into Fc2 format, provided they fulfill
+coherency requirements. Possible incorrections are spotted graphically
+using the <Window>:<check coherency> menu button.
+
+WARNING: Translation into Fc2 format is not implemented in this
+version of autograph
+
+
+
+
+
+
+Window :
+========
+
+   The menu button <Window>:<Create> creates new Autograph drawing
+windows.Window size (normal, minimum and maximum), color (foreground and
+background), default title name, ... are fixed by resources, as in
+                    atg*windowTitle:     AtgWindow
+                    atg*windowWidth:     300
+                    atg*windowMinWidth:  100
+                    atg*windowMaxWidth:  1000
+
+
+   Window management (move, resize, iconify, raise/lower, etc.) is left to
+ the window manager, except for deleting or entitling a single window,
+ which is performed  by the <Window>:<Delete> and <Window>:<title> menu
+ buttons respectively.
+
+   Horizontal and vertical scrollbars are automatically attached to window 
+ when the drawing area become greather than the window. Also, the
+ <Window>:<Move Partial view> menu button allows moving in all directions:
+ clicking and dragging the mouse in the drawing area provides a direction
+ and a length for translation.
+
+   <Window>:<Adjust Size> resizes the window size to the drawing boundaries.
+
+   <Window>:<Global View> provides a scaled-down view of the full drawing,
+ which is specially useful when it is larger than the edition window. 
+ Objects cannot be edited in this new window, but unexplored vertices
+ (see help on Placing:Explore) are highlighted, and moving a phantom in
+ the global view will reposition the edition window. Minimal and maximal
+ sizes are provided for the global view by resources.
+
+   <Window>:<Check Drawing Coherency> verifies correctness of the drawing
+ regarding translation rules into process algebra semantics 
+ (e.g. automata all bear an initial state, boxes do not overlap, sufficient
+       labeling is provided, ...).

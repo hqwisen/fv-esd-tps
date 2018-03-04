@@ -1,0 +1,6 @@
+A resource is a user-preference specification that controls
+user-customizable elements of an application. The resource file "Atg"
+contain all elements we thought a user may want to change. The user
+must refer to this file for resources names. This file is build in a
+way the tool autograph works properly. If you run autograph on a black
+and white screen, just remove the "Atg" resource file.

@@ -1,0 +1,50 @@
+.TH scssc 1 "10/08/98" "INRIA / CMA" "ESTEREL COMPILER"
+.SH NAME
+scssc \- Esterel topological sorter \- Version v5_21
+.SH SYNOPSIS
+.B scssc
+[options] file ...
+.SH DESCRIPTION
+\fIscssc\fR is the Esterel topological sorter.
+It produces an \fBssc\fP format output from one or more \fBsc\fP
+format inputs. If there is no input file, the standard input stream is
+used. Typical use is: 
+.sp
+.RS
+.B scssc < game1.sc > game.ssc
+.RE
+.sp
+or 
+.sp
+.RS
+.B scssc game1.sc game2.sc > game.ssc
+.RE
+.SH OPTIONS
+The following options are interpreted by \fIscssc\fP:
+.IP \fB-allcycles\fP 10
+Print all causality cycles, if any. The default behavior is to stop
+when one cycle is found.
+.IP \fB-s\fP 10
+Silent mode: perform the sorting but do not generate \fBssc\fP code.
+.IP \fB-stat\fP 10
+Print statistics on standard error stream: parsing time,
+sorting time, and memory usage.
+.IP \fB-version\fP 10
+Print the version name on standard error stream
+and terminate, ignoring all other arguments.
+.IP \fB-access\fP 10
+Print access rights on standard error
+stream and terminate, ignoring all other arguments.
+.IP \fB-info\fP 10
+Print various informations about the processor on
+standard error stream and terminate, ignoring all other arguments.
+.SH "SEE ALSO"
+Esterel documentations.
+.br
+esterel(1), lcsc(1), sscoc(1), sscc(1), sscdebug(1)
+.SH IDENTIFICATION
+Ecole des Mines de Paris (CMA) and INRIA.
+.br
+Written by Valerie Roy and Gerard Berry. Updated by
+Xavier Fornari.
+

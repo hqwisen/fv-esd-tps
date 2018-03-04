@@ -1,0 +1,71 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title></title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body>
+<table border="0" width="100%" cellspacing="0" cellpadding="3">
+<tr><td class="_podblock_" style="background-color: #cccccc; color: #000" valign="middle">
+<big><strong><span class="_podblock_">&nbsp;</span></strong></big>
+</td></tr>
+</table>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+  <li><a href="#OPTIONS">OPTIONS</a></li>
+  <li><a href="#SEE-ALSO">SEE ALSO</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>lus2ec - lustre expansion</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<p><b>lus2ec</b> <i>file</i><b>.lus</b> <i>node</i> [ <b>options</b> ]</p>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>Lustre to expanded-code compiler: it requires a Lustre-V4 input file and a main node name. It produces a file <i>node</i><b>.ec</b>. This file contains the code of the main node where node calls are inlined (recursively replaced by their definitions) and where structured variables (arrays, tuples) are expanded into sets of atomic variables (<b>bool</b>, <b>int</b>, <b>real</b> or external type).</p>
+
+<h1 id="OPTIONS">OPTIONS</h1>
+
+<dl>
+
+<dt id="o-file.ec"><b>-o</b> <i>file</i><b>.ec</b></dt>
+<dd>
+
+<p>define the name of the output file.</p>
+
+</dd>
+<dt id="nos"><b>-nos</b></dt>
+<dd>
+
+<p>output the result on <i>stdout</i></p>
+
+</dd>
+</dl>
+
+<h1 id="SEE-ALSO">SEE ALSO</h1>
+
+<p>lustre, lus2ec, ecexe, luciole, simec, lus2oc, ec2oc, ocmin, lus2atg, oc2atg, ec2c, poc, lux, lesar, ecverif, xlesar</p>
+
+<table border="0" width="100%" cellspacing="0" cellpadding="3">
+<tr><td class="_podblock_" style="background-color: #cccccc; color: #000" valign="middle">
+<big><strong><span class="_podblock_">&nbsp;</span></strong></big>
+</td></tr>
+</table>
+
+</body>
+
+</html>
+
+

@@ -1,0 +1,33 @@
+Installation :
+==============
+
+The atg distrib contains :
+
+   - the makefile, by running "make atg" you obtain a shell script named "atg",
+
+   - the atg man pages,
+
+   - the "atgbinary" binary file,
+
+   - the resources file named "Atg", in the atg shell script, we set the shell
+     variable XENVIRONMENT to this file,
+
+   - a resource file named "AtgBlackAndWhite" for black and white screen to
+     move in the "Atg" file when needed,
+
+   - the "help" directory, in the atg shell script, we set the shell variable 
+     ATG_HELP_DIR to this file. Path address can also be set in the Atg
+     resource file as "atg*helpDir",
+
+   - the shell command "psfp" and its man pages, for full page display of
+     autograph postscript output,
+
+   - the "sa2atg" binary used to translate all old ".sa" syntax into new ".atg"
+     syntax,
+
+   - the fc2 reference manual,
+
+   - the XKeysymDB file: to avoid error message like
+   <Warning: translation table syntax error: Unknown keysym name: .../...>,
+     in the atg shell script, we set the shell variable XKEYSYMDB to
+     this file.

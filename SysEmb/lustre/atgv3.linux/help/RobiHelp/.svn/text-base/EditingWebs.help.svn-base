@@ -1,0 +1,26 @@
+   Webs are ellipse-shaped nodes meant to
+represent complex (=non binary) connections.
+Examples are:
+   Lotos multisynchronisations,
+   Synchronisation vectors of automata, 
+   Petri nets transitions, etc.
+
+Webs can be connected by edges to ports or
+vertice, or other webs even.
+
+   How to create a web:
+- select the "edition:web:create" menu function;
+- click with the mouse left button inside drawing
+  area. Webs are created at button release.
+
+WARNING:not yet implemented:
+Webs should stretch in a one-dimensional flat
+oval shape, with user-defined length.
+
+   Webs have default sizes and colors, as X11
+resources:
+  Atg*webradiushoriz
+  Atg*webradiusvert
+  Atg*webforeground
+  Atg*webbackground
+

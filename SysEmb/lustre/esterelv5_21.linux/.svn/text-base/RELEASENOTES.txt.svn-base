@@ -1,0 +1,133 @@
+                 RELEASE NOTES FOR THE ESTEREL V5_21 SYSTEM
+                 ==========================================
+
+
+CHANGES FROM V5_10
+
+The changes between the previous v5_10 release and the new v5_21 release
+are:
+
+   * Esterel installation.
+
+     The ESTEREL environment variable has changed and Tcl/Tk is used as
+     shell script. See ESTEREL INSTALLATION below.
+
+   * Signal browsing using Xes.
+
+     The Interpreted Simulation Code allows the tracking of signal use:where
+     a signal is emitted, tested, etc..., see XES IMPROVEMENTS below. As a
+     consequence, the simulation C code generated with previous Esterel
+     compiler is no more supported by the v5_21 simulators. Please,
+     recompile your simulations. The standard embedded code is fully
+     compatible.
+
+   * New Xes script.
+
+     See XES IMPROVEMENTS below.
+
+   * Bug fixes.
+
+
+ESTEREL INSTALLATION
+
+   * ESTEREL VARIABLE (IMPORTANT)
+
+     The ESTEREL environment variable now defines the Esterel installation
+     directory, instead of the directory where the binaries were in v5_10.
+     For example, write:
+         ESTEREL=/usr/local/esterelv5_21
+     instead of:
+         ESTEREL=/usr/local/esterelv5_21/bin
+
+   * Esterel and Windows NT
+
+     The Esterel system was built using Microsoft Visual C++ 5.0. The C
+     compiler and the linker CL.EXE and LINK.EXE must be accessible throught
+     the user's path. The LIB and INCLUDE environment variables must also be
+     set for simulation to work properly. The definitions of these variables
+     are in the file Vc\bin\Vcvars32.bat in the Visual C++ distribution.
+
+   * Tcl/Tk
+
+     We use Tcl/Tk as multi-platform shell for some scripts. Therefore, a
+     binary distribution of Tcl/Tk is now provided in the $ESTEREL/tcltk
+     directory. Please, read tcltk/copyright.txt. The distribution contains
+     strlsh and tclsh. These are the basic wish and tclshapplications
+     modified to take first into account the ESTEREL variable when looking
+     for TCL_LIBRARY and TK_LIBRARY. These executables are in $ESTEREL/bin.
+     The tcltk directory also contains Tcl/Tk librairies.
+
+     Tcl/Tk is developed by Scriptics Corp. http://www.scriptics.com/.
+
+XES IMPROVEMENTS
+
+   * Signal Browsing
+
+     The new Signal Browsing feature tracks a signal everywhere it appears,
+     even if it is renamed.  When the feature is enabled ("Signal Browser"
+     entry of "Command" menu), a click with button 3 on a signal declaration
+     or use highlights the following items:
+
+        o the signal declaration
+        o the signal emissions
+        o the signal tests
+        o the uses of the signal value for valued signals.
+
+    Button 3 highlights all these items whenever one of them is
+    clicked on. The module tree is also highlighted, so one can easily 
+    find all the places where a signal is used. 
+
+    This feature is available only for Interpreted Simulation Code, ie
+    C code obtained with the "-I" and "-simul" options.
+
+   * Xes Script
+
+     Xes is now a Tcl script. It can be used directly as in:
+         $ xes foo.o
+     To save linking time if a simulator has to be executed several times
+     one can prelink the simulator as follows :
+         $ xes -o foo foo.o foo_data.o
+     This builds the file foo.exe that can be fast-loaded by xes as follows:
+
+         $ xes foo.exe
+     An auxiliary file xes.def in lib/xes contains various data used by xes
+     to find the libraries and linker it needs. Edit this file if it need
+     changes for your site. Finally, xes can load a resource file using the
+     -script option if you want to modify some colors, etc. Read the xes
+     chapter in the manual for more information. An example resource file is
+     lib/xes/xes_res.tcl.
+
+
+VERIFICATION TOOLS
+
+The verification tools are distributed by the Verification group of
+the Meije project:
+
+http://www.inria.fr/meije/verification
+
+The main tool is the X-window based Esterel Verification Environment (xeve).
+
+
+COPYRIGHT
+
+You must read the COPYRIGHT file before using Esterel v5. Please make
+sure that you understand the copyright and license information before
+using this release.
+
+
+NOTES
+
+On Solaris architecture, do not compile a tty-simulation program
+(libcsimul.a) with /usr/ucb/cc. Use instead SparcWorks cc, or gcc.The reason
+is that csimul uses setjmp, and the headers of
+/usr/ucb/cc are incompatible with those of the other compilers.
+
+
+MAIL ADDRESSES
+
+Remember our mail addresses:
+ esterel-request@sophia.inria.fr : direct Esterel team access.
+
+ esterel-users@sophia.inria.fr   : users forum.
+
+ esterel-bugs@sophia.inria.fr    : as it says.

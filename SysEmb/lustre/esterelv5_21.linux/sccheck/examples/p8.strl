@@ -1,0 +1,22 @@
+% p8.strl 
+% from G. Berry's book
+% cyclic non-constructive
+
+module P8 :
+
+input I;
+output O;
+
+trap T in
+   present I else 
+      await tick
+   end;
+   emit O
+||
+   present O then 
+      exit T 
+   end
+end trap;
+emit O
+
+end module

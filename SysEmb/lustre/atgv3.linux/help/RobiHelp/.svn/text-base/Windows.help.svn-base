@@ -1,0 +1,51 @@
+   Windows are drawing areas. 
+They are created by the window:create menu, with
+fixed size under the X11 resources:
+   Atg*windowwidth
+   Atg*windowwidth
+
+   The drawing area is usually larger than the window
+frame itself, so windows are entitled with scrollbars.
+The drawing area can be further enlarged to bottom or
+right directions by further creations and moves of 
+objects. Drawing size is initially set to resources:
+   Atg*drawingwidth
+   Atg*drawingheight
+
+   Non-orthogonal shifts are also permitted, using the
+window:changeView menu function. Dragging the mouse
+(left button) will then provide  a translate vector
+of a given direction and length.
+
+    The window:AdjustSize menu function will try to 
+change the window size to fit the drawing area.
+Minimal and maximal bounds for window resize
+are provided as:
+   Atg*windowminwidth
+   Atg*windowminheight
+   Atg*windowmaxwidth
+   Atg*windowmaxheight
+
+   the Window:globalView menu function provides
+(limited) display of large drawings in auxiliary
+windows, when clicking inside a regular window. 
+Objects are scaled down, and labels are not 
+displayed. Unexplored vertice are highlighted. The 
+only function applicable to such global windows 
+results of a mouse click indicating a new upper left 
+corner for the window frame of the associated regular 
+window, resulting in a shift of drawing.
+Minimal and maximal bounds for global view windows
+are provided as:
+   Atg*globalwindowminwidth
+   Atg*globalwindowminheight
+   Atg*globalwindowmaxwidth
+   Atg*globalwindowmaxheight
+
+   Modular descriptions of process networks or 
+reactive automata may be split in several windows,
+with name links to instantiate subsystems inside 
+other windows. Still, each window is treated 
+independantly by Autograph, including translation.
+The bindings should be made by later verification
+engines using Autograph as a front-end.

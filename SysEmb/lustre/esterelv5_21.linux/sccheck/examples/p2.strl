@@ -1,0 +1,21 @@
+% p2.strl 
+% from G. Berry's book
+% cyclic constructive
+
+module P2 :
+
+output O;
+
+signal S in
+   emit S;
+   present O then 
+      present S then 
+         await tick
+      end;
+      emit O
+   end
+end signal
+
+end module
+
+

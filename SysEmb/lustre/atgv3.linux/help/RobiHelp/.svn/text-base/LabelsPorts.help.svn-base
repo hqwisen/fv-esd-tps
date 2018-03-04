@@ -1,0 +1,35 @@
+   Labels are textual semantic informations, which may be applied to
+  all objects. Edges may even be multiply labelled. 
+
+   A label consists of 4 (optional) fields, used to type its informational
+  content: struct, behav, logic and hook field. They concern
+  respectively: the process algebraic structure, the action behaviour
+  structure, the logic model-checking info, and miscellaneous other
+  typed info. 
+
+   Each object type has a "most natural" default labelling field, in
+  between struct (boxes, vertice) and behav (edges, ports, webs).
+
+  How to create a label:
+1- select either the <Label>:<create> or <Label>:<Default Create> menu
+function, the second being a short way to assign only default fields.
+
+2- Click on the object to be labelled with left mouse button.
+3- Edit the label in the popped-up dialog widget, after selecting the
+proper editing zone by clicking inside. In the <Label>:<create> case,
+4 edition area are present, in the order: struct, behav, logic, hook.
+
+   Labels fonts and colors depend on the type of object being
+ labelled, according to X11 resources. See <Help>:<Attributes. 
+
+   The <Label>:<SeeObject> menu function highlights the labelled
+ object when clicking on the label. Conversely, the <Label>:<SeeLabel>
+ menu function highlights the label decorating an object.
+
+
+
+
+
+
+
+

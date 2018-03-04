@@ -1,0 +1,22 @@
+Vertices :
+==========
+
+   Vertice represent automata states.  They are round-shaped, and
+could appear anywhere in the drawing area.
+
+   How to create a vertex:
+1- select the <ObjectsEdit>:<Vertice>:<Create> menu button
+   ('v' is the keyboard short-hand)
+2- click with the mouse left button inside drawing area.
+
+  A vertex can be made initial, and can be "unexplored", meaning that
+SOME of its outgoing transitions are folded back (see help
+<Placing>:<Exploration>). Both properties are displayed as smaller
+inner circles, using default colors and sizes:
+
+
+   Vertex size attributes can be fixed by resources, for example:
+           atg*vertexRadius:        8
+           atg*vertexInitialRadius: 5
+           atg*vertexExploreRadius: 4
+           atg*vertexLineWidth:     0

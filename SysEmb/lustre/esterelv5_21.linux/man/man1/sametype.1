@@ -1,0 +1,33 @@
+.TH sametype 1 "4 May 1994" "INRIA / CMA" "ESTEREL COMPILER"
+.SH NAME
+sametype \- C code generator to implement Esterel
+abstract data types for simulation \- Version v4_41
+.SH SYNOPSIS
+.B sametype
+\fInew_type_name\fP \fIold_type_name\fP
+.SH DESCRIPTION
+Esterel modules may use abstract data types that are to be defined in
+the host language (typically: C programming language). When simulating
+such modules, the user must provide the type definitions and a set of
+functions manipulating objets of these types (assignment, equality
+test, etc.).
+.PP
+However, several abstract data types may have different names although
+they are implemented by the same concrete data type. In that case,
+when using C language, the programmer may use the \fBsametype\fP
+program to generate automatically the definition and functions needed
+for a \fInew_type_name\fP which is implemented by an
+\fIold_type_name\fP.
+.PP
+An example of use is:
+.sp
+.RS
+.B sametype MyType int
+.RE
+.SH SEE ALSO
+Esterel documentation.
+.sp 0
+occ(1), csimul(3)
+.SH IDENTIFICATION
+.sp0
+Ecole des Mines de Paris (CMA) and INRIA, Sophia-Antipolis

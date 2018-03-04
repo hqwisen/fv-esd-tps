@@ -1,0 +1,287 @@
+The resource file Atg :
+======================= 
+
+Windows and Icon titles resources :
+-----------------------------------
+
+xautograph*title : Autograph is the menubar title.
+
+xautograph*iconTitle : Icon Autograph is the menubar icon label.
+
+xautograph*windowTitle : Autograph Window is the window title.
+
+xautograph*windowIconTitle : Autograph Window Icon is the window icon
+title.
+
+Window sizes resources :
+------------------------
+
+xautograph*deltaXAdjustSize : 8 xautograph*deltaYAdjustSize : 8 are
+the left and top margins used adjusting the window size.
+
+xautograph*x : 100 and xautograph*y : 100 is the default position of
+the windows.
+
+xautograph*windowWidth : 300 and xautograph*windowHeight : 400 is the
+standard size of the shell windows created by Window menu.
+
+xautograph*drawingWidth : 300 and xautograph*drawingHeight : 400 is
+the standard size of the drawing area of the window created by menu.
+When this size is greater than the shell window size, scrollbars are
+automatically attached to shell windows.
+
+xautograph*windowExploreWidth : 300 and xautograph*windowExploreHeight
+: 400 is the standard size of the loaded window File Load atg and File
+Load fc2.
+
+xautograph*drawingExploreWidth : 300 and
+xautograph*drawingExploreHeight : 400 is the standard drawing area
+size of the loaded window.
+
+xautograph*windowMinWidth : 100 and xautograph*windowMinHeight : 100
+is the minimal size of the shell window taking into account in the
+resize window operation and the window adjust size command.
+
+xautograph*windowMaxWidth : 1000 and xautograph*windowMaxHeight : 800
+is the maximal size of the shell window.
+
+xautograph*globalWindowMinWidth : 100 and
+xautograph*globalWindowMinHeight : 100 is the minimum size of the
+windows global view.
+
+xautograph*globalWindowMaxWidth : 400 and
+xautograph*globalWindowMaxHeight : 400 is the maximal size of the
+windows global view.
+
+xautograph*nameReadWindowWidth : 300 and
+xautograph*nameReadWindowHeight : 200 is the size of the widget window
+used to read the labels.
+
+Window colors resources :
+-------------------------
+
+xautograph*foreground : MidnightBlue and xautograph*background :
+LemonChiffon is the color of the menubar.
+
+xautograph*windowExploreBackground : azure is the background color of
+the unexplored automata.
+
+xautograph*windowLoadedBackground : azure is the background color of
+the loaded window.
+
+xautograph*windowCopyBackground : honeydew is the background color of
+the buffer window for copy operation.
+
+xautograph*helpWindowForeground : Black and
+xautograph*helpWindowBackground : White are the color of the helps
+files.
+
+xautograph*windowScrolledForeground : Black and
+xautograph*windowScrolledBackground : White are the color of the
+scrolls bars of the window.
+
+xautograph*drawingForeground : DimGray and
+xautograph*drawingBackground : azure are the color of the window
+drawing area.
+
+xautograph*nameReadForeground : MidnightBlue and
+xautograph*nameReadBackground : LemonChiffon are the colors of the
+widget window used to read the labels.
+
+xautograph*fileNameReadForeground : MidnightBlue and
+xautograph*fileNameReadBackground : LemonChiffon are the colors of the
+widget window used to read the filenames.
+
+Vertices resources :
+--------------------
+
+xautograph*vertexRadius : 8 is the vertex radius.
+
+xautograph*vertexInitialRadius : 5 is the radius of the vertex initial
+mark.
+
+xautograph*vertexExploreRadius : 4 is the radius of the vertex explore
+mark.
+
+xautograph*minExploreRadius : 10
+
+xautograph*vertexForeground : DarkSlateGray ,
+xautograph*vertexBackground : SlateGray1 ,
+xautograph*hilightVertexForeground : Red and
+xautograph*hilightVertexBackground : DodgerBlue are the vertices
+standard and hilight color.
+
+xautograph*behavLabelVertexFont :
+-misc-fixed-medium-r-normal--13-120-75-75-c-70-iso8859-1 and
+xautograph*behavLabelVertexPostscriptFont : Fixed 13 ,
+xautograph*structLabelVertexFont :
+-misc-fixed-medium-r-normal--13-120-75-75-c-70-iso8859-1 and
+xautograph*structLabelVertexPostscriptFont : Fixed 13 ,
+xautograph*logicLabelVertexFont :
+-misc-fixed-medium-r-normal--13-120-75-75-c-70-iso8859-1 and
+xautograph*logicLabelVertexPostscriptFont : Fixed 13 ,
+xautograph*hookLabelVertexFont :
+-misc-fixed-medium-r-normal--13-120-75-75-c-70-iso8859-1 and
+xautograph*hookLabelVertexPostscriptFont : Fixed 13 .
+
+Graphic context resources :
+---------------------------
+
+xautograph*lineWidth : 0 default line width, write 0 insteade of 1 for
+\X\ fast raster (line will be 1 pixel width on screen)
+
+xautograph*rubberThinLineWidth : 0 and xautograph*rubberThickLineWidth
+: 5 thickness of the rubber.
+
+Ports resources :
+-----------------
+
+xautograph*portRadius : 5    is the port radius.
+
+xautograph*portForeground : BurlyWood4 , xautograph*portBackground :
+LimeGreen , xautograph*hilightPortForeground : DeepPink and
+xautograph*hilightPortBackground : Aquamarine are the ports standard
+and hilight color (\menu{Selections}{Hilight On/Off}).
+
+xautograph*behavLabelPortFont : *-helvetica-medium-o-normal--10-* and
+xautograph*behavLabelPortPostscriptFont : Helvetica-Oblique 10
+descrive the standard {\tt X} and {\tt Postscript} fonts for ports
+{\tt behav} label. xautograph*structLabelPortFont :
+*-helvetica-medium-o-normal--10-* and
+xautograph*structLabelPortPostscriptFont : Helvetica-Oblique 10 for
+ports {\tt struct} label, xautograph*logicLabelPortFont :
+*-helvetica-medium-o-normal--10-* and
+xautograph*logicLabelPortPostscriptFont : Helvetica-Oblique 10 for
+ports {\tt logic} labels and xautograph*hookLabelPortFont :
+*-helvetica-medium-o-normal--10-* and
+xautograph*hookLabelPortPostscriptFont : Helvetica-Oblique 10 for
+ports {\tt hook} labels.
+
+Edge resources :
+----------------
+
+xautograph*pointRadius : 2 is the radius of the edges points.
+
+xautograph*arrowDelta : .17 and xautograph*arrowRadius : 11 are the
+angle and the length of the arrow.
+
+xautograph*deltaLine : 4 size of active area arround an edge.
+
+xautograph*deltapoint : 5 size of the active area arround an edge
+nail.
+
+xautograph*loopExploreSize : 36 hypothenuse of the triangle of the
+loop edge.
+
+xautograph*edgeForeground : DarkSlateGray , ,
+xautograph*edgeBackground : salmon , xautograph*hilightEdgeForeground
+: Red and xautograph*hilightEdgeBackground : DarkSlateBlue are the
+edges standard and hilight color (\menu{Selections}{ Hilight On/Off}).
+
+xautograph*behavLabelEdgeFont :
+-b\&h-lucidabright-demibold-r-normal--10-* and
+xautograph*behavLabelEdgePostscriptFont : Lucidabright-Demibold 10 ,
+xautograph*structLabelEdgeFont :
+-b\&h-lucidabright-demibold-r-normal--10-* and
+xautograph*structLabelEdgePostscriptFont : Lucidabright-Demibold 10 ,
+xautograph*logicLabelEdgeFont :
+-b\&h-lucidabright-demibold-r-normal--10-* and
+xautograph*logicLabelEdgePostscriptFont : Lucidabright-Demibold 10 ,
+xautograph*hookLabelEdgeFont :
+-b\&h-lucidabright-demibold-r-normal--10-* and
+xautograph*hookLabelEdgePostscriptFont : Lucidabright-Demibold 10 .
+
+Webs resources :
+----------------
+
+xautograph*webRadiusHoriz : 12 and xautograph*webRadiusVert : 2 are
+the horizontal and the vertical radius of the web
+
+xautograph*webForeground : DarkSlateGray , xautograph*webBackground :
+LightPink , xautograph*hilightWebForeground : Red and
+xautograph*hilightWebBackground : HotPink are the webs standard and
+hilight color (\menu{Selections}{Hilight On/Off}).
+
+xautograph*behavLabelWebFont : *-courier-medium-r-normal--10-* and
+xautograph*behavLabelWebPostscriptFont : Courier 10 ,
+xautograph*structLabelWebFont : *-courier-medium-r-normal--10-* and
+xautograph*structLabelWebPostscriptFont : Courier 10 ,
+xautograph*logicLabelWebFont : *-courier-medium-r-normal--10-* and
+xautograph*logicLabelWebPostscriptFont : Courier 10 ,
+xautograph*hookLabelWebFont : *-courier-medium-r-normal--10-* and
+xautograph*hookLabelWebPostscriptFont : Courier 10 .
+
+Boxes resources :
+-----------------
+
+xautograph*boxMinWidth : 10 and xautograph*boxMinHeight : 10 is the
+minimal size of the box.
+
+xautograph*boxLineWidth : 3 , xautograph*vertexLineWidth : 0 ,
+xautograph*webLineWidth : 0 xautograph*portLineWidth : 0 and
+xautograph*edgeLineWidth : 0 thickness of the objects shadow.
+
+xautograph*boxForeground : AntiqueWhite4, xautograph*boxBackground :
+LemonChiffon , xautograph*hilightBoxForeground : IndianRed2 and
+xautograph*hilightBoxBackground : LightGoldenRod are the boxes
+standard and highlight color (\menu{Selections}{Hilight On/Off}).
+
+xautograph*behavLabelBoxFont :
+-misc-fixed-bold-r-normal--15-140-75-75-c-90-iso8859-1 and
+xautograph*behavLabelBoxPostscriptFont : Fixed 15 ,
+xautograph*structLabelBoxFont :
+-misc-fixed-bold-r-normal--15-140-75-75-c-90-iso8859-1 and
+xautograph*structLabelBoxPostscriptFont : Fixed 15 ,
+xautograph*logicLabelBoxFont :
+-misc-fixed-bold-r-normal--15-140-75-75-c-90-iso8859-1 and
+ xautograph*logicLabelBoxPostscriptFont : Fixed 15   ,
+xautograph*hookLabelBoxFont :
+-misc-fixed-bold-r-normal--15-140-75-75-c-90-iso8859-1   
+and xautograph*hookLabelBoxPostscriptFont : Fixed 15   .
+
+Labels resources :
+------------------
+
+xautograph*nameSelectionSize : 4 , xautograph*boxSelectionSize : 8 ,
+xautograph*vertexSelectionSize : 6 and xautograph*webSelectionSize : 4
+are the size of the rectangular selection mark located at the upper
+left corner of the selected objects.
+
+xautograph*nameForeground : maroon , xautograph*nameBackground :
+chocolate, xautograph*hilightNameForeground : salmon and
+xautograph*hilightNameBackground : peru are the names standard and
+hilight color (\menu{Selections}{Hilight On/Off}).
+
+Foreground and background menu resources :
+------------------------------------------
+
+xautograph*nbForegrounds : 7 is the number of colors you want to
+present in the foreground menu. xautograph*foreground0 : DimGray ,
+xautograph*foreground1 : Black xautograph*foreground2 : White ,
+xautograph*foreground3 : Blue , xautograph*foreground4 : \#93d2bb ,
+\ldots are the differents foreground given by their standard name or
+by RGB values.
+
+xautograph*nbBackgrounds : 7 is the number of colors you want to
+present in the background menu. xautograph*background0 : salmon ,
+xautograph*background1 : SkyBlue xautograph*background2 : OliveDrab,
+xautograph*background3 : Blue , xautograph*background4 : \#34d4ff,
+\ldots are the differents background given by their standard name or
+by RGB values.
+
+Font menu resources :
+---------------------
+
+xautograph*nbFonts : 10 is the number of fonts you want to present in
+the font menu. For each fonts you need the X font and the
+corresponding postscript font like: xautograph*font0 :
+*-helvetica-bold-r-normal--8-* and xautograph*postscriptFont0 :
+Helvetica-Bold 8 , xautograph*font1 : *-helvetica-medium-o-normal--8-*
+and xautograph*postscriptFont1 : Helvetica-Oblique 8 ,
+ xautograph*postscriptFont2 : Times-Italic 14   ,
+xautograph*font2 : *-times-medium-i-normal--18-*    and
+xautograph*postscriptFont2 : Times-Italic 18   ,
+xautograph*font3 : *-times-medium-r-normal--24-*    and
+xautograph*postscriptFont3 : Times-Roman 24
+
+atg*uniqueHelpWindow : 0

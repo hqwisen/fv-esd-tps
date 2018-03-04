@@ -1,0 +1,15 @@
+Postscript format :
+===================
+
+  Autograph produces postscript from drawings, using the
+<Files>:<Postscript Format> or <Files>:<Postscript Format As> menu
+button (then click on each window to translate). Postscript display
+uses splines instead of broken-line edges, and currently does not
+support color. Fonts used for labels are set by resource.
+
+  Postscript files can be included into latex files with the psfig
+latex style.
+
+  The psfp command (included in the distribution) allows you scaling
+drawings to A4 f(ull)p(age).
+

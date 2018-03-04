@@ -1,0 +1,28 @@
+Exploration :
+=============
+
+   The present version of autograph focus on automata (as they are the
+main results of verification system). Most of the time, they present
+no graphic positions for their vertices, edges and labels. The
+exploration allow you to display these automata. There are two ways to
+do this, you can unfold the automaton step by step by exploring the
+vertex adjacency list with the <Placing>:<Explore (E)> menu command,
+or display the whole automaton or a given part of it, in one step with
+the <Placing>:<Vertex Automatic> menu command (this command is not yet
+implemented).
+   A vertex is said to be unexplored when some of its outgoing edges
+are missing on display. Unexplored vertice have specific graphical
+attributes. To explore a vertex, once the explore command selected,
+click inside an unexplored vertex, keep the mouse button down, and
+drag to indicate a given direction and length. When you release the
+mouse button, new edges will be displayed "around" the given
+direction, with possibly new vertice being unfolded. Edges leading to
+already existing vertice point towards them. Loop edges are displayed
+in the opposite directions to other edges.
+
+   Vertice may also be explored backwards (its ingoing edges will be
+displayed) with the <Placing>:<Explore Backward> menu command. A
+vertex does not indicate whether it is fully backward explored.
+
+   The <Placing>:<Unexplore (U)> menu command allows you to refold
+either vertice or edges, out of drawing.

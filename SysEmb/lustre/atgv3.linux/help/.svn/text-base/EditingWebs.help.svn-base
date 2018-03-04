@@ -1,0 +1,24 @@
+Web :
+=====
+
+   Webs are elliptic shaped nodes gathering multiple connections
+including more than two ports (simple connections can be represented
+by a plain edge between ports).
+
+   Examples are:
+  Lotos multisynchronisations,
+  Synchronisation vectors of automata, 
+  Petri nets transitions, etc.
+
+Webs can be connected though edges to ports or vertices.
+
+   How to create a web:
+1- select the <GraphicObjects>:<Webs>:<Create> menu button,
+   ('w' for keyboard short-hand).
+2- click with the mouse left button inside drawing area.
+
+   Vertex size attributes can be fixed by resources :
+          atg*webRadiusHoriz: 12
+          atg*webRadiusVert:  2
+          atg*webLineWidth:   0 (0 uses fast raster)
+

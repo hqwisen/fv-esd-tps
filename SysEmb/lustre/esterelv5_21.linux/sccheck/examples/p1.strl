@@ -1,0 +1,16 @@
+% p1.strl 
+% from G. Berry's book
+% acyclic constructive
+
+module P1 :
+input I;
+output O;
+signal S1, S2 in
+   present I then emit S1 end
+||
+   present S1 else emit S2 end
+||
+   present S2 then emit O end
+end signal
+
+end module

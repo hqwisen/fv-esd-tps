@@ -1,0 +1,42 @@
+Label :
+=======
+
+   In the fc format objects are described by four fields: struct,
+behav, logic and hook. struct stands for structural, behav for
+behavioral and logic for logical information. hook is used to attach
+additional information to objects (like color, position, ...).
+
+   Graphic objects can be labeled according to the four previous
+types. Each graphic object has a default label type: struct for box
+and vertex, behav for edge, port and web. The edge are multiple
+labelled. The <Label>:<Create/Edit Default> menu command is used to
+enter objects default label and The <Label>:<Create/Edit All> menu
+command to enter the 4 labels. The label edition window accept epoch
+like commands. Label fonts and foregrounds depend on both the types of
+the label and the object it labels, see <Help>:<Attributes>:<Foregound>
+menu. The created composed name will be bufferize in the edition window.
+
+   <Label>:<Bufferize> allow you to bufferize an existing label by
+clicking into (it takes also into accoumpt the others 3 fields of the
+corresponding objects), next time you label an unnamed object this
+label will appear in the edition window.
+
+   <Label>:<Reedit> allow you to edit an existing label:
+1- select the <Label>:<Reedit> menu button
+2- click on a label
+3- edit it in the edition window
+
+
+Show/Hide Label :
+-----------------
+
+  You can show or hide labels depending of label type or globally. For
+this, you have 5 walking menus, one for each label type and a global
+one. These menus contain 3 functions: the <Show/Hide> function is
+applied on the clicked objects (and will work on all the selection if
+object is itself selected), the <Show All> and the <Hide All> are
+applied on all objects (selected or not).
+
+   <Label>:<Show Label/Object> hilight labels of the objects you click
+on, or object of the label you click on. 
+

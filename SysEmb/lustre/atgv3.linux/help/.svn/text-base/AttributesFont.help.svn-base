@@ -1,0 +1,27 @@
+Font :
+======
+
+   Labels  have different default fonts, fixed by resources, 
+ according to types (struct, behav, logic, hook) and type of labeled
+ object (box, port, vertex ...). For example:
+
+       atg*behavLabelBoxFont :          *-helvetica-bold-r-normal--12-*
+       atg*structLabelBoxFont:          *-helvetica-bold-r-normal--12-*
+       atg*logicLabelBoxFont :          *-helvetica-bold-r-normal--12-*
+       atg*hookLabelBoxFont  :          *-helvetica-bold-r-normal--12-*
+
+   Postscript fonts must also be similarly provided:
+
+       atg*behavLabelBoxPostscriptFont : Helvetica-Bold 12
+       atg*structLabelBoxPostscriptFont: Helvetica-Bold 12
+       atg*logicLabelBoxPostscriptFont : Helvetica-Bold 12
+       atg*hookLabelBoxPostscriptFont  : Helvetica-Bold 12
+
+   Individual objects or selctions can also be changed label fonts through
+ the <Attributes>:<Font>  menu. This menu content is again fixed by
+ resources, including the number of fonts declared, and cannot be dynamically
+ changed in atg.
+
+   The <Font>:<Default> button resets the original font on the label.
+
+

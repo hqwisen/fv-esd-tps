@@ -1,0 +1,21 @@
+  Autograph allow objects selection (with the mouse right button, see
+<Help>:<on mouse button>), or label selection (with the <Label>:<Select>
+menu button). 
+
+Selected objects can be relatively placed, so that they would coincide:
+
+<Placing>:<Align>:<Left>      in a left-adjusted column
+<Placing>:<Align>:<Right>     in a right-adjusted column
+<Placing>:<Align>:<Column>    in a column with horizontal centers adjusted
+<Placing>:<Align>:<Bottom>    in a bottom-adjusted row
+<Placing>:<Align>:<Top>       in a top-adjusted row
+<Placing>:<Align>:<Row>       in a row with vertical centers adjusted
+
+<Placing>:<Align>:<Circle>    in a projection fashion on a circle. The user
+  is requested to drag the mouse from the desired center to a point to be
+  part of the circle itself.
+
+WARNING: the automatic "spring" vertice placing (an algorithm which
+ minimizes attraction/repulsion numerical functions in between states)
+ is not wired in yet.
+

@@ -1,0 +1,32 @@
+Port :
+======
+
+   Ports represent communication end-points.  They are round-shaped,
+and reside on boxes boundaries.
+
+   How to create a port:
+1- select the <ObjectsEdit>:<Ports>:<Create> menu button
+   (or type 'p' in the window where you want to create a port
+    it will select the same menu mode)
+2- click with the mouse left button inside the desired box. The
+   port will be placed at the nearest projected location on the
+   box boundary.
+
+   Ports can be connected together either:
+- graphically, by drawing edges connecting a port to another port
+  or a multi-synchronisation "web"
+- textually, by label identifications.
+
+Ports are selected/moved/killed along with their support box. They
+can also be moved or killed independantly.
+
+WARNING: not yet implemented:
+   Ports may be evenly distribute on a box segment.
+
+   When system flags "align" is on, ports locations are straightened
+at move to align as much as possible respective to outgoing edges.
+
+
+ Port size attributes can be fixed by resources:
+        atg*portRadius : 5
+        atg*portLineWidth: 0 (mean 1 but draw by fast raster)

@@ -1,0 +1,40 @@
+Window :
+========
+
+   The menu command <Window>:<Create> allows you to create shell
+window. Horizontal and vertical scrollbars are automatically attached
+to window when the drawing area become greather than the shell window.
+Window size (normal, minimum and maximum), color (foreground and
+background), title, ... are fixed by resources, like :
+
+                    atg*windowTitle:     AtgWindow
+                    atg*windowWidth:     300
+                    atg*windowMinWidth:  100
+                    atg*windowMaxWidth:  1000
+
+   Classic manipulations of the window like move, resize, iconify, put
+in front, put in back, ... must be done with your window manager. But
+delete a window by the <Window>:<Delete (k)> menu command and retitle
+it by <Window>:<title>.
+
+   The <Window>:<Adjust Size (a)> menu command is used to adjust the
+window size to the boundingbox of the drawing it contains.
+
+   There is another way to move the window partial view on the window
+global view than the scrollbars: the <Window>:<Move Partial view (i)>
+menu command allows you to give by clicking and dragging the mouse a
+direction and a length, when you release the mouse button, the partial
+view is translated.
+
+   The <Window>:<Global View (g)> menu command provides the user with
+the full view of its drawing whatever the size of the drawing. The
+size of the graphic objects are reduce, labels and ports are not shown
+and unexplored vertice are hilighted. It is very usefull for big
+drawings. The global view appear in an auxiliary window. This window
+hands only one command: the move of the partial view (symbolised by a
+rectangle) on the global view. The minimal and maximal size of the
+global window are provided by resources.
+
+   The <Window>:<Check Drawing Coherency (c)> menu command is used to
+check is the automaton contained in the window obey to some semantics
+rules (like : the automaton had an initial state, ...).

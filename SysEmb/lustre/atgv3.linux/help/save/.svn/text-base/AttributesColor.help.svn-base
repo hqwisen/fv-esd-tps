@@ -1,0 +1,41 @@
+Colors :
+========
+
+   Every graphic objects have standard foreground and background
+colors fixed by resource. The foreground color is used to draw the
+boundary of the objects. The background is used to fill the area of
+the object. Example of resources for box graphic object :
+
+         atg*boxForeground:       AntiqueWhite4
+         atg*boxBackground:       LemonChiffon
+
+   They have specific foreground and background color for hilighting
+operation fixed by resources, like :
+
+         atg*hilightBoxForeground: Red
+         atg*hilightBoxBackground: Lightgoldenrod
+
+
+   Label have foreground and background colors fixed by resources
+depending of the type of the label (struct, behav, logic or hook) and
+of the graphic object they label.
+
+         atg*behavLabelBoxForeground:  HotPink4
+         atg*structLabelBoxForeground: SteelBlue4
+         atg*logicLabelBoxForeground:  darkgoldenrod4
+         atg*hookLabelBoxForeground:   darkgreen
+
+
+   Object foreground and background color can be changed by menu resp.
+<Attributes>:<Foreground> and <Attributes>:<Background> (you can
+change color individually or on the selected sets of objects
+altogether). These menus are fixed by resources. You give the number
+of foreground and background colors you want to appear in the menus
+and you give the list of the colors.
+
+   The <Default> button command of the <Foreground> and <Background>>
+menu is used to reset the original color on the graphic objects.
+   The <Attributes>:<Background>:<Visible On/Off> menu command allows
+you to make you graphic objects opaque or transparents. By default,
+box are transparent and other objects are opaque.
+

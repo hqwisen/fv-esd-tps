@@ -1,0 +1,122 @@
+.TH iclc 1 "10/08/98" "INRIA / CMA" "ESTEREL COMPILER"
+.SH NAME
+iclc \- Esterel binder \- Version v5_21
+.SH SYNOPSIS
+.B iclc
+[options] files ...
+.SH DESCRIPTION
+\fBiclc\fR is the Esterel binder that performs \fBic\fP 
+submodule instantiation.
+It is normally called by the \fBesterel\fR command. It 
+can also be called directly by the user if necessary.
+
+\fBiclc\fR reads  one or more \fBic\fP format input files and
+produces a single \fBic\fP format output file. This version
+normally treats \fBic\fP format version 7 only. If called with
+the \fB-V3\fP option it reads \fBic\fP formats version 5 or 6 only.
+Other combinations will give a syntax error.
+
+If there is no input file, the standard input stream is read. 
+.PP
+The
+\fBic\fP format input describes Esterel modules to be processed,
+and .lc suffixes are usually given to files containing fully expanded 
+Esterel modules with no remaining \fBrun\fP instruction.
+Typical use is: 
+.IP
+.B iclc < game1.ic > game.lc
+.PP
+or 
+.IP
+.B iclc game1.ic game2.ic > game.lc
+.SH OPTIONS
+The following options are interpreted by \fIiclc\fP:
+.IP "\fB-main\fP \fIname\fP"
+\fIname\fP must be the name of an Esterel module.
+If at least one \fB-main\fP option is present, \fIiclc\fP will only bind
+the module(s) that are specified by that option, and will ignore
+all modules that are not children of those ones. Otherwise, \fBiclc\fP
+binds all modules that are not themselves included in other modules.
+The \fB-main\fP option is very
+useful when using libraries of modules, to avoid expansion and
+inclusion in the object \fBlc\fP file of unused
+library modules.
+.IP \fB-v\fP 10
+Verbose mode. Print the different steps of the linking
+process on the standard error stream : parsing, analysis, and 
+binding of each module.
+.IP \fB-V3\fP 10
+V3 mode. Accepts version 5 or 6, and rejects version 7 of the 
+\fBic\fP format.
+.IP \fB-s\fP 10
+Silent mode: perform binding but do not output code (useful for
+detecting errors).
+.IP \fB-w\fP 10
+Suppress all warning messages.
+.IP \fB-W\fP 10
+Display all warning messages (the default is to display only harmful warnings).
+.IP \fB-stat\fP 10
+Print statistics on the standard error stream: parsing time,
+binding time, and process size.
+.IP \fB-R[tcfpsk]\fP 10
+Trace captures and renamings of objects. The \fB-R\fP option alone
+traces all objects, whereas each of the characters \fBt,c,f,p,s,k\fP
+selects one type of object: type, constant, function, procedure,
+signal and task. For example \fB-Rtc\fP traces types and constants.
+.IP \fB-version\fP 10
+Print the version name on the standard error output stream
+and terminate, ignoring all other arguments.
+.IP \fB-access\fP 10
+Print access rights to the processor on the standard error output
+stream and terminate, ignoring all other arguments.
+.IP \fB-info\fP 10
+Print various informations about the processor on the
+standard error output stream and terminate, ignoring all other arguments.
+.IP "\fB\-d\fP[<level>]" 10
+Debug mode. Developer usage only.
+.SH DIAGNOSTICS
+Errors and warnings produced by \fIiclc\fP compiler are intended to be
+self-explanatory. The trace option \fB-R\fP
+produces the following trace messages:
+.PP
+Root module FOO:
+.IP
+the binder begins to treat the root module FOO.
+.PP
+Submodule /FOO/BAR:
+.IP
+the binder begins to treat the submodule BAR, called
+within module FOO.
+.PP
+<object> <name> added as %<index> +++
+.IP
+the <object> named <name> is added to the list of final
+<object>s with number <index> . The string "+++"
+helps to find later the name of the <object>
+numbered <index>. Just look upward for <index> followed by "+++".
+.PP
+<object> <name> captured by %<index>
+.IP
+the <object> named <name> is implicitly captured by the final <object>
+numbered <index>.
+.PP
+<object> <name> renamed by %<index>
+.IP
+the <object> named <name> is explicitly renamed to the final
+object numbered <index>. In case of a constant, the %<index> field
+may be replaced by an expression (if the constant is replaced by
+a litteral expression instead of another constant).
+.LP
+.SH BUGS
+There is no error message if the same signal or constant
+appears more than once in a renaming list. Only the first renaming
+is applied, however.
+.SH "SEE ALSO"
+Esterel documentations.
+.br
+esterel(1), strlic(1), lcoc(1), lcsc(1)
+.SH IDENTIFICATION
+Ecole des Mines de Paris (CMA) and INRIA, Sophia-Antipolis
+.br
+Written by Jean-Marc Tanzi
+

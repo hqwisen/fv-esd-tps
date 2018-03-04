@@ -1,0 +1,48 @@
+Key Shortcut :
+==============
+
+File :
+======
+   Load atg        (l)  Load fc            (L)
+   Save atg        (s)  Save atg sa        (S)
+   Save postscript (o)  Save postscript as (O)
+   Save fc         (f)  Save fc as         (F)  Quit (q)
+
+Window :
+========
+   Create (I)  Adjust Size (C)  See/Hide Global View (G)
+   Delete (D)  Title       (t)  Move Partial View    (M) Undo (u)
+   Check Drawing Coherency (c)
+
+ObjectsEdit :
+=============
+   Boxes   : Create      (b)  Move        (@) Resize    (r) Delete      (B)
+   Ports   : Create      (p)  Move        (#)               Delete      (P)
+   Edges   : Create      (e)  Show Target (+)               Delete      (E)
+             Show Source (-)  Create Nail (n) Move Nail (&) Delete Nail (N)
+   Vertice : Create      (v)  Initial     (i) Move      ($) Delete      (V)
+   Webs    : Create      (w)  Move        (%)               Delete      (W)
+
+Label :
+=======
+   Create/Edit Default (a)  Reedit             (R) 
+   Create/Edit All     (4)  Bufferize          (g)
+   Move                (*)  Show Label/Object  (:)  Delete (A)
+
+   struct : Show/Hide (z)  Show/Hide All      (Z)
+   Behav  : Show/Hide (y)  Show/Hide All      (Y)
+   Logic  : Show/Hide (k)  Show/Hide All      (K)
+   Hook   : Show/Hide (g)  Show/Hide All      (G)
+   All    : Show/Hide      Hide All           (j)  Restore (J)
+
+Globals :
+=========
+   Select (.) Copy (?) Paste (!) Delete (d) Move (m) Hilight On/Off (,)
+
+Placing :
+=========
+   Explore (x) Explore Backward (X) UnExplore (U)
+
+   Align : Spring (0)
+           Left (1) Column (2) Right (3) Bottom (5) Row (6) Top (7) Circle (8)
+
